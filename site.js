@@ -82,6 +82,9 @@
       footer_blurb: '软件公司公开站。主产品下载开放前，可浏览开源与制度页。',
       footer_explore: '探索',
       footer_legal: '制度',
+      entity_title: '主体信息',
+      entity_name: '深圳市克罗赛思智能科技有限公司',
+      entity_addr: '深圳市龙岗区龙城街道紫薇社区清林中路31号金基吉祥广场720',
       foot_copy: '© Sepzok',
     },
     en: {
@@ -175,6 +178,9 @@
         'Public software-company site. Until main downloads open, browse open source and policy pages.',
       footer_explore: 'Explore',
       footer_legal: 'Legal',
+      entity_title: 'Legal entity',
+      entity_name: 'Shenzhen Keluosaisi Intelligent Technology Co., Ltd.',
+      entity_addr: 'Rm 720, Jinji Jixiang Plz, 31 Qinglin Mid Rd, Ziwei Cmty',
       foot_copy: '© Sepzok',
     },
   }
