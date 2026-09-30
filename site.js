@@ -3,6 +3,15 @@
   var COPY = {
     zh: {
       nav_home: '首页',
+      nav_projects: '开源',
+      projects_title: '开源项目',
+      projects_lede: '与主产品无关的公开小工具，代码在 GitHub。',
+      projects_more: '查看全部开源',
+      projects_github: '在 GitHub 查看全部公开仓库',
+      projects_page_desc: 'Sepzok 公开的开源小工具：handpan、aa-calc、ear-training。',
+      proj_handpan: '浏览器里的虚拟手碟（RESONA），Web Audio 低延迟演奏。',
+      proj_aacalc: 'AA 分账计算器，支持多人账单与结算建议。',
+      proj_ear: '音感练习：听音辨音的网页小工具。',
       nav_about: '关于',
       nav_contact: '联系',
       nav_security: '安全',
@@ -24,6 +33,8 @@
         '随造（Sepzok）是公司对外品牌。本站是公开占位站，不介绍产品功能，也不提供安装包下载。',
       about_p2:
         '完整产品站与下载通道另有运营安排；开放时会在本站更新说明。',
+      about_p3:
+        '公开小工具见开源页：虚拟手碟、AA 分账、音感练习等。',
       about_desc: '关于随造 Sepzok。公开占位站，不介绍产品功能。',
       contact_title: '联系',
       contact_p1: '目前请通过公司 GitHub 账号联系：',
@@ -39,6 +50,15 @@
     },
     en: {
       nav_home: 'Home',
+      nav_projects: 'Open source',
+      projects_title: 'Open source',
+      projects_lede: 'Public side projects, unrelated to the main product. Source on GitHub.',
+      projects_more: 'See all open source',
+      projects_github: 'Browse all public repositories on GitHub',
+      projects_page_desc: 'Sepzok open-source tools: handpan, aa-calc, ear-training.',
+      proj_handpan: 'Virtual handpan in the browser (RESONA) with low-latency Web Audio.',
+      proj_aacalc: 'Going-Dutch bill splitter with multi-person settlement tips.',
+      proj_ear: 'Ear-training: a small pitch-practice page in the browser.',
       nav_about: 'About',
       nav_contact: 'Contact',
       nav_security: 'Security',
@@ -60,6 +80,8 @@
         'Sepzok (随造) is our public company brand. This site is a public placeholder. It does not describe product features and does not offer installs.',
       about_p2:
         'The full product site and download channels are handled separately. We will update this page when they open.',
+      about_p3:
+        'Side tools are listed on the open-source page: virtual handpan, bill split, and ear training.',
       about_desc: 'About Sepzok. Public placeholder without product details.',
       contact_title: 'Contact',
       contact_p1: 'For now, reach us via the company GitHub account:',

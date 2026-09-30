@@ -417,3 +417,79 @@ main {
 .foot-copy {
   margin: 0;
 }
+
+
+.projects {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--color-border);
+}
+
+.projects-head {
+  margin-bottom: 16px;
+}
+
+.projects h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3vw, 1.7rem);
+  letter-spacing: -0.02em;
+}
+
+.projects-lede,
+.page .lede {
+  margin: 0 0 1rem;
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  max-width: 40rem;
+}
+
+.project-list {
+  display: grid;
+  gap: 12px;
+}
+
+.project-list-page {
+  margin: 1.25rem 0 0.5rem;
+}
+
+.project {
+  display: grid;
+  gap: 6px;
+  text-decoration: none;
+  color: inherit;
+  background: var(--color-panel-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.project:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+  box-shadow: 0 12px 28px rgba(29, 79, 145, 0.1);
+}
+
+.project-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 650;
+  color: var(--color-accent);
+}
+
+.project-desc {
+  color: var(--color-ink);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.project-link {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.projects-more {
+  margin: 14px 0 0;
+  font-size: 0.95rem;
+}
