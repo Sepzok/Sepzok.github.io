@@ -6,13 +6,13 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>随造 Sepzok</title>
-    <meta name="description" content="随造 Sepzok（原造格 Sepzap）。下载尚未开放。" />
+    <title>安全反馈 · 随造 Sepzok</title>
+    <meta name="description" content="向 Sepzok 报告安全问题。" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body data-desc-key="home_desc">
+  <body data-desc-key="security_desc">
     <header class="top">
       <a class="brand" href="/">
         随造 <span class="brand-en">Sepzok</span>
@@ -20,10 +20,10 @@
       </a>
       <div class="top-end">
         <nav class="nav" aria-label="Site">
-          <a href="/" data-i18n="nav_home" aria-current="page">首页</a>
+          <a href="/" data-i18n="nav_home">首页</a>
           <a href="/about.html" data-i18n="nav_about">关于</a>
           <a href="/contact.html" data-i18n="nav_contact">联系</a>
-          <a href="/security.html" data-i18n="nav_security">安全</a>
+          <a href="/security.html" data-i18n="nav_security" aria-current="page">安全</a>
         </nav>
         <div class="lang-switch" role="group" aria-label="Language">
           <button type="button" class="lang-btn" data-lang="zh" aria-pressed="true">中文</button>
@@ -31,9 +31,17 @@
         </div>
       </div>
     </header>
-    <main class="hero">
-      <h1 data-i18n="home_title">随造 Sepzok</h1>
-      <p class="lede" data-i18n="home_lede">下载尚未开放</p>
+    <main class="page">
+      <h1 data-i18n="security_title">安全反馈</h1>
+      <p data-i18n="security_p1">
+        若发现与 Sepzok 账号、本站或后续公开仓库相关的安全问题，请优先通过 GitHub 私密渠道报告，不要在公开 Issue 里贴复现细节或凭证。
+      </p>
+      <p data-i18n="security_p2">
+        可用：GitHub 账号页留言 / 对相关仓库开启私密漏洞报告（若已开通）。我们会按严重程度跟进。
+      </p>
+      <p class="note">
+        <a href="https://github.com/Sepzok">github.com/Sepzok</a>
+      </p>
     </main>
     <footer class="foot">
       <nav class="foot-nav" aria-label="Legal">

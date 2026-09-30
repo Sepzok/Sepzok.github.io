@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sepzok.github.io/sitemap.xml

@@ -1,8 +1,10 @@
 # Sepzok.github.io
 
-Minimal public placeholder for 随造 / Sepzok.
+Public company placeholder for 随造 / Sepzok.
 
-This page intentionally does **not** describe product features, articles, or demos.
-Full site source stays private: https://github.com/Sepzok/website
+Includes common institutional pages (about, contact, security, privacy, terms, account deletion).
+Does **not** publish product feature pages, demos, or download offers.
+
+Full site source (private): https://github.com/Sepzok/website
 
 Live: https://sepzok.github.io

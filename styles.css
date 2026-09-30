@@ -3,6 +3,8 @@
   --color-text: #101114;
   --color-muted: #5c616a;
   --color-border: #e2e4e8;
+  --color-panel: #f6f7f8;
+  --color-link: #1d4f91;
   --font-ui: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Segoe UI",
     system-ui, sans-serif;
   color-scheme: light;
@@ -26,12 +28,25 @@ body {
 }
 
 body {
-  width: min(640px, 100%);
+  width: min(720px, 100%);
   margin: 0 auto;
   padding: calc(28px + env(safe-area-inset-top))
     calc(20px + env(safe-area-inset-right))
     calc(48px + env(safe-area-inset-bottom))
     calc(20px + env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 .top {
@@ -39,7 +54,7 @@ body {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 64px;
+  margin-bottom: 40px;
 }
 
 .brand {
@@ -47,6 +62,8 @@ body {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.02em;
+  color: inherit;
+  text-decoration: none;
 }
 
 .brand-en {
@@ -60,6 +77,31 @@ body {
   font-size: 12px;
   font-weight: 400;
   color: var(--color-muted);
+}
+
+.top-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px 14px;
+  font-size: 14px;
+}
+
+.nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--color-text);
 }
 
 .lang-switch {
@@ -83,20 +125,111 @@ body {
 
 .lang-btn.is-on,
 .lang-btn[aria-pressed="true"] {
-  background: #f6f7f8;
+  background: var(--color-panel);
   color: var(--color-text);
 }
 
-.hero h1 {
+main {
+  flex: 1;
+}
+
+.hero h1,
+.page h1 {
   margin: 0 0 12px;
-  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 650;
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
 
-.lede {
-  margin: 0;
+.lede,
+.page p {
+  margin: 0 0 1rem;
   color: var(--color-muted);
   font-size: 1.05rem;
+}
+
+.page p,
+.page li {
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.page ul {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  color: var(--color-text);
+}
+
+.page li + li {
+  margin-top: 0.35rem;
+}
+
+.note {
+  margin-top: 1.5rem;
+  padding: 12px 14px;
+  background: var(--color-panel);
+  border-radius: 10px;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.foot {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.foot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 0 0 10px;
+}
+
+.foot-nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.foot-nav a:hover {
+  color: var(--color-text);
+}
+
+.foot-copy {
+  margin: 0;
+}
+
+.legal-body {
+  max-width: 42rem;
+}
+
+.legal-body h1 {
+  font-size: 1.35rem;
+}
+
+.legal-body h2 {
+  font-size: 1.05rem;
+  margin-top: 1.4em;
+}
+
+.legal-body .meta {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.legal-body table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.legal-body td,
+.legal-body th {
+  border: 1px solid var(--color-border);
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
 }
