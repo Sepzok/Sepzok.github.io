@@ -43,14 +43,42 @@
       contact_p2:
         '尚未开放公开客服邮箱。商务或媒体来信可先在 GitHub 开 Issue，并在标题标明用途。',
       contact_desc: '联系随造 Sepzok。',
-      security_title: '安全反馈',
+      security_meta: '协调披露政策',
+      security_title: '安全',
       security_teaser:
         '发现与账号、本站或公开仓库相关的安全问题，请走私密渠道报告。',
-      security_p1:
-        '若发现与 Sepzok 账号、本站或后续公开仓库相关的安全问题，请优先通过 GitHub 私密渠道报告，不要在公开 Issue 里贴复现细节或凭证。',
-      security_p2:
-        '可用：GitHub 账号页留言 / 对相关仓库开启私密漏洞报告（若已开通）。我们会按严重程度跟进。',
-      security_desc: '向 Sepzok 报告安全问题。',
+      security_desc: 'Sepzok 安全漏洞协调披露说明。',
+      security_intro:
+        '我们重视公开站点、公司 GitHub 账号及相关公开仓库的安全。欢迎负责任的漏洞报告。本页不描述未公开的产品或内部系统。',
+      security_s1_t: '1. 范围',
+      security_s1_1: '本公司公开网站（含本站）及其托管配置中的明显安全问题；',
+      security_s1_2: '以 Sepzok 名义发布的公开 GitHub 仓库中的安全缺陷；',
+      security_s1_3:
+        '可导致他人账户或数据被未授权访问的问题（若涉及本站或公开仓库所托管的内容）。',
+      security_s1_out:
+        '以下通常不在范围：纯社会工程、物理攻击、对第三方平台（如 GitHub.com 本身）的漏洞、缺少安全最佳实践但无实际影响的问题、以及未公开的内部系统。',
+      security_s2_t: '2. 如何报告',
+      security_s2_1:
+        '请优先使用私密渠道，不要在公开 Issue 中粘贴完整利用细节、令牌或个人数据。',
+      security_s2_2:
+        '通过 github.com/Sepzok 发送私信，或对相关仓库使用 GitHub 私密漏洞报告（若已开启）；',
+      security_s2_3:
+        '也可在联系页指引下开 Issue，标题以 [SECURITY] 开头，正文只写高层次描述，细节改私下发送。',
+      security_s2_4:
+        '报告请尽量包含：受影响资产、问题类型、复现步骤、影响说明、概念验证（如有）以及联系方式。',
+      security_s3_t: '3. 我们的承诺',
+      security_s3_1: '尽快确认收到（目标：数个工作日内）；',
+      security_s3_2: '评估严重程度并与您保持必要沟通；',
+      security_s3_3: '在修复或缓解后，可与报告人协商公开致谢（若您愿意）。',
+      security_s3_4:
+        '我们请您在我们修复或双方约定的披露日前，不公开完整利用细节。常见协调窗口约为 90 天，可视情况协商延长。',
+      security_s4_t: '4. 善意研究',
+      security_s4_1:
+        '在适用法律允许的范围内，对符合本政策、未破坏数据可用性、未访问无关数据、且及时报告的善意安全研究，我们不会对研究人提起法律诉讼。请避免破坏性测试、垃圾流量与隐私侵犯。',
+      security_s5_t: '5. 安全.txt',
+      security_s5_1: '机器可读联系方式见',
+      security_s6_t: '6. 联系',
+      security_s6_1: '一般问询见联系页；安全事项请按上文私密渠道提交。',
       footer_blurb: '软件公司公开站。主产品下载开放前，可浏览开源与制度页。',
       footer_explore: '探索',
       footer_legal: '制度',
@@ -106,14 +134,43 @@
       contact_p2:
         'There is no public support email yet. For business or press, open a GitHub Issue and put the purpose in the title.',
       contact_desc: 'Contact Sepzok.',
+      security_meta: 'Coordinated disclosure',
       security_title: 'Security',
       security_teaser:
         'If you find an issue related to the account, this site, or public repos, report it privately.',
-      security_p1:
-        'If you find a security issue related to the Sepzok account, this site, or future public repositories, report it privately on GitHub. Do not post exploit details or credentials in public issues.',
-      security_p2:
-        'Use a private message on the GitHub profile, or private vulnerability reporting on the relevant repository when available. We will follow up by severity.',
-      security_desc: 'Report security issues to Sepzok.',
+      security_desc: 'Sepzok coordinated vulnerability disclosure.',
+      security_intro:
+        'We care about the security of our public site, company GitHub account, and related public repositories. Responsible reports are welcome. This page does not describe unreleased products or internal systems.',
+      security_s1_t: '1. Scope',
+      security_s1_1:
+        'Clear security issues in our public websites (including this site) and their hosting configuration;',
+      security_s1_2: 'Security defects in public GitHub repositories published under Sepzok;',
+      security_s1_3:
+        'Issues that could lead to unauthorized access to someone else’s account or data, when tied to this site or content hosted in our public repositories.',
+      security_s1_out:
+        'Usually out of scope: pure social engineering, physical attacks, vulnerabilities in third-party platforms (such as GitHub.com itself), missing hardening with no practical impact, and non-public internal systems.',
+      security_s2_t: '2. How to report',
+      security_s2_1:
+        'Prefer private channels. Do not post full exploit details, tokens, or personal data in public issues.',
+      security_s2_2:
+        'Message github.com/Sepzok privately, or use GitHub private vulnerability reporting on the relevant repository when enabled;',
+      security_s2_3:
+        'Or open an Issue via the Contact guidance with a [SECURITY] title and a high-level description only—send details privately.',
+      security_s2_4:
+        'Please include: affected asset, issue type, reproduction steps, impact, proof of concept (if any), and a way to reach you.',
+      security_s3_t: '3. Our commitments',
+      security_s3_1: 'Acknowledge receipt promptly (target: within a few business days);',
+      security_s3_2: 'Assess severity and keep necessary communication;',
+      security_s3_3: 'After a fix or mitigation, we may arrange public credit if you want it.',
+      security_s3_4:
+        'Please do not publish full exploit details before a fix or an agreed disclosure date. A common coordination window is about 90 days and may be extended by agreement.',
+      security_s4_t: '4. Good-faith research',
+      security_s4_1:
+        'To the extent permitted by law, we will not pursue legal action against good-faith researchers who follow this policy, avoid impairing availability, avoid accessing unrelated data, and report promptly. Do not run destructive tests, floods, or privacy invasions.',
+      security_s5_t: '5. security.txt',
+      security_s5_1: 'Machine-readable contact details:',
+      security_s6_t: '6. Contact',
+      security_s6_1: 'General questions: Contact page. Security matters: use the private channels above.',
       footer_blurb:
         'Public software-company site. Until main downloads open, browse open source and policy pages.',
       footer_explore: 'Explore',
