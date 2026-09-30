@@ -1,0 +1,3 @@
+Contact: https://github.com/Sepzok
+Preferred-Languages: zh, en
+Canonical: https://sepzok.github.io/.well-known/security.txt
