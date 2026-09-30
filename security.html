@@ -9,46 +9,44 @@
     <title>安全反馈 · 随造 Sepzok</title>
     <meta name="description" content="向 Sepzok 报告安全问题。" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#eef2f7" />
+    <meta name="theme-color" content="#eef3f9" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body data-desc-key="security_desc">
-    <div class="shell">
-      <div class="panel">
-        <header class="top">
-          <a class="brand" href="/">
-            <span class="brand-mark" aria-hidden="true">
-              <img src="/favicon.svg" alt="" width="28" height="28" />
-            </span>
-            <span class="brand-name">
-              随造 <span class="brand-en">Sepzok</span>
-            </span>
-            <span class="brand-former">（原造格 Sepzap）</span>
-          </a>
-          <div class="top-end">
-            <nav class="nav" aria-label="Site">
-              <a href="/" data-i18n="nav_home">首页</a>
-              <a href="/projects.html" data-i18n="nav_projects">开源</a>
-              <a href="/about.html" data-i18n="nav_about">关于</a>
-              <a href="/contact.html" data-i18n="nav_contact">联系</a>
-              <a
-                href="/security.html"
-                data-i18n="nav_security"
-                aria-current="page"
-                >安全</a
-              >
-            </nav>
-            <div class="lang-switch" role="group" aria-label="Language">
-              <button type="button" class="lang-btn" data-lang="zh" aria-pressed="true">
-                中文
-              </button>
-              <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">
-                EN
-              </button>
-            </div>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="/favicon.svg" alt="" width="24" height="24" />
+          </span>
+          <span class="brand-name">
+            随造 <span class="brand-en">Sepzok</span>
+          </span>
+          <span class="brand-former">（原造格 Sepzap）</span>
+        </a>
+        <div class="header-end">
+          <nav class="nav" aria-label="Site">
+            <a href="/" data-i18n="nav_home">首页</a>
+            <a href="/projects.html" data-i18n="nav_projects">开源</a>
+            <a href="/about.html" data-i18n="nav_about">关于</a>
+            <a href="/contact.html" data-i18n="nav_contact">联系</a>
+            <a href="/security.html" data-i18n="nav_security" aria-current="page">安全</a>
+          </nav>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang="zh" aria-pressed="true">
+              中文
+            </button>
+            <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">
+              EN
+            </button>
           </div>
-        </header>
-        <main class="page">
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-band">
+        <div class="wrap">
           <h1 data-i18n="security_title">安全反馈</h1>
           <p data-i18n="security_p1">
             若发现与 Sepzok 账号、本站或后续公开仓库相关的安全问题，请优先通过 GitHub 私密渠道报告，不要在公开 Issue 里贴复现细节或凭证。
@@ -59,34 +57,54 @@
           <p class="note">
             <a href="https://github.com/Sepzok">github.com/Sepzok</a>
           </p>
-        </main>
-        <footer class="foot">
-          <nav class="foot-nav" aria-label="Legal">
-            <a
-              href="/legal/zh-CN/privacy-policy.html"
-              data-legal-privacy
-              data-i18n="nav_privacy"
-              >隐私政策</a
-            >
-            <a
-              href="/legal/zh-CN/user-agreement.html"
-              data-legal-terms
-              data-i18n="nav_terms"
-              >用户协议</a
-            >
-            <a
-              href="/account-delete.html"
-              data-legal-delete
-              data-i18n="nav_delete"
-              >注销账号</a
-            >
-            <a href="/security.html" data-i18n="nav_security">安全</a>
-            <a href="https://github.com/Sepzok">GitHub</a>
-          </nav>
-          <p class="foot-copy" data-i18n="foot_copy">© Sepzok</p>
-        </footer>
+
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand">随造 Sepzok</p>
+          <p class="footer-blurb" data-i18n="footer_blurb">
+            软件公司公开站。主产品下载开放前，可浏览开源与制度页。
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3 data-i18n="footer_explore">探索</h3>
+          <a href="/projects.html" data-i18n="nav_projects">开源</a>
+          <a href="/about.html" data-i18n="nav_about">关于</a>
+          <a href="/contact.html" data-i18n="nav_contact">联系</a>
+        </div>
+        <div class="footer-col">
+          <h3 data-i18n="footer_legal">制度</h3>
+          <a
+            href="/legal/zh-CN/privacy-policy.html"
+            data-legal-privacy
+            data-i18n="nav_privacy"
+            >隐私政策</a
+          >
+          <a
+            href="/legal/zh-CN/user-agreement.html"
+            data-legal-terms
+            data-i18n="nav_terms"
+            >用户协议</a
+          >
+          <a
+            href="/account-delete.html"
+            data-legal-delete
+            data-i18n="nav_delete"
+            >注销账号</a
+          >
+        </div>
+        <div class="footer-col">
+          <h3>GitHub</h3>
+          <a href="https://github.com/Sepzok">Sepzok</a>
+          <a href="/security.html" data-i18n="nav_security">安全</a>
+        </div>
       </div>
-    </div>
+      <p class="footer-bottom" data-i18n="foot_copy">© Sepzok</p>
+    </footer>
     <script src="/site.js"></script>
+
   </body>
 </html>

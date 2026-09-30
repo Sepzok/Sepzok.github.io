@@ -7,86 +7,104 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <title>关于 · 随造 Sepzok</title>
-    <meta
-      name="description"
-      content="关于随造 Sepzok。公开占位站，不介绍产品功能。"
-    />
+    <meta name="description" content="关于随造 Sepzok。软件公司公开站与开源入口。" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#eef2f7" />
+    <meta name="theme-color" content="#eef3f9" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body data-desc-key="about_desc">
-    <div class="shell">
-      <div class="panel">
-        <header class="top">
-          <a class="brand" href="/">
-            <span class="brand-mark" aria-hidden="true">
-              <img src="/favicon.svg" alt="" width="28" height="28" />
-            </span>
-            <span class="brand-name">
-              随造 <span class="brand-en">Sepzok</span>
-            </span>
-            <span class="brand-former">（原造格 Sepzap）</span>
-          </a>
-          <div class="top-end">
-            <nav class="nav" aria-label="Site">
-              <a href="/" data-i18n="nav_home">首页</a>
-              <a href="/projects.html" data-i18n="nav_projects">开源</a>
-              <a href="/about.html" data-i18n="nav_about" aria-current="page"
-                >关于</a
-              >
-              <a href="/contact.html" data-i18n="nav_contact">联系</a>
-              <a href="/security.html" data-i18n="nav_security">安全</a>
-            </nav>
-            <div class="lang-switch" role="group" aria-label="Language">
-              <button type="button" class="lang-btn" data-lang="zh" aria-pressed="true">
-                中文
-              </button>
-              <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">
-                EN
-              </button>
-            </div>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="/favicon.svg" alt="" width="24" height="24" />
+          </span>
+          <span class="brand-name">
+            随造 <span class="brand-en">Sepzok</span>
+          </span>
+          <span class="brand-former">（原造格 Sepzap）</span>
+        </a>
+        <div class="header-end">
+          <nav class="nav" aria-label="Site">
+            <a href="/" data-i18n="nav_home">首页</a>
+            <a href="/projects.html" data-i18n="nav_projects">开源</a>
+            <a href="/about.html" data-i18n="nav_about" aria-current="page">关于</a>
+            <a href="/contact.html" data-i18n="nav_contact">联系</a>
+            <a href="/security.html" data-i18n="nav_security">安全</a>
+          </nav>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang="zh" aria-pressed="true">
+              中文
+            </button>
+            <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">
+              EN
+            </button>
           </div>
-        </header>
-        <main class="page">
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-band">
+        <div class="wrap">
           <h1 data-i18n="about_title">关于</h1>
+          <p class="lede" data-i18n="about_lede">
+            随造（Sepzok）是公司对外品牌。
+          </p>
           <p data-i18n="about_p1">
-            随造（Sepzok）是公司对外品牌。本站是公开占位站，不介绍产品功能，也不提供安装包下载。
+            本站是软件公司公开主页：开源项目、联系与制度信息。主产品介绍与安装通道将另行开放。
           </p>
           <p data-i18n="about_p2">
-            完整产品站与下载通道另有运营安排；开放时会在本站更新说明。
+            公开小工具包括虚拟手碟、AA 分账与音感练习，源码在 GitHub。
           </p>
-          <p data-i18n="about_p3">
-            公开小工具见开源页：虚拟手碟、AA 分账、音感练习等。
+
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand">随造 Sepzok</p>
+          <p class="footer-blurb" data-i18n="footer_blurb">
+            软件公司公开站。主产品下载开放前，可浏览开源与制度页。
           </p>
-        </main>
-        <footer class="foot">
-          <nav class="foot-nav" aria-label="Legal">
-            <a
-              href="/legal/zh-CN/privacy-policy.html"
-              data-legal-privacy
-              data-i18n="nav_privacy"
-              >隐私政策</a
-            >
-            <a
-              href="/legal/zh-CN/user-agreement.html"
-              data-legal-terms
-              data-i18n="nav_terms"
-              >用户协议</a
-            >
-            <a
-              href="/account-delete.html"
-              data-legal-delete
-              data-i18n="nav_delete"
-              >注销账号</a
-            >
-            <a href="/security.html" data-i18n="nav_security">安全</a>
-            <a href="https://github.com/Sepzok">GitHub</a>
-          </nav>
-          <p class="foot-copy" data-i18n="foot_copy">© Sepzok</p>
-        </footer>
+        </div>
+        <div class="footer-col">
+          <h3 data-i18n="footer_explore">探索</h3>
+          <a href="/projects.html" data-i18n="nav_projects">开源</a>
+          <a href="/about.html" data-i18n="nav_about">关于</a>
+          <a href="/contact.html" data-i18n="nav_contact">联系</a>
+        </div>
+        <div class="footer-col">
+          <h3 data-i18n="footer_legal">制度</h3>
+          <a
+            href="/legal/zh-CN/privacy-policy.html"
+            data-legal-privacy
+            data-i18n="nav_privacy"
+            >隐私政策</a
+          >
+          <a
+            href="/legal/zh-CN/user-agreement.html"
+            data-legal-terms
+            data-i18n="nav_terms"
+            >用户协议</a
+          >
+          <a
+            href="/account-delete.html"
+            data-legal-delete
+            data-i18n="nav_delete"
+            >注销账号</a
+          >
+        </div>
+        <div class="footer-col">
+          <h3>GitHub</h3>
+          <a href="https://github.com/Sepzok">Sepzok</a>
+          <a href="/security.html" data-i18n="nav_security">安全</a>
+        </div>
       </div>
-    </div>
+      <p class="footer-bottom" data-i18n="foot_copy">© Sepzok</p>
+    </footer>
     <script src="/site.js"></script>
+
   </body>
 </html>
