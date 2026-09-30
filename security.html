@@ -6,8 +6,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>安全反馈 · 随造 Sepzok</title>
-    <meta name="description" content="向 Sepzok 报告安全问题。" />
+    <title>安全 · 随造 Sepzok</title>
+    <meta name="description" content="Sepzok 安全漏洞协调披露说明。" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#eef3f9" />
     <link rel="stylesheet" href="/styles.css" />
@@ -46,21 +46,49 @@
 
     <main>
       <section class="page-band">
-        <div class="wrap">
-          <h1 data-i18n="security_title">安全反馈</h1>
-          <p data-i18n="security_p1">
-            若发现与 Sepzok 账号、本站或后续公开仓库相关的安全问题，请优先通过 GitHub 私密渠道报告，不要在公开 Issue 里贴复现细节或凭证。
-          </p>
-          <p data-i18n="security_p2">
-            可用：GitHub 账号页留言 / 对相关仓库开启私密漏洞报告（若已开通）。我们会按严重程度跟进。
-          </p>
-          <p class="note">
-            <a href="https://github.com/Sepzok">github.com/Sepzok</a>
-          </p>
+        <div class="wrap legal-doc">
+          <p class="meta" data-i18n="security_meta">协调披露政策</p>
+          <h1 data-i18n="security_title">安全</h1>
+          <p data-i18n="security_intro">我们重视公开站点、公司 GitHub 账号及相关公开仓库的安全。欢迎负责任的漏洞报告。本页不描述未公开的产品或内部系统。</p>
 
+          <h2 data-i18n="security_s1_t">1. 范围</h2>
+          <ul>
+            <li data-i18n="security_s1_1">本公司公开网站（含本站）及其托管配置中的明显安全问题；</li>
+            <li data-i18n="security_s1_2">以 Sepzok 名义发布的公开 GitHub 仓库中的安全缺陷；</li>
+            <li data-i18n="security_s1_3">可导致他人账户或数据被未授权访问的问题（若涉及本站或公开仓库所托管的内容）。</li>
+          </ul>
+          <p data-i18n="security_s1_out">以下通常不在范围：纯社会工程、物理攻击、对第三方平台（如 GitHub.com 本身）的漏洞、缺少安全最佳实践但无实际影响的问题、以及未公开的内部系统。</p>
+
+          <h2 data-i18n="security_s2_t">2. 如何报告</h2>
+          <p data-i18n="security_s2_1">请优先使用私密渠道，不要在公开 Issue 中粘贴完整利用细节、令牌或个人数据。</p>
+          <ul>
+            <li data-i18n="security_s2_2">通过 github.com/Sepzok 发送私信，或对相关仓库使用 GitHub 私密漏洞报告（若已开启）；</li>
+            <li data-i18n="security_s2_3">也可在联系页指引下开 Issue，标题以 [SECURITY] 开头，正文只写高层次描述，细节改私下发送。</li>
+          </ul>
+          <p data-i18n="security_s2_4">报告请尽量包含：受影响资产、问题类型、复现步骤、影响说明、概念验证（如有）以及联系方式。</p>
+
+          <h2 data-i18n="security_s3_t">3. 我们的承诺</h2>
+          <ul>
+            <li data-i18n="security_s3_1">尽快确认收到（目标：数个工作日内）；</li>
+            <li data-i18n="security_s3_2">评估严重程度并与您保持必要沟通；</li>
+            <li data-i18n="security_s3_3">在修复或缓解后，可与报告人协商公开致谢（若您愿意）。</li>
+          </ul>
+          <p data-i18n="security_s3_4">我们请您在我们修复或双方约定的披露日前，不公开完整利用细节。常见协调窗口约为 90 天，可视情况协商延长。</p>
+
+          <h2 data-i18n="security_s4_t">4. 善意研究</h2>
+          <p data-i18n="security_s4_1">在适用法律允许的范围内，对符合本政策、未破坏数据可用性、未访问无关数据、且及时报告的善意安全研究，我们不会对研究人提起法律诉讼。请避免破坏性测试、垃圾流量与隐私侵犯。</p>
+
+          <h2 data-i18n="security_s5_t">5. 安全.txt</h2>
+          <p data-i18n="security_s5_1">机器可读联系方式见</p>
+          <p class="note"><a href="/.well-known/security.txt">/.well-known/security.txt</a></p>
+
+          <h2 data-i18n="security_s6_t">6. 联系</h2>
+          <p data-i18n="security_s6_1">一般问询见联系页；安全事项请按上文私密渠道提交。</p>
+          <p class="note"><a href="https://github.com/Sepzok">github.com/Sepzok</a></p>
         </div>
       </section>
     </main>
+
     <footer class="site-footer">
       <div class="footer-grid">
         <div>
@@ -105,6 +133,5 @@
       <p class="footer-bottom" data-i18n="foot_copy">© Sepzok</p>
     </footer>
     <script src="/site.js"></script>
-
   </body>
 </html>
