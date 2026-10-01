@@ -1,218 +1,98 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
-    <title>随造 Sepzok</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sepzok open-source demos</title>
     <meta
       name="description"
-      content="随造 Sepzok（原造格 Sepzap）。开源项目与公司信息。"
+      content="Sepzok open-source demos on GitHub Pages. Company site: sepzok.com / en.sepzok.com."
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#eef3f9" />
-    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #142033;
+        --muted: #5a6b82;
+        --line: #d7e0ec;
+        --paper: #f7f9fc;
+        --accent: #2f6fed;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font: 16px/1.5 system-ui, -apple-system, Segoe UI, sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+      }
+      main {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 3rem 1.25rem 4rem;
+      }
+      h1 {
+        font-size: 1.75rem;
+        margin: 0 0 0.5rem;
+      }
+      p {
+        color: var(--muted);
+      }
+      .card {
+        display: block;
+        margin: 0.75rem 0;
+        padding: 1rem 1.1rem;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fff;
+        color: inherit;
+        text-decoration: none;
+      }
+      .card:hover {
+        border-color: var(--accent);
+      }
+      .card strong {
+        display: block;
+        color: var(--ink);
+      }
+      .note {
+        margin-top: 2rem;
+        font-size: 0.95rem;
+      }
+      a.plain {
+        color: var(--accent);
+      }
+    </style>
   </head>
-  <body data-desc-key="home_desc">
-    <header class="site-header">
-      <div class="site-header-inner">
-        <a class="brand" href="/">
-          <span class="brand-mark" aria-hidden="true">
-            <img src="/favicon.svg" alt="" width="24" height="24" />
-          </span>
-          <span class="brand-name">
-            随造 <span class="brand-en">Sepzok</span>
-          </span>
-          <span class="brand-former">（原造格 Sepzap）</span>
-        </a>
-        <div class="header-end">
-          <nav class="nav" aria-label="Site">
-            <a href="/" data-i18n="nav_home" aria-current="page">首页</a>
-            <a href="/projects.html" data-i18n="nav_projects">开源</a>
-            <a href="/about.html" data-i18n="nav_about">关于</a>
-            <a href="/contact.html" data-i18n="nav_contact">联系</a>
-            <a href="/security.html" data-i18n="nav_security">安全</a>
-          </nav>
-          <div class="lang-switch" role="group" aria-label="Language">
-            <a class="lang-btn is-on" data-lang="zh" href="https://sepzok.com/">中文</a>
-            <a class="lang-btn" data-lang="en" href="https://en.sepzok.com/">EN</a>
-          </div>
-        </div>
-      </div>
-    </header>
-
+  <body>
     <main>
-      <section class="hero-band">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="status" data-i18n="home_status">主产品下载即将开放</p>
-            <h1 data-i18n="home_title">随造 Sepzok</h1>
-            <p class="lede" data-i18n="home_lede">
-              开源项目、联系方式，以及用户协议与隐私政策。
-            </p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="/projects.html" data-i18n="cta_projects"
-                >浏览开源项目</a
-              >
-              <a class="btn btn-ghost" href="/contact.html" data-i18n="cta_contact"
-                >联系我们</a
-              >
-            </div>
-          </div>
-          <aside class="hero-visual" aria-hidden="true">
-            <span class="visual-chip" data-i18n="visual_chip">软件公司</span>
-            <p class="visual-title" data-i18n="visual_title">开源 · 联系 · 法律条款</p>
-            <p class="visual-body" data-i18n="visual_body">
-              主产品页面与下载将陆续上线；现阶段可浏览开源仓库与公司介绍。
-            </p>
-          </aside>
-        </div>
-      </section>
-
-      <section class="band band-ink" id="projects" aria-labelledby="projects-title">
-        <div class="wrap">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker" data-i18n="projects_kicker">Open source</p>
-              <h2 id="projects-title" data-i18n="projects_title">开源项目</h2>
-              <p class="section-lede" data-i18n="projects_lede">
-                若干独立开源小工具，代码托管在 GitHub。
-              </p>
-            </div>
-            <a class="btn btn-ghost" href="https://github.com/Sepzok" data-i18n="projects_github"
-              >GitHub 账号</a
-            >
-          </div>
-          <div class="project-grid">
-            <a class="project" href="https://sepzok.github.io/handpan/">
-              <span class="project-name">handpan</span>
-              <span class="project-desc" data-i18n="proj_handpan"
-                >浏览器里的虚拟手碟（RESONA），Web Audio 低延迟演奏。</span
-              >
-              <span class="project-link">sepzok.github.io/handpan</span>
-            </a>
-            <a class="project" href="https://sepzok.github.io/aa-calc/">
-              <span class="project-name">aa-calc</span>
-              <span class="project-desc" data-i18n="proj_aacalc"
-                >AA 分账计算器，支持多人账单与结算建议。</span
-              >
-              <span class="project-link">sepzok.github.io/aa-calc</span>
-            </a>
-            <a class="project" href="https://sepzok.github.io/ear-training/">
-              <span class="project-name">ear-training</span>
-              <span class="project-desc" data-i18n="proj_ear"
-                >音感练习：在浏览器里练听音辨音。</span
-              >
-              <span class="project-link">sepzok.github.io/ear-training</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="band band-soft" aria-labelledby="company-title">
-        <div class="wrap">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker" data-i18n="company_kicker">公司</p>
-              <h2 id="company-title" data-i18n="company_title">公司信息</h2>
-              <p class="section-lede" data-i18n="company_lede">
-                品牌介绍、联系方式与安全漏洞报告。
-              </p>
-            </div>
-          </div>
-          <div class="split">
-            <div class="split-card">
-              <h3 data-i18n="nav_about">关于</h3>
-              <p data-i18n="about_p1">
-                本站由深圳市克罗赛思智能科技有限公司运营，提供开源项目与联系方式，并发布用户协议、隐私政策等法律文本。主产品及安装下载将另行开放。
-              </p>
-              <div class="cta-row">
-                <a class="btn btn-primary" href="/about.html" data-i18n="cta_about"
-                  >了解更多</a
-                >
-              </div>
-            </div>
-            <div class="split-card">
-              <h3 data-i18n="nav_security">安全</h3>
-              <p data-i18n="security_teaser">
-                如发现与本站账号、网站或 GitHub 仓库相关的安全问题，请通过私密渠道向我们报告。
-              </p>
-              <div class="cta-row">
-                <a class="btn btn-ghost" href="/security.html" data-i18n="cta_security"
-                  >报告安全问题</a
-                >
-                <a class="btn btn-ghost" href="/contact.html" data-i18n="cta_contact"
-                  >联系我们</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-grid">
-        <div>
-          <p class="footer-brand">随造 Sepzok</p>
-          <p class="footer-blurb" data-i18n="footer_blurb">
-            主产品下载开放前，可先浏览开源项目及相关法律页面。
-          </p>
-
-          <p class="footer-entity-name" data-i18n="entity_name">
-            深圳市克罗赛思智能科技有限公司
-          </p>
-          <p class="footer-entity-addr" data-i18n="entity_addr">
-            深圳市龙岗区龙城街道紫薇社区清林中路31号金基吉祥广场720
-          </p>
-        </div>
-        <div class="footer-col">
-          <h3 data-i18n="footer_explore">网站</h3>
-          <a href="/projects.html" data-i18n="nav_projects">开源</a>
-          <a href="/about.html" data-i18n="nav_about">关于</a>
-          <a href="/contact.html" data-i18n="nav_contact">联系</a>
-        </div>
-        <div class="footer-col">
-          <h3 data-i18n="footer_legal">法律信息</h3>
-          <a
-            href="/legal/zh-CN/privacy-policy.html"
-            data-legal-privacy
-            data-i18n="nav_privacy"
-            >隐私政策</a
-          >
-          <a
-            href="/legal/zh-CN/user-agreement.html"
-            data-legal-terms
-            data-i18n="nav_terms"
-            >用户协议</a
-          >
-          <a
-            href="/account-delete.html"
-            data-legal-delete
-            data-i18n="nav_delete"
-            >注销账号</a
-          >
-        </div>
-        <div class="footer-col">
-          <h3 data-i18n="footer_contact">联系</h3>
-          <a href="mailto:contact@sepzok.com">contact@sepzok.com</a>
-          <a href="https://github.com/Sepzok">GitHub</a>
-          <a href="/security.html" data-i18n="nav_security">安全</a>
-        </div>
-      </div>
-      <p class="footer-bottom">
-        <span data-i18n="foot_copy">© Sepzok</span>
-        <a
-          class="footer-beian"
-          href="https://beian.miit.gov.cn/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >粤ICP备2026149263号-1</a
-        >
+      <h1>Sepzok open-source demos</h1>
+      <p>
+        GitHub Pages hosts side-project demos only. The company site is on
+        <a class="plain" href="https://sepzok.com/">sepzok.com</a>
+        (中文) and
+        <a class="plain" href="https://en.sepzok.com/">en.sepzok.com</a>
+        (English).
       </p>
-    </footer>
-    <script src="/site.js"></script>
+
+      <a class="card" href="/handpan/">
+        <strong>handpan</strong>
+        Virtual handpan (RESONA) in the browser.
+      </a>
+      <a class="card" href="/aa-calc/">
+        <strong>aa-calc</strong>
+        Going-Dutch bill splitter.
+      </a>
+      <a class="card" href="/ear-training/">
+        <strong>ear-training</strong>
+        Pitch practice in the browser.
+      </a>
+
+      <p class="note">
+        Source:
+        <a class="plain" href="https://github.com/Sepzok">github.com/Sepzok</a>
+      </p>
+    </main>
   </body>
 </html>
