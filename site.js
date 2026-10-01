@@ -1,5 +1,6 @@
 (function () {
-  var STORAGE_KEY = 'sepzok-pages-lang'
+  var CN_ORIGIN = 'https://sepzok.com'
+  var EN_ORIGIN = 'https://en.sepzok.com'
   var COPY = {
     zh: {
       nav_home: '首页',
@@ -186,23 +187,40 @@
     },
   }
 
-  var locale = 'zh'
-  var langButtons = document.querySelectorAll('[data-lang]')
-
-  function detectLocale() {
-    var stored = localStorage.getItem(STORAGE_KEY)
-    if (stored === 'en' || stored === 'zh') return stored
-    var nav = (navigator.language || '').toLowerCase()
-    return nav.indexOf('en') === 0 ? 'en' : 'zh'
+  var host = (location.hostname || '').toLowerCase()
+  var path = location.pathname || '/'
+  /** @type {'cn' | 'en' | 'preview'} */
+  var region = 'preview'
+  if (
+    host === 'en.sepzok.com' ||
+    host.endsWith('.pages.dev')
+  ) {
+    // pages.dev preview of the EN project still defaults to en when hostname says so
+    region = host === 'en.sepzok.com' ? 'en' : 'preview'
   }
+  if (
+    host === 'sepzok.com' ||
+    host === 'www.sepzok.com' ||
+    host.endsWith('.tcloudbaseapp.com')
+  ) {
+    region = 'cn'
+  }
+  if (host === 'en.sepzok.com') region = 'en'
+
+  var locale = region === 'en' ? 'en' : region === 'cn' ? 'zh' : 'zh'
+  var langLinks = document.querySelectorAll('a.lang-btn[data-lang]')
 
   function t(key) {
     return (COPY[locale] && COPY[locale][key]) || COPY.zh[key] || ''
   }
 
+  function peerUrl(targetLocale) {
+    var origin = targetLocale === 'en' ? EN_ORIGIN : CN_ORIGIN
+    return origin + path + location.search + location.hash
+  }
+
   function applyLocale(next) {
     locale = next === 'en' ? 'en' : 'zh'
-    localStorage.setItem(STORAGE_KEY, locale)
     document.documentElement.lang = locale === 'en' ? 'en' : 'zh-CN'
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       var key = el.getAttribute('data-i18n')
@@ -214,10 +232,19 @@
     var meta = document.querySelector('meta[name="description"]')
     var descKey = document.body.getAttribute('data-desc-key')
     if (meta && descKey) meta.setAttribute('content', t(descKey))
-    langButtons.forEach(function (btn) {
-      var active = btn.getAttribute('data-lang') === locale
-      btn.classList.toggle('is-on', active)
-      btn.setAttribute('aria-pressed', active ? 'true' : 'false')
+    langLinks.forEach(function (link) {
+      var lang = link.getAttribute('data-lang')
+      var active = lang === locale
+      link.classList.toggle('is-on', active)
+      link.setAttribute('aria-current', active ? 'true' : 'false')
+      if (region === 'cn' || region === 'en') {
+        // Production: plain links only — no shared storage across regions.
+        if (lang === 'en') link.href = peerUrl('en')
+        else link.href = peerUrl('zh')
+        if (active) link.removeAttribute('href')
+      } else {
+        link.href = '#' + lang
+      }
     })
     var privacy = document.querySelector('[data-legal-privacy]')
     var terms = document.querySelector('[data-legal-terms]')
@@ -238,14 +265,23 @@
       del.href =
         locale === 'en' ? '/account-delete.en.html' : '/account-delete.html'
     }
+    document.querySelectorAll('.footer-beian').forEach(function (el) {
+      el.hidden = locale !== 'zh'
+    })
   }
 
-  langButtons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var next = btn.getAttribute('data-lang')
-      if (next === 'zh' || next === 'en') applyLocale(next)
+  if (region === 'preview') {
+    langLinks.forEach(function (link) {
+      link.addEventListener('click', function (ev) {
+        var next = link.getAttribute('data-lang')
+        if (next !== 'zh' && next !== 'en') return
+        ev.preventDefault()
+        applyLocale(next)
+      })
     })
-  })
+    var nav = (navigator.language || '').toLowerCase()
+    locale = nav.indexOf('en') === 0 ? 'en' : 'zh'
+  }
 
-  applyLocale(detectLocale())
+  applyLocale(locale)
 })()
