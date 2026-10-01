@@ -172,12 +172,17 @@ a:hover {
   padding: 8px 12px;
   min-height: 36px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
 
 .lang-btn.is-on,
+.lang-btn[aria-current="true"],
 .lang-btn[aria-pressed="true"] {
   background: var(--accent);
   color: #fff;
+  cursor: default;
 }
 
 /* —— Hero full bleed —— */
