@@ -1,4 +1,26 @@
 (function () {
+  /**
+   * Soft flags — flip to true and republish to restore EN link / open-source surface.
+   * Deploy: CloudBase `npm run site:publish:corp`; EN: pocket-ops `bash scripts/publish-corp-cloudflare.sh`
+   */
+  var FEATURES = {
+    langSwitch: false,
+    openSource: false,
+  }
+
+  var root = document.documentElement
+  if (FEATURES.langSwitch) root.classList.add('feat-lang')
+  if (FEATURES.openSource) root.classList.add('feat-oss')
+
+  var path = location.pathname || '/'
+  if (
+    !FEATURES.openSource &&
+    /\/projects\.html$/i.test(path)
+  ) {
+    location.replace('/' + location.search + location.hash)
+    return
+  }
+
   var CN_ORIGIN = 'https://sepzok.com'
   var EN_ORIGIN = 'https://en.sepzok.com'
   var COPY = {
@@ -187,8 +209,45 @@
     },
   }
 
+  /** Copy used while openSource is off (marketing surface hidden; security page keeps its own keys). */
+  var COPY_NO_OSS = {
+    zh: {
+      home_lede: '联系方式，以及用户协议与隐私政策。',
+      home_desc: '随造 Sepzok（原造格 Sepzap）。公司信息与法律文本。',
+      visual_title: '联系 · 法律条款',
+      visual_body: '主产品页面与下载将陆续上线；现阶段可查看公司介绍与法律页面。',
+      about_p1:
+        '本站由深圳市克罗赛思智能科技有限公司运营，提供联系方式，并发布用户协议、隐私政策等法律文本。主产品及安装下载将另行开放。',
+      about_desc: '关于随造 Sepzok：公司信息。',
+      security_teaser:
+        '如发现与本站或账号相关的安全问题，请通过私密渠道向我们报告。',
+      footer_blurb: '主产品下载开放前，可先查看公司介绍及相关法律页面。',
+    },
+    en: {
+      home_lede: 'Contact details and policies. Main product downloads open later.',
+      home_desc: 'Sepzok (formerly Sepzap). Company information and policies.',
+      visual_title: 'Contact · Policies',
+      visual_body:
+        'Product pages follow later. Company info and policy pages are available now.',
+      about_p1:
+        'Sepzok is operated by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. This site lists contact details and policies. Main product pages and installs will open later.',
+      about_desc: 'About Sepzok: company information.',
+      security_teaser:
+        'If you find an issue related to this site or accounts, report it privately.',
+      footer_blurb: 'Until main downloads open, browse company info and policy pages.',
+    },
+  }
+
+  if (!FEATURES.openSource) {
+    ;['zh', 'en'].forEach(function (loc) {
+      var patch = COPY_NO_OSS[loc]
+      Object.keys(patch).forEach(function (key) {
+        COPY[loc][key] = patch[key]
+      })
+    })
+  }
+
   var host = (location.hostname || '').toLowerCase()
-  var path = location.pathname || '/'
   /** @type {'cn' | 'en' | 'preview'} */
   var region = 'preview'
   if (
@@ -268,6 +327,15 @@
     document.querySelectorAll('.footer-beian').forEach(function (el) {
       el.hidden = locale !== 'zh'
     })
+    if (!FEATURES.openSource) {
+      var contactCta = document.querySelector(
+        '.hero-actions a[href="/contact.html"]'
+      )
+      if (contactCta) {
+        contactCta.classList.add('btn-primary')
+        contactCta.classList.remove('btn-ghost')
+      }
+    }
   }
 
   if (region === 'preview') {

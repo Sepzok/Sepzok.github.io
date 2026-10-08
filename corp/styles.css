@@ -773,3 +773,12 @@ a:hover {
 .contact-mail:hover {
   text-decoration: underline;
 }
+
+/* Soft feature flags: site.js adds .feat-lang / .feat-oss to restore */
+html:not(.feat-lang) .lang-switch {
+  display: none !important;
+}
+
+html:not(.feat-oss) [data-feat="oss"] {
+  display: none !important;
+}
