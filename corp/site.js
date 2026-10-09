@@ -327,6 +327,9 @@
     document.querySelectorAll('.footer-beian').forEach(function (el) {
       el.hidden = locale !== 'zh'
     })
+    document.querySelectorAll('.entity-name-en, .footer-entity-name-en').forEach(function (el) {
+      el.hidden = locale === 'en'
+    })
     if (!FEATURES.openSource) {
       var contactCta = document.querySelector(
         '.hero-actions a[href="/contact.html"]'

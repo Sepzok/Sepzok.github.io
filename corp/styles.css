@@ -756,6 +756,21 @@ a:hover {
   font-size: 0.92rem;
 }
 
+.entity-name-en,
+.footer-entity-name-en {
+  margin: 0 0 8px;
+  font-weight: 500;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.footer-entity-name-en {
+  margin-top: 0;
+  color: #b7c2d4;
+  font-size: 0.84rem;
+}
+
 .footer-entity-addr {
   color: #9aa6b8;
   font-size: 0.85rem;
