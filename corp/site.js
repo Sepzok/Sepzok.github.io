@@ -15,7 +15,7 @@
   var path = location.pathname || '/'
   if (
     !FEATURES.openSource &&
-    /\/projects\.html$/i.test(path)
+    /\/projects(\.html)?\/?$/i.test(path)
   ) {
     location.replace('/' + location.search + location.hash)
     return

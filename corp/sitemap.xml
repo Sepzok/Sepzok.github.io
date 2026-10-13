@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://sepzok.github.io/</loc></url>
-  <url><loc>https://sepzok.github.io/about.html</loc></url>
-  <url><loc>https://sepzok.github.io/projects.html</loc></url>
-  <url><loc>https://sepzok.github.io/contact.html</loc></url>
-  <url><loc>https://sepzok.github.io/security.html</loc></url>
-  <url><loc>https://sepzok.github.io/account-delete.html</loc></url>
-  <url><loc>https://sepzok.github.io/account-delete.en.html</loc></url>
-  <url><loc>https://sepzok.github.io/legal/zh-CN/privacy-policy.html</loc></url>
-  <url><loc>https://sepzok.github.io/legal/zh-CN/user-agreement.html</loc></url>
-  <url><loc>https://sepzok.github.io/legal/en/privacy-policy.html</loc></url>
-  <url><loc>https://sepzok.github.io/legal/en/user-agreement.html</loc></url>
+  <!-- Canonical host for this file: https://sepzok.com (CloudBase). -->
+  <!-- EN Cloudflare publish rewrites host + strips .html (Pages 308s .html → extensionless). -->
+  <!-- Omit /projects.html while FEATURES.openSource is false; re-add when the flag is true. -->
+  <url><loc>https://sepzok.com/</loc></url>
+  <url><loc>https://sepzok.com/about.html</loc></url>
+  <url><loc>https://sepzok.com/contact.html</loc></url>
+  <url><loc>https://sepzok.com/security.html</loc></url>
+  <url><loc>https://sepzok.com/account-delete.html</loc></url>
+  <url><loc>https://sepzok.com/account-delete.en.html</loc></url>
+  <url><loc>https://sepzok.com/legal/zh-CN/privacy-policy.html</loc></url>
+  <url><loc>https://sepzok.com/legal/zh-CN/user-agreement.html</loc></url>
+  <url><loc>https://sepzok.com/legal/en/privacy-policy.html</loc></url>
+  <url><loc>https://sepzok.com/legal/en/user-agreement.html</loc></url>
 </urlset>
