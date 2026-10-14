@@ -33,7 +33,7 @@
       nav_privacy: '隐私政策',
       nav_terms: '用户协议',
       nav_delete: '注销账号',
-      home_title: '随造 Sepzok',
+      home_title: '随造™ Sepzok™',
       home_status: '主产品下载即将开放',
       home_lede: '开源项目、联系方式，以及用户协议与隐私政策。',
       home_desc: '随造 Sepzok（原造格 Sepzap）。开源项目与公司信息。',
@@ -120,7 +120,7 @@
       nav_privacy: 'Privacy',
       nav_terms: 'Terms',
       nav_delete: 'Delete account',
-      home_title: 'Sepzok',
+      home_title: 'Sepzok™',
       home_status: 'Main product downloads open later',
       home_lede:
         'Open-source tools, contact details, and policies. Main product downloads open later.',
