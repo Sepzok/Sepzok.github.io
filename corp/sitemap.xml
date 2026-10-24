@@ -2,8 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Canonical host for this file: https://sepzok.com (CloudBase). -->
   <!-- EN Cloudflare publish rewrites host + strips .html (Pages 308s .html → extensionless). -->
-  <!-- Omit /projects.html while FEATURES.openSource is false; re-add when the flag is true. -->
   <url><loc>https://sepzok.com/</loc></url>
+  <url><loc>https://sepzok.com/projects.html</loc></url>
   <url><loc>https://sepzok.com/about.html</loc></url>
   <url><loc>https://sepzok.com/contact.html</loc></url>
   <url><loc>https://sepzok.com/security.html</loc></url>

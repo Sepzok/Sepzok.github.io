@@ -1,11 +1,11 @@
 (function () {
   /**
-   * Soft flags — flip to true and republish to restore EN link / open-source surface.
+   * Soft flags. Both on: header shows 中文/EN and the open-source / GitHub links.
    * Deploy: CloudBase `npm run site:publish:corp`; EN: pocket-ops `bash scripts/publish-corp-cloudflare.sh`
    */
   var FEATURES = {
-    langSwitch: false,
-    openSource: false,
+    langSwitch: true,
+    openSource: true,
   }
 
   var root = document.documentElement
