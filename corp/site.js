@@ -344,6 +344,19 @@
           ? '/legal/en/refund-policy.html'
           : '/legal/zh-CN/refund-policy.html'
     })
+    var pricingZh = 'https://pay.sepzok.com/pricing'
+    var pricingEn = 'https://pay.sepzok.com/en/pricing'
+    document.querySelectorAll('a[href]').forEach(function (link) {
+      var href = link.getAttribute('href') || ''
+      if (
+        href === pricingZh ||
+        href.indexOf(pricingZh + '?') === 0 ||
+        href === pricingEn ||
+        href.indexOf(pricingEn + '?') === 0
+      ) {
+        link.href = locale === 'en' ? pricingEn : pricingZh
+      }
+    })
     document.querySelectorAll('.footer-beian').forEach(function (el) {
       el.hidden = locale !== 'zh'
     })
