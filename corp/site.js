@@ -414,17 +414,29 @@
         contactCta.classList.remove('btn-ghost')
       }
     }
+    bindFeatureShots()
     bindFilmSource()
     syncFilm()
     var video = document.querySelector('[data-promo]')
     if (
       video &&
       video.paused &&
+      (video.currentTime || 0) < 0.2 &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) {
       var auto = video.play()
       if (auto && typeof auto.catch === 'function') auto.catch(function () {})
     }
+  }
+
+  function bindFeatureShots() {
+    var suffix = locale === 'en' ? '.en.jpg' : '.jpg'
+    document.querySelectorAll('[data-feature]').forEach(function (img) {
+      var id = img.getAttribute('data-feature')
+      if (!id) return
+      var next = '/promo/feat-' + id + suffix
+      if (img.getAttribute('src') !== next) img.setAttribute('src', next)
+    })
   }
 
   function filmSources() {
