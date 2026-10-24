@@ -22,10 +22,7 @@
           <span class="brand-mark" aria-hidden="true">
             <img src="/favicon.svg" alt="" width="24" height="24" />
           </span>
-          <span class="brand-name">
-            随造<span class="tm">™</span> <span class="brand-en">Sepzok<span class="tm">™</span></span>
-          </span>
-          <span class="brand-former">（原造格 Sepzap）</span>
+          <span class="brand-name"><span data-i18n="brand_name">随造</span><span class="tm">™</span></span>
         </a>
         <div class="header-end">
           <nav class="nav" aria-label="Site">
@@ -36,9 +33,15 @@
             <a href="/security.html" data-i18n="nav_security">安全</a>
             <a href="https://pay.sepzok.com/pricing" data-i18n="nav_pricing">价格</a>
           </nav>
-          <div class="lang-switch" role="group" aria-label="Language">
-            <a class="lang-btn is-on" data-lang="zh" href="https://sepzok.com/">中文</a>
-            <a class="lang-btn" data-lang="en" href="https://en.sepzok.com/">EN</a>
+          <div class="lang-menu">
+            <button type="button" class="lang-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-label="语言">
+              <span class="lang-menu-current">中文</span>
+              <span class="lang-menu-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="lang-menu-panel" role="menu">
+              <a role="menuitem" data-lang="zh" href="https://sepzok.com/">中文</a>
+              <a role="menuitem" data-lang="en" href="https://en.sepzok.com/">English</a>
+            </div>
           </div>
         </div>
       </div>
@@ -184,7 +187,8 @@
     <footer class="site-footer">
       <div class="footer-grid">
         <div>
-          <p class="footer-brand">随造<span class="tm">™</span> Sepzok<span class="tm">™</span></p>
+          <p class="footer-brand"><span data-i18n="brand_name">随造</span><span class="tm">™</span></p>
+          <p class="footer-former" data-i18n="brand_former">原名造格 Sepzap</p>
           <p class="footer-blurb" data-i18n="footer_blurb">
             公司介绍、价格页，以及用户协议、隐私政策与退款政策。
           </p>

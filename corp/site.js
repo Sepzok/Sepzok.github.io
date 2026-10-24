@@ -1,6 +1,6 @@
 (function () {
   /**
-   * Soft flags. Both on: header shows 中文/EN and the open-source / GitHub links.
+   * Soft flags. Both on: header shows a language menu and the open-source / GitHub links.
    * Deploy: CloudBase `npm run site:publish:corp`; EN: pocket-ops `bash scripts/publish-corp-cloudflare.sh`
    */
   var FEATURES = {
@@ -35,6 +35,8 @@
       nav_refund: '退款政策',
       nav_pricing: '价格',
       nav_delete: '注销账号',
+      brand_name: '随造',
+      brand_former: '原名造格 Sepzap',
       home_title: '随造™ Sepzok™',
       home_status: '订阅已开放',
       pricing_title: '订阅',
@@ -127,6 +129,8 @@
       nav_refund: 'Refunds',
       nav_pricing: 'Pricing',
       nav_delete: 'Delete account',
+      brand_name: 'Sepzok',
+      brand_former: 'Formerly Sepzap',
       home_title: 'Sepzok™',
       home_status: 'Subscriptions are open',
       pricing_title: 'Subscription',
@@ -281,7 +285,29 @@
   if (host === 'en.sepzok.com') region = 'en'
 
   var locale = region === 'en' ? 'en' : region === 'cn' ? 'zh' : 'zh'
-  var langLinks = document.querySelectorAll('a.lang-btn[data-lang]')
+  var langMenu = document.querySelector('.lang-menu')
+  var langButton = langMenu && langMenu.querySelector('.lang-menu-btn')
+  var langCurrent = langMenu && langMenu.querySelector('.lang-menu-current')
+  var langLinks = document.querySelectorAll('.lang-menu a[data-lang]')
+
+  function setLangOpen(open) {
+    if (!langMenu || !langButton) return
+    langMenu.classList.toggle('is-open', open)
+    langButton.setAttribute('aria-expanded', open ? 'true' : 'false')
+  }
+
+  if (langButton) {
+    langButton.addEventListener('click', function () {
+      setLangOpen(langButton.getAttribute('aria-expanded') !== 'true')
+    })
+  }
+  document.addEventListener('click', function (event) {
+    if (!langMenu || langMenu.contains(event.target)) return
+    setLangOpen(false)
+  })
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') setLangOpen(false)
+  })
 
   function t(key) {
     return (COPY[locale] && COPY[locale][key]) || COPY.zh[key] || ''
@@ -305,11 +331,15 @@
     var meta = document.querySelector('meta[name="description"]')
     var descKey = document.body.getAttribute('data-desc-key')
     if (meta && descKey) meta.setAttribute('content', t(descKey))
+    if (langCurrent) langCurrent.textContent = locale === 'en' ? 'English' : '中文'
+    if (langButton) {
+      langButton.setAttribute('aria-label', locale === 'en' ? 'Language' : '语言')
+    }
     langLinks.forEach(function (link) {
       var lang = link.getAttribute('data-lang')
       var active = lang === locale
-      link.classList.toggle('is-on', active)
-      link.setAttribute('aria-current', active ? 'true' : 'false')
+      if (active) link.setAttribute('aria-current', 'true')
+      else link.removeAttribute('aria-current')
       if (region === 'cn' || region === 'en') {
         // Production: plain links only — no shared storage across regions.
         if (lang === 'en') link.href = peerUrl('en')
@@ -378,6 +408,12 @@
     }
   }
 
+  langLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      setLangOpen(false)
+    })
+  })
+
   if (region === 'preview') {
     langLinks.forEach(function (link) {
       link.addEventListener('click', function (ev) {
@@ -385,6 +421,7 @@
         if (next !== 'zh' && next !== 'en') return
         ev.preventDefault()
         applyLocale(next)
+        setLangOpen(false)
       })
     })
     var nav = (navigator.language || '').toLowerCase()
