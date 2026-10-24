@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sepzok privacy rights</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #f4f5f7;
+      color: #1a1d23;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 32rem;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 0.75rem; }
+    h2 { font-size: 1rem; margin: 1.25rem 0 0.5rem; }
+    p { margin: 0 0 0.75rem; }
+    label { display: block; margin: 0.75rem 0 0.25rem; font-size: 0.9rem; }
+    input, button, select {
+      font: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid #c5c8ce;
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1d23;
+      padding: 10px 12px;
+    }
+    button { margin-top: 0.75rem; background: #1a1d23; color: #fff; cursor: pointer; }
+    button:disabled { opacity: 0.6; cursor: default; }
+    #status { min-height: 1.5rem; white-space: pre-wrap; }
+    #status.error { color: #9b1c1c; }
+    #status.ok { color: #1a5f2a; }
+    a { color: #1a5fb4; }
+    .note { font-size: 0.9rem; color: #4a4e57; }
+    #gpc { display: none; margin: 0 0 0.75rem; padding: 0.75rem; background: #eef6ee; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Privacy rights</h1>
+    <p class="note">Overseas Sepzok account. Sign in with the same email and password as the app. For California sale/share opt-out see <a href="/do-not-sell.en.html">Do Not Sell or Share</a>.</p>
+    <p id="gpc" role="status"></p>
+
+    <form id="auth-fields">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="username" required />
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+    </form>
+
+    <h2>Download a copy</h2>
+    <p class="note">Export the personal data we keep for this account (profile, usage counters, feedback you submitted). Official AI prompts are not kept as a long-term archive.</p>
+    <button id="btn-export" type="button">Download my data</button>
+
+    <h2>Correct display name</h2>
+    <label for="displayName">New display name</label>
+    <input id="displayName" name="displayName" type="text" maxlength="80" autocomplete="nickname" />
+    <button id="btn-correct" type="button">Save display name</button>
+    <p class="note">Email cannot be changed here. To fix the email, delete the account and register again.</p>
+
+    <h2>Restrict optional diagnostics</h2>
+    <p class="note">Clears experience-improvement consent for this account. Official AI still works until you stop using it or delete the account.</p>
+    <button id="btn-restrict" type="button">Clear diagnostics consent</button>
+
+    <h2>Delete account</h2>
+    <p><a href="/account-delete.en.html">Open the delete account page</a></p>
+
+    <p id="status" role="status"></p>
+    <p>
+      <a href="/legal/en/privacy-policy.html">Privacy Policy</a>
+      ·
+      <a href="/do-not-sell.en.html">Do Not Sell or Share</a>
+      ·
+      <a href="/account-delete.en.html">Delete account</a>
+    </p>
+  </main>
+  <script>
+    const API = 'https://pskysikkwduowufzynkn.supabase.co/functions/v1/sepzok-api'
+    const statusEl = document.getElementById('status')
+    const gpcEl = document.getElementById('gpc')
+
+    function setStatus(text, kind) {
+      statusEl.textContent = text || ''
+      statusEl.className = kind || ''
+    }
+
+    function creds() {
+      return {
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value,
+      }
+    }
+
+    async function post(path, body) {
+      const res = await fetch(API + path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      const data = await res.json().catch(() => ({}))
+      return { res, data }
+    }
+
+    document.getElementById('btn-export').addEventListener('click', async () => {
+      setStatus('Preparing export…')
+      const { res, data } = await post('/v1/auth/privacy-export', creds())
+      if (!res.ok) {
+        setStatus(data.message || 'Export failed.', 'error')
+        return
+      }
+      const blob = new Blob([JSON.stringify(data.export, null, 2)], {
+        type: 'application/json',
+      })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'sepzok-privacy-export.json'
+      a.click()
+      URL.revokeObjectURL(url)
+      setStatus('Download started.', 'ok')
+    })
+
+    document.getElementById('btn-correct').addEventListener('click', async () => {
+      setStatus('Saving…')
+      const body = { ...creds(), displayName: document.getElementById('displayName').value }
+      const { res, data } = await post('/v1/auth/privacy-correct', body)
+      if (!res.ok) {
+        setStatus(data.message || 'Update failed.', 'error')
+        return
+      }
+      setStatus('Display name saved.', 'ok')
+    })
+
+    document.getElementById('btn-restrict').addEventListener('click', async () => {
+      setStatus('Clearing…')
+      const { res, data } = await post('/v1/auth/privacy-restrict', creds())
+      if (!res.ok) {
+        setStatus(data.message || 'Request failed.', 'error')
+        return
+      }
+      setStatus('Diagnostics consent cleared.', 'ok')
+    })
+
+    ;(async function honourGpc() {
+      const gpcOn =
+        navigator.globalPrivacyControl === true ||
+        navigator.globalPrivacyControl === 1
+      if (!gpcOn) return
+      gpcEl.style.display = 'block'
+      gpcEl.textContent =
+        'Your browser sent a Global Privacy Control signal. We treat that as Do Not Sell or Share. Sign in below if you want that preference stored on the account.'
+      try {
+        await fetch(API + '/v1/auth/privacy-gpc', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Sec-GPC': '1',
+          },
+          body: JSON.stringify({ signal: 'gpc' }),
+        })
+      } catch (_) {}
+    })()
+  </script>
+</body>
+</html>

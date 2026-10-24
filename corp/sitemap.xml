@@ -3,6 +3,7 @@
   <!-- Canonical host for this file: https://sepzok.com (CloudBase). -->
   <!-- EN Cloudflare publish rewrites host + strips .html (Pages 308s .html → extensionless). -->
   <url><loc>https://sepzok.com/</loc></url>
+  <url><loc>https://sepzok.com/download/index.html</loc></url>
   <url><loc>https://sepzok.com/projects.html</loc></url>
   <url><loc>https://sepzok.com/about.html</loc></url>
   <url><loc>https://sepzok.com/contact.html</loc></url>

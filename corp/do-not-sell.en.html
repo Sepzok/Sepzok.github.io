@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Do Not Sell or Share — Sepzok</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #f4f5f7;
+      color: #1a1d23;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 32rem;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 0.75rem; }
+    p { margin: 0 0 0.75rem; }
+    label { display: block; margin: 0.75rem 0 0.25rem; font-size: 0.9rem; }
+    input, button {
+      font: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid #c5c8ce;
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1d23;
+      padding: 10px 12px;
+    }
+    button { margin-top: 0.75rem; background: #1a1d23; color: #fff; cursor: pointer; }
+    button:disabled { opacity: 0.6; cursor: default; }
+    #status { min-height: 1.5rem; }
+    #status.error { color: #9b1c1c; }
+    #status.ok { color: #1a5f2a; }
+    a { color: #1a5fb4; }
+    .note { font-size: 0.9rem; color: #4a4e57; }
+    #gpc { display: none; margin: 0 0 0.75rem; padding: 0.75rem; background: #eef6ee; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Do Not Sell or Share</h1>
+    <p>Sepzok does not sell personal information and does not share it for cross-context behavioural advertising. You can still record an opt-out preference on your overseas account. We honour Global Privacy Control (GPC) the same way.</p>
+    <p id="gpc" role="status"></p>
+    <form id="opt-form">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="username" required />
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+      <button id="submit" type="submit">Record Do Not Sell or Share</button>
+    </form>
+    <p id="status" role="status"></p>
+    <p class="note">The preference is stored on the account. Product paths that would sell or share for advertising stay off. Optional diagnostics stay off if you also clear them on the <a href="/privacy-rights.en.html">privacy rights</a> page.</p>
+    <p>
+      <a href="/privacy-rights.en.html">Privacy rights</a>
+      ·
+      <a href="/legal/en/privacy-policy.html">Privacy Policy</a>
+    </p>
+  </main>
+  <script>
+    const API = 'https://pskysikkwduowufzynkn.supabase.co/functions/v1/sepzok-api'
+    const form = document.getElementById('opt-form')
+    const statusEl = document.getElementById('status')
+    const gpcEl = document.getElementById('gpc')
+
+    function setStatus(text, kind) {
+      statusEl.textContent = text || ''
+      statusEl.className = kind || ''
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      setStatus('Saving…')
+      const email = document.getElementById('email').value.trim()
+      const password = document.getElementById('password').value
+      try {
+        const res = await fetch(API + '/v1/auth/privacy-opt-out', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(navigator.globalPrivacyControl ? { 'Sec-GPC': '1' } : {}),
+          },
+          body: JSON.stringify({ email, password, source: 'web_form' }),
+        })
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) {
+          setStatus(data.message || 'Request failed.', 'error')
+          return
+        }
+        setStatus(
+          'Opt-out recorded. We do not sell or share your personal information for cross-context advertising.',
+          'ok',
+        )
+      } catch (_) {
+        setStatus('Network error. Try again later.', 'error')
+      }
+    })
+
+    ;(async function honourGpc() {
+      if (navigator.globalPrivacyControl !== true && navigator.globalPrivacyControl !== 1) {
+        return
+      }
+      gpcEl.style.display = 'block'
+      gpcEl.textContent =
+        'GPC detected. Sign in to store the opt-out on your account. We already do not sell or share for advertising.'
+      try {
+        await fetch(API + '/v1/auth/privacy-gpc', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Sec-GPC': '1' },
+          body: JSON.stringify({ signal: 'gpc' }),
+        })
+      } catch (_) {}
+    })()
+  </script>
+</body>
+</html>
