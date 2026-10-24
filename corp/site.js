@@ -8,6 +8,31 @@
     openSource: true,
   }
 
+  /**
+   * Browser tab titles. Shared pages set data-title-key.
+   * EN publish rewrites <title> from the en map so the English host
+   * does not paint the Chinese title before this script runs.
+   * Pages without data-title-key keep the title in their own file.
+   */
+  var PAGE_TITLE = {
+    zh: {
+      home: '随造 Sepzok',
+      download: '下载 · 随造 Sepzok',
+      about: '关于 · 随造 Sepzok',
+      contact: '联系 · 随造 Sepzok',
+      security: '安全 · 随造 Sepzok',
+      projects: '开源 · 随造 Sepzok',
+    },
+    en: {
+      home: 'Sepzok',
+      download: 'Download · Sepzok',
+      about: 'About · Sepzok',
+      contact: 'Contact · Sepzok',
+      security: 'Security · Sepzok',
+      projects: 'Open source · Sepzok',
+    },
+  }
+
   var root = document.documentElement
   if (FEATURES.langSwitch) root.classList.add('feat-lang')
   if (FEATURES.openSource) root.classList.add('feat-oss')
@@ -361,6 +386,11 @@
     var meta = document.querySelector('meta[name="description"]')
     var descKey = document.body.getAttribute('data-desc-key')
     if (meta && descKey) meta.setAttribute('content', t(descKey))
+    var titleKey = document.body.getAttribute('data-title-key')
+    var titleMap = PAGE_TITLE[locale]
+    if (titleKey && titleMap && titleMap[titleKey]) {
+      document.title = titleMap[titleKey]
+    }
     if (langCurrent) langCurrent.textContent = locale === 'en' ? 'English' : '中文'
     if (langButton) {
       langButton.setAttribute('aria-label', locale === 'en' ? 'Language' : '语言')

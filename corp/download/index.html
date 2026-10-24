@@ -10,9 +10,9 @@
     <meta name="description" content="下载随造国际完整包。" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261025c" />
     <meta name="theme-color" content="#eef3f9" />
-    <link rel="stylesheet" href="/styles.css?v=20261025c" />
+    <link rel="stylesheet" href="/styles.css?v=20261025e" />
   </head>
-  <body data-desc-key="download_desc">
+  <body data-desc-key="download_desc" data-title-key="download">
     <header class="site-header">
       <div class="site-header-inner">
         <a class="brand" href="/">
@@ -56,6 +56,20 @@
               显示下载
             </button>
             <a id="download" class="btn btn-primary" hidden data-i18n="download_get">下载随造</a>
+          </form>
+          <form id="notify" class="download-gate download-notify" data-notify-form novalidate>
+            <h2 data-i18n="notify_title">开放时通知你</h2>
+            <p class="lede" data-i18n="notify_lede">留下邮箱。可以下载时，我们发一封通知。</p>
+            <label for="notify-email" data-i18n="notify_email">邮箱</label>
+            <input id="notify-email" name="email" type="email" autocomplete="email" maxlength="254" />
+            <div class="waitlist-hp" aria-hidden="true">
+              <label for="notify-company">Leave blank</label>
+              <input id="notify-company" name="leave_blank" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <div id="notify-turnstile" data-turnstile-sitekey="0x4AAAAAAFkVtZQSHKf1itJ_"></div>
+            <button class="btn btn-primary" type="submit" data-i18n="notify_submit">通知我</button>
+            <p id="notify-status" role="status" aria-live="polite"></p>
+            <p class="notify-note" data-i18n="notify_note">只用于下载通知，不会发广告。</p>
           </form>
           <p>
             <a href="/privacy-rights.en.html">Privacy rights</a>
@@ -112,7 +126,7 @@
         <a class="footer-beian" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030002018052" target="_blank" rel="noopener noreferrer">粤公网安备44030002018052号</a>
       </p>
     </footer>
-    <script src="/site.js?v=20261025c"></script>
+    <script src="/site.js?v=20261025f"></script>
     <script>
       var list = document.getElementById("build");
       var link = document.getElementById("download");
@@ -168,6 +182,109 @@
               "当前还没有可下载的安装包。",
               "The current build is not on this page yet.",
             );
+          });
+      });
+    </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async></script>
+    <script>
+      var notifyForm = document.getElementById("notify");
+      var notifyEmail = document.getElementById("notify-email");
+      var notifyCompany = document.getElementById("notify-company");
+      var notifyStatus = document.getElementById("notify-status");
+      var notifyWidget = document.getElementById("notify-turnstile");
+      var notifyToken = "";
+      var notifyWidgetId = "";
+      function notifyEn() {
+        return (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0;
+      }
+      function notifySay(zh, english) {
+        return notifyEn() ? english : zh;
+      }
+      function notifyApi() {
+        var host = (location.hostname || "").toLowerCase();
+        if (host === "en.sepzok.com") {
+          return "https://pskysikkwduowufzynkn.supabase.co/functions/v1/sepzok-api";
+        }
+        return "https://zaoget-d0g73jxxefd6ba387-1478755746.ap-shanghai.app.tcloudbase.com";
+      }
+      function mountNotifyTurnstile() {
+        if (!window.turnstile || !notifyWidget || notifyWidgetId !== "") return;
+        var sitekey = notifyWidget.getAttribute("data-turnstile-sitekey") || "";
+        if (!sitekey) return;
+        notifyWidgetId = window.turnstile.render(notifyWidget, {
+          sitekey: sitekey,
+          theme: "light",
+          callback: function (token) { notifyToken = token || ""; },
+          "expired-callback": function () { notifyToken = ""; },
+          "error-callback": function () { notifyToken = ""; },
+        });
+      }
+      var notifyMountTries = 0;
+      var notifyMountTimer = setInterval(function () {
+        notifyMountTries += 1;
+        if (window.turnstile || notifyMountTries > 30) {
+          clearInterval(notifyMountTimer);
+          mountNotifyTurnstile();
+        }
+      }, 200);
+      notifyForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var email = notifyEmail.value.trim();
+        var button = notifyForm.querySelector("button[type=submit]");
+        if (notifyCompany.value.trim()) {
+          notifyStatus.textContent = notifySay("已记下。可以下载时会发邮件通知你。", "Saved. We will email you when the download is open.");
+          return;
+        }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          notifyStatus.textContent = notifySay("请填写有效邮箱。", "Enter a valid email address.");
+          return;
+        }
+        if (!notifyToken) {
+          notifyStatus.textContent = notifySay("请先完成验证。", "Complete the check first.");
+          return;
+        }
+        if (button) button.disabled = true;
+        notifyStatus.textContent = notifySay("正在登记。", "Saving…");
+        fetch(notifyApi() + "/v1/site/waitlist", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            locale: notifyEn() ? "en" : "zh",
+            source: "download",
+            turnstile: notifyToken,
+            leave_blank: notifyCompany.value,
+          }),
+        })
+          .then(function (res) {
+            return res.json().catch(function () { return null; }).then(function (data) {
+              return { ok: res.ok, status: res.status, data: data };
+            });
+          })
+          .then(function (result) {
+            var data = result.data || {};
+            if (result.status === 429 || data.error === "rate_limited") {
+              notifyStatus.textContent = notifySay("提交过于频繁，请稍后再试。", "Too many attempts. Try again later.");
+              return;
+            }
+            if (!result.ok) {
+              notifyStatus.textContent = data.error === "turnstile_required" || data.error === "turnstile_failed"
+                ? notifySay("请先完成验证。", "Complete the check first.")
+                : notifySay("登记失败，请稍后再试。", "Could not save that. Try again later.");
+              return;
+            }
+            notifyStatus.textContent = data.already
+              ? notifySay("这个邮箱已经登记过了。", "This email is already on the list.")
+              : notifySay("已记下。可以下载时会发邮件通知你。", "Saved. We will email you when the download is open.");
+            notifyEmail.value = "";
+            notifyToken = "";
+            if (window.turnstile && notifyWidgetId !== "") window.turnstile.reset(notifyWidgetId);
+          })
+          .catch(function () {
+            notifyStatus.textContent = notifySay("登记失败，请稍后再试。", "Could not save that. Try again later.");
+          })
+          .then(function () {
+            if (button) button.disabled = false;
           });
       });
     </script>

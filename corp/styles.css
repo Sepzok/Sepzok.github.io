@@ -370,11 +370,9 @@ h1 .tm {
   font: inherit;
 }
 
-.download-gate button {
-  appearance: none;
-  font: inherit;
-  cursor: pointer;
-  justify-self: start;
+.download-gate button:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 .download-gate a[hidden] {
