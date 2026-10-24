@@ -440,7 +440,7 @@
   }
 
   function filmSources() {
-    var rev = '20261025b'
+    var rev = '20261025c'
     if (locale === 'en') {
       return {
         src: '/promo/home.en.mp4?v=' + rev,
@@ -469,19 +469,27 @@
     }
   }
 
-  var FILM_CHAPTERS = [
-    { t: 0, zh: '手机上就能做', en: 'Make it on your phone' },
-    { t: 2.8, zh: '从创意做到能用', en: 'From an idea to something you can use' },
-    { t: 7.4, zh: '做完就能用', en: "Open it when it's made" },
-    { t: 11, zh: '本机、电脑、云端', en: 'Phone, computer, and cloud' },
-    { t: 14.4, zh: '应用之间互通', en: 'Apps work with each other' },
-    { t: 18.5, zh: '随心想，随手造', en: 'Imagine it. Build it.' },
-  ]
+  function filmChapters() {
+    if (locale === 'en') {
+      return [
+        { t: 0, text: 'Start from an idea' },
+        { t: 2.7, text: 'Apps work with each other' },
+        { t: 7.5, text: 'Imagine it. Build it.' },
+      ]
+    }
+    return [
+      { t: 0, text: '从一个创意开始' },
+      { t: 2.65, text: '按这个做出来' },
+      { t: 7.8, text: '应用之间互通' },
+      { t: 12.5, text: '随心想，随手造' },
+    ]
+  }
 
   function filmChapter(time) {
-    var hit = FILM_CHAPTERS[0]
-    for (var i = 0; i < FILM_CHAPTERS.length; i += 1) {
-      if (time + 0.05 >= FILM_CHAPTERS[i].t) hit = FILM_CHAPTERS[i]
+    var chapters = filmChapters()
+    var hit = chapters[0]
+    for (var i = 0; i < chapters.length; i += 1) {
+      if (time + 0.05 >= chapters[i].t) hit = chapters[i]
     }
     return hit
   }
@@ -492,7 +500,7 @@
     var toggle = document.querySelector('[data-promo-toggle]')
     if (!video || !caption || !toggle) return
     var chapter = filmChapter(video.currentTime || 0)
-    caption.textContent = locale === 'en' ? chapter.en : chapter.zh
+    caption.textContent = chapter.text
     var playing = !video.paused && !video.ended
     var label
     if (!playing) {
