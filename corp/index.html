@@ -9,11 +9,11 @@
     <title>随造 Sepzok</title>
     <meta
       name="description"
-      content="随造 Sepzok（原造格 Sepzap）。深圳市克罗赛思智能科技有限公司。价格页出售订阅。"
+      content="随造 Sepzok（原造格 Sepzap）。随心想，随手造。做你自己的 app。"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#eef3f9" />
-    <link rel="stylesheet" href="/styles.css?v=20261024" />
+    <link rel="stylesheet" href="/styles.css?v=20261024b" />
   </head>
   <body data-desc-key="home_desc">
     <header class="site-header">
@@ -27,11 +27,12 @@
         <div class="header-end">
           <nav class="nav" aria-label="Site">
             <a href="/" data-i18n="nav_home" aria-current="page">首页</a>
-            <a href="/projects.html" data-feat="oss" data-i18n="nav_projects">开源</a>
+            <a href="/#product" data-i18n="nav_product">产品</a>
             <a href="/about.html" data-i18n="nav_about">关于</a>
             <a href="/contact.html" data-i18n="nav_contact">联系</a>
             <a href="/security.html" data-i18n="nav_security">安全</a>
             <a href="https://pay.sepzok.com/pricing" data-i18n="nav_pricing">价格</a>
+            <a href="/projects.html" data-feat="oss" data-i18n="nav_projects">开源</a>
           </nav>
           <div class="lang-menu">
             <button type="button" class="lang-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-label="语言">
@@ -51,29 +52,11 @@
       <section class="hero-band">
         <div class="hero-grid">
           <div class="hero-copy">
-            <p class="status" data-i18n="home_status">订阅已开放</p>
-            <h1 data-i18n="home_title">随造™ Sepzok™</h1>
-            <p class="lede" data-i18n="home_lede">
-              深圳市克罗赛思智能科技有限公司提供随造（Sepzok）。云端创作，轻应用在本机运行。价格与结账在价格页。
-            </p>
-            <div class="hero-actions">
-              <a
-                class="btn btn-primary"
-                href="https://pay.sepzok.com/pricing"
-                data-i18n="cta_pricing"
-                >查看价格</a
-              >
-              <a class="btn btn-ghost" href="/contact.html" data-i18n="cta_contact"
-                >联系我们</a
-              >
-              <a
-                class="btn btn-ghost"
-                href="/projects.html"
-                data-feat="oss"
-                data-i18n="cta_projects"
-                >浏览开源项目</a
-              >
-            </div>
+            <h1>
+              <span data-i18n="home_line1">随心想</span><br />
+              <span data-i18n="home_line2">随手造</span>
+            </h1>
+            <p class="lede" data-i18n="home_lede">做你自己的 app</p>
           </div>
           <figure class="hero-film">
             <video
@@ -98,100 +81,35 @@
         </div>
       </section>
 
-      <section class="band band-soft" id="pricing" aria-labelledby="pricing-title">
+      <section class="band" id="product" aria-labelledby="product-title">
         <div class="wrap">
           <div class="section-head">
             <div>
-              <h2 id="pricing-title" data-i18n="pricing_title">订阅</h2>
-              <p class="section-lede" data-i18n="pricing_lede">
-                Starter、Pro、Advanced 三个方案，均含 7 天试用。价格随所在地区显示，结账在价格页完成。
+              <h2 id="product-title" data-i18n="product_title">在手机上</h2>
+              <p class="section-lede" data-i18n="product_lede">
+                做出来的应用，打开就能用，也可以继续改。
               </p>
             </div>
           </div>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="https://pay.sepzok.com/pricing" data-i18n="cta_pricing">查看价格</a>
-            <a class="btn btn-ghost" href="/legal/zh-CN/refund-policy.html" data-legal-refund data-i18n="nav_refund">退款政策</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="band band-ink" id="projects" data-feat="oss" aria-labelledby="projects-title">
-        <div class="wrap">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker" data-i18n="projects_kicker">Open source</p>
-              <h2 id="projects-title" data-i18n="projects_title">开源项目</h2>
-              <p class="section-lede" data-i18n="projects_lede">
-                若干独立开源小工具，代码托管在 GitHub。
+          <div class="feature-grid">
+            <article class="feature">
+              <h3 data-i18n="feat_make_title">用对话做出</h3>
+              <p data-i18n="feat_make_body">
+                说出要什么。记账、手帐、小游戏，做完就能打开。
               </p>
-            </div>
-            <a class="btn btn-ghost" href="https://github.com/Sepzok" data-i18n="projects_github"
-              >GitHub 账号</a
-            >
-          </div>
-          <div class="project-grid">
-            <a class="project" href="https://sepzok.github.io/handpan/">
-              <span class="project-name">handpan</span>
-              <span class="project-desc" data-i18n="proj_handpan"
-                >浏览器里的虚拟手碟（RESONA），Web Audio 低延迟演奏。</span
-              >
-              <span class="project-link">sepzok.github.io/handpan</span>
-            </a>
-            <a class="project" href="https://sepzok.github.io/aa-calc/">
-              <span class="project-name">aa-calc</span>
-              <span class="project-desc" data-i18n="proj_aacalc"
-                >AA 分账计算器，支持多人账单与结算建议。</span
-              >
-              <span class="project-link">sepzok.github.io/aa-calc</span>
-            </a>
-            <a class="project" href="https://sepzok.github.io/ear-training/">
-              <span class="project-name">ear-training</span>
-              <span class="project-desc" data-i18n="proj_ear"
-                >音感练习：在浏览器里练听音辨音。</span
-              >
-              <span class="project-link">sepzok.github.io/ear-training</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="band band-soft" aria-labelledby="company-title">
-        <div class="wrap">
-          <div class="section-head">
-            <div>
-              <p class="section-kicker" data-i18n="company_kicker">公司</p>
-              <h2 id="company-title" data-i18n="company_title">公司信息</h2>
-              <p class="section-lede" data-i18n="company_lede">
-                品牌介绍、联系方式与安全漏洞报告。
+            </article>
+            <article class="feature">
+              <h3 data-i18n="feat_use_title">现做现用</h3>
+              <p data-i18n="feat_use_body">
+                在手机里打开，加到主屏幕，或收成独立应用。
               </p>
-            </div>
-          </div>
-          <div class="split">
-            <div class="split-card">
-              <h3 data-i18n="nav_about">关于</h3>
-              <p data-i18n="about_p1">
-                本站由深圳市克罗赛思智能科技有限公司运营。随造（Sepzok）提供云端创作，轻应用在本机运行。订阅价格见价格页。
+            </article>
+            <article class="feature">
+              <h3 data-i18n="feat_link_title">应用互联</h3>
+              <p data-i18n="feat_link_body">
+                应用之间可以配合：把一笔记过去，或用到另一个应用里的结果。
               </p>
-              <div class="cta-row">
-                <a class="btn btn-primary" href="/about.html" data-i18n="cta_about"
-                  >了解更多</a
-                >
-              </div>
-            </div>
-            <div class="split-card">
-              <h3 data-i18n="nav_security">安全</h3>
-              <p data-i18n="security_teaser">
-                如发现与本站或账号相关的安全问题，请通过私密渠道向我们报告。
-              </p>
-              <div class="cta-row">
-                <a class="btn btn-ghost" href="/security.html" data-i18n="cta_security"
-                  >报告安全问题</a
-                >
-                <a class="btn btn-ghost" href="/contact.html" data-i18n="cta_contact"
-                  >联系我们</a
-                >
-              </div>
-            </div>
+            </article>
           </div>
         </div>
       </section>
@@ -203,7 +121,7 @@
           <p class="footer-brand"><span data-i18n="brand_name">随造</span><span class="tm">™</span></p>
           <p class="footer-former" data-i18n="brand_former">原名造格 Sepzap</p>
           <p class="footer-blurb" data-i18n="footer_blurb">
-            公司介绍、价格页，以及用户协议、隐私政策与退款政策。
+            在手机上做出自己的应用。
           </p>
 
           <p class="footer-entity-name" data-i18n="entity_name">
@@ -218,6 +136,7 @@
         </div>
         <div class="footer-col">
           <h3 data-i18n="footer_explore">网站</h3>
+          <a href="/#product" data-i18n="nav_product">产品</a>
           <a href="https://pay.sepzok.com/pricing" data-i18n="nav_pricing">价格</a>
           <a href="/projects.html" data-feat="oss" data-i18n="nav_projects">开源</a>
           <a href="/about.html" data-i18n="nav_about">关于</a>
@@ -275,6 +194,6 @@
         >
       </p>
     </footer>
-    <script src="/site.js?v=20261024"></script>
+    <script src="/site.js?v=20261024b"></script>
   </body>
 </html>

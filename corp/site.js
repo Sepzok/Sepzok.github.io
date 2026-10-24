@@ -26,6 +26,7 @@
   var COPY = {
     zh: {
       nav_home: '首页',
+      nav_product: '产品',
       nav_projects: '开源',
       nav_about: '关于',
       nav_contact: '联系',
@@ -37,20 +38,24 @@
       nav_delete: '注销账号',
       brand_name: '随造',
       brand_former: '原名造格 Sepzap',
-      home_title: '随造™ Sepzok™',
-      home_status: '订阅已开放',
-      pricing_title: '订阅',
-      pricing_lede: 'Starter、Pro、Advanced 三个方案，均含 7 天试用。价格随所在地区显示，结账在价格页完成。',
-      cta_pricing: '查看价格',
-      home_lede: '深圳市克罗赛思智能科技有限公司提供随造（Sepzok）。云端创作，轻应用在本机运行。价格与结账在价格页。',
-      home_desc: '随造 Sepzok（原造格 Sepzap）。深圳市克罗赛思智能科技有限公司。价格页出售订阅。',
-      cta_projects: '浏览开源项目',
+      home_line1: '随心想',
+      home_line2: '随手造',
+      home_lede: '做你自己的 app',
+      home_desc: '随造 Sepzok（原造格 Sepzap）。随心想，随手造。做你自己的 app。',
+      product_title: '在手机上',
+      product_lede: '做出来的应用，打开就能用，也可以继续改。',
+      feat_make_title: '用对话做出',
+      feat_make_body: '说出要什么。记账、手帐、小游戏，做完就能打开。',
+      feat_use_title: '现做现用',
+      feat_use_body: '在手机里打开，加到主屏幕，或收成独立应用。',
+      feat_link_title: '应用互联',
+      feat_link_body: '应用之间可以配合：把一笔记过去，或用到另一个应用里的结果。',
       cta_contact: '联系我们',
       cta_about: '了解更多',
       cta_security: '报告安全问题',
       visual_chip: '软件公司',
-      visual_title: '产品 · 价格 · 法律条款',
-      visual_body: '价格页列出 Starter、Pro 与 Advanced，含 7 天试用。',
+      visual_title: '用对话做出应用',
+      visual_body: '做出来的应用，打开就能用，也可以继续改。',
       projects_kicker: 'Open source',
       projects_title: '开源项目',
       projects_lede: '若干独立开源小工具，代码托管在 GitHub。',
@@ -65,7 +70,7 @@
       about_title: '关于',
       about_lede: '随造（Sepzok）是深圳市克罗赛思智能科技有限公司的对外品牌。',
       about_p1:
-        '本站由深圳市克罗赛思智能科技有限公司运营。随造（Sepzok）提供云端创作，轻应用在本机运行。订阅价格见价格页。',
+        '本站由深圳市克罗赛思智能科技有限公司运营。随造用来在手机上做出自己的应用，做完就能打开，也可以继续改。',
       about_p2: '开源小工具包括虚拟手碟、AA 分账与音感练习，源码见 GitHub。',
       about_desc: '关于随造 Sepzok：公司与开源项目。',
       contact_title: '联系',
@@ -110,7 +115,7 @@
       security_s5_1: '机器可读格式见',
       security_s6_t: '6. 联系',
       security_s6_1: '一般问询见联系页；安全事项请按上文私密渠道提交。',
-      footer_blurb: '公司介绍、价格页，以及用户协议、隐私政策与退款政策。',
+      footer_blurb: '在手机上做出自己的应用。',
       footer_explore: '网站',
       footer_legal: '法律信息',
       entity_title: '主体信息',
@@ -120,6 +125,7 @@
     },
     en: {
       nav_home: 'Home',
+      nav_product: 'Product',
       nav_projects: 'Open source',
       nav_about: 'About',
       nav_contact: 'Contact',
@@ -131,24 +137,28 @@
       nav_delete: 'Delete account',
       brand_name: 'Sepzok',
       brand_former: 'Formerly Sepzap',
-      home_title: 'Sepzok™',
-      home_status: 'Subscriptions are open',
-      pricing_title: 'Subscription',
-      pricing_lede:
-        'Starter, Pro, and Advanced each include a 7-day trial. Prices follow your location. Checkout is on the pricing page.',
-      cta_pricing: 'View pricing',
-      home_lede:
-        'Shenzhen Keluosaisi Intelligent Technology Co., Ltd. offers Sepzok. You create in the cloud, and light apps run on your device. Prices and checkout are on the pricing page.',
+      home_line1: 'Imagine it',
+      home_line2: 'Build it',
+      home_lede: 'Your own app',
       home_desc:
-        'Sepzok (formerly Sepzap), offered by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. Subscriptions are on the pricing page.',
-      cta_projects: 'Browse open source',
+        'Sepzok (formerly Sepzap). Imagine it. Build it. Your own app.',
+      product_title: 'On your phone',
+      product_lede: 'Apps you make open right away, and you can keep changing them.',
+      feat_make_title: 'Made in conversation',
+      feat_make_body:
+        'Say what you want. A ledger, a journal, or a small game — ready to open.',
+      feat_use_title: 'Ready when it is made',
+      feat_use_body:
+        'Open it on your phone, add it to the home screen, or keep it as its own app.',
+      feat_link_title: 'Apps that connect',
+      feat_link_body:
+        'Apps can work together: send a record across, or use a result from another app.',
       cta_contact: 'Contact us',
       cta_about: 'Learn more',
       cta_security: 'Security',
       visual_chip: 'Software company',
-      visual_title: 'Product · Pricing · Policies',
-      visual_body:
-        'The pricing page lists Starter, Pro, and Advanced, each with a 7-day trial.',
+      visual_title: 'Apps made in conversation',
+      visual_body: 'Apps you make open right away, and you can keep changing them.',
       projects_kicker: 'Open source',
       projects_title: 'Open source',
       projects_lede:
@@ -166,7 +176,7 @@
       about_title: 'About',
       about_lede: 'Sepzok (随造) is our company brand.',
       about_p1:
-        'Sepzok is operated by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. You create in the cloud, and light apps run on your device. Plan prices are on the pricing page.',
+        'Sepzok is operated by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. You make your own apps on your phone, open them when they are ready, and keep changing them.',
       about_p2:
         'Open-source tools include a virtual handpan, bill splitter, and ear training — source on GitHub.',
       about_desc: 'About Sepzok: company information and open-source entry points.',
@@ -213,8 +223,7 @@
       security_s5_1: 'Machine-readable contact details:',
       security_s6_t: '6. Contact',
       security_s6_1: 'General questions: Contact page. Security matters: use the private channels above.',
-      footer_blurb:
-        'Company information, pricing, and the terms, privacy, and refund policies.',
+      footer_blurb: 'Make your own apps on your phone.',
       footer_explore: 'Explore',
       footer_legal: 'Legal',
       entity_title: 'Legal entity',
@@ -227,32 +236,14 @@
   /** Copy used while openSource is off (marketing surface hidden; security page keeps its own keys). */
   var COPY_NO_OSS = {
     zh: {
-      home_lede: '深圳市克罗赛思智能科技有限公司提供随造（Sepzok）。云端创作，轻应用在本机运行。价格与结账在价格页。',
-      home_desc: '随造 Sepzok（原造格 Sepzap）。深圳市克罗赛思智能科技有限公司。价格页出售订阅。',
-      visual_title: '产品 · 价格 · 法律条款',
-      visual_body: '价格页列出 Starter、Pro 与 Advanced，含 7 天试用。',
-      about_p1:
-        '本站由深圳市克罗赛思智能科技有限公司运营。随造（Sepzok）提供云端创作，轻应用在本机运行。订阅价格见价格页。',
-      about_desc: '关于随造 Sepzok：公司信息与订阅。',
+      about_desc: '关于随造 Sepzok：公司与产品。',
       security_teaser:
         '如发现与本站或账号相关的安全问题，请通过私密渠道向我们报告。',
-      footer_blurb: '公司介绍、价格页，以及用户协议、隐私政策与退款政策。',
     },
     en: {
-      home_lede:
-        'Shenzhen Keluosaisi Intelligent Technology Co., Ltd. offers Sepzok. You create in the cloud, and light apps run on your device. Prices and checkout are on the pricing page.',
-      home_desc:
-        'Sepzok (formerly Sepzap), offered by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. Subscriptions are on the pricing page.',
-      visual_title: 'Product · Pricing · Policies',
-      visual_body:
-        'The pricing page lists Starter, Pro, and Advanced, each with a 7-day trial.',
-      about_p1:
-        'Sepzok is operated by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. You create in the cloud, and light apps run on your device. Plan prices are on the pricing page.',
-      about_desc: 'About Sepzok: the company and subscriptions.',
+      about_desc: 'About Sepzok: the company and the product.',
       security_teaser:
         'If you find an issue related to this site or accounts, report it privately.',
-      footer_blurb:
-        'Company information, pricing, and the terms, privacy, and refund policies.',
     },
   }
 
