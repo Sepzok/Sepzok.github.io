@@ -440,7 +440,7 @@
   }
 
   function filmSources() {
-    var rev = '20261025a'
+    var rev = '20261025b'
     if (locale === 'en') {
       return {
         src: '/promo/home.en.mp4?v=' + rev,
@@ -471,11 +471,11 @@
 
   var FILM_CHAPTERS = [
     { t: 0, zh: '手机上就能做', en: 'Make it on your phone' },
-    { t: 3.15, zh: '从创意做到能用', en: 'From an idea to something you can use' },
-    { t: 6.2, zh: '做完就能用', en: "Open it when it's made" },
-    { t: 9.35, zh: '本机、电脑、云端', en: 'Phone, computer, and cloud' },
-    { t: 12.6, zh: '应用之间互通', en: 'Apps work with each other' },
-    { t: 15.5, zh: '随心想，随手造', en: 'Imagine it. Build it.' },
+    { t: 2.8, zh: '从创意做到能用', en: 'From an idea to something you can use' },
+    { t: 7.4, zh: '做完就能用', en: "Open it when it's made" },
+    { t: 11, zh: '本机、电脑、云端', en: 'Phone, computer, and cloud' },
+    { t: 14.4, zh: '应用之间互通', en: 'Apps work with each other' },
+    { t: 18.5, zh: '随心想，随手造', en: 'Imagine it. Build it.' },
   ]
 
   function filmChapter(time) {
