@@ -406,6 +406,67 @@
         contactCta.classList.remove('btn-ghost')
       }
     }
+    syncFilm()
+  }
+
+  var FILM_CHAPTERS = [
+    { t: 0, zh: '手机上就能做', en: 'Make it on your phone' },
+    { t: 4, zh: '本机、电脑、云端', en: 'Phone, computer, and cloud' },
+    { t: 8.4, zh: '从创意做到能用', en: 'From an idea to something you can use' },
+    { t: 15, zh: '应用之间互通', en: 'Apps work with each other' },
+  ]
+
+  function filmChapter(time) {
+    var hit = FILM_CHAPTERS[0]
+    for (var i = 0; i < FILM_CHAPTERS.length; i += 1) {
+      if (time + 0.05 >= FILM_CHAPTERS[i].t) hit = FILM_CHAPTERS[i]
+    }
+    return hit
+  }
+
+  function syncFilm() {
+    var video = document.querySelector('[data-promo]')
+    var caption = document.querySelector('[data-promo-caption]')
+    var toggle = document.querySelector('[data-promo-toggle]')
+    if (!video || !caption || !toggle) return
+    var chapter = filmChapter(video.currentTime || 0)
+    caption.textContent = locale === 'en' ? chapter.en : chapter.zh
+    var playing = !video.paused && !video.ended
+    toggle.textContent = playing
+      ? locale === 'en'
+        ? 'Pause'
+        : '暂停'
+      : locale === 'en'
+        ? 'Play'
+        : '播放'
+    toggle.setAttribute('aria-pressed', playing ? 'true' : 'false')
+    video.setAttribute(
+      'aria-label',
+      locale === 'en' ? 'Sepzok film' : '随造宣传片',
+    )
+  }
+
+  var promo = document.querySelector('[data-promo]')
+  var promoToggle = document.querySelector('[data-promo-toggle]')
+  if (promo && promoToggle) {
+    promo.addEventListener('timeupdate', syncFilm)
+    promo.addEventListener('seeked', syncFilm)
+    promo.addEventListener('play', syncFilm)
+    promo.addEventListener('pause', syncFilm)
+    promoToggle.addEventListener('click', function () {
+      if (promo.paused) {
+        var started = promo.play()
+        if (started && typeof started.catch === 'function') {
+          started.catch(function () {})
+        }
+      } else {
+        promo.pause()
+      }
+    })
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var auto = promo.play()
+      if (auto && typeof auto.catch === 'function') auto.catch(function () {})
+    }
   }
 
   langLinks.forEach(function (link) {
