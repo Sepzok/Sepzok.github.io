@@ -35,6 +35,16 @@
       nav_delete: '注销账号',
       home_title: '随造™ Sepzok™',
       home_status: '主产品下载即将开放',
+      download_title: '国际版安装包',
+      download_lede: '填写访问密钥后显示下载链接。',
+      download_key: '访问密钥',
+      download_action: '获取下载',
+      download_link: '下载安装包',
+      download_missing: '请填写访问密钥。',
+      download_checking: '正在核对访问密钥。',
+      download_rejected: '访问密钥不正确。',
+      download_ready: '当前版本',
+      download_failed: '安装包清单读取失败。',
       home_lede: '开源项目、联系方式，以及用户协议与隐私政策。',
       home_desc: '随造 Sepzok（原造格 Sepzap）。开源项目与公司信息。',
       cta_projects: '浏览开源项目',
@@ -122,6 +132,16 @@
       nav_delete: 'Delete account',
       home_title: 'Sepzok™',
       home_status: 'Main product downloads open later',
+      download_title: 'International build',
+      download_lede: 'Enter the access key to show the download.',
+      download_key: 'Access key',
+      download_action: 'Show download',
+      download_link: 'Download',
+      download_missing: 'Enter the access key.',
+      download_checking: 'Checking the access key.',
+      download_rejected: 'Access key was rejected.',
+      download_ready: 'Current build',
+      download_failed: 'The build list could not be read.',
       home_lede:
         'Open-source tools, contact details, and policies. Main product downloads open later.',
       home_desc:
@@ -355,4 +375,54 @@
   }
 
   applyLocale(locale)
+
+  var downloadForm = document.getElementById('intl-download-form')
+  if (downloadForm) {
+    var downloadStatus = document.getElementById('intl-download-status')
+    var downloadLink = document.getElementById('intl-download-link')
+    var downloadKey = document.getElementById('billing-access-key')
+    downloadForm.addEventListener('submit', function (ev) {
+      ev.preventDefault()
+      var key = downloadKey && downloadKey.value ? downloadKey.value.trim() : ''
+      if (downloadLink) {
+        downloadLink.hidden = true
+        downloadLink.removeAttribute('href')
+      }
+      if (!key) {
+        if (downloadStatus) downloadStatus.textContent = t('download_missing')
+        return
+      }
+      if (downloadStatus) downloadStatus.textContent = t('download_checking')
+      fetch(
+        'https://pskysikkwduowufzynkn.supabase.co/functions/v1/sepzok-api/v1/billing/download',
+        {
+          method: 'POST',
+          headers: { 'X-Sepzok-Billing-Key': key },
+        },
+      )
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, data: data }
+          })
+        })
+        .then(function (result) {
+          if (!result.ok || !result.data || !result.data.url) {
+            if (downloadStatus) downloadStatus.textContent = t('download_rejected')
+            return
+          }
+          if (downloadStatus) {
+            downloadStatus.textContent = result.data.versionName
+              ? t('download_ready') + ' ' + result.data.versionName
+              : t('download_ready')
+          }
+          if (downloadLink) {
+            downloadLink.href = result.data.url
+            downloadLink.hidden = false
+          }
+        })
+        .catch(function () {
+          if (downloadStatus) downloadStatus.textContent = t('download_failed')
+        })
+    })
+  }
 })()

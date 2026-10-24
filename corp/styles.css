@@ -316,6 +316,39 @@ h1 .tm {
   border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
 }
 
+.download-gate {
+  display: grid;
+  gap: 10px;
+  max-width: 28rem;
+}
+
+.download-gate label {
+  font-weight: 600;
+}
+
+.download-gate input {
+  appearance: none;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.download-gate button {
+  appearance: none;
+  font: inherit;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.download-gate a[hidden] {
+  display: none;
+}
+
 .hero-visual {
   position: relative;
   min-height: 280px;

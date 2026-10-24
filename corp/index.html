@@ -75,6 +75,24 @@
         </div>
       </section>
 
+      <section class="band band-soft" id="intl-download" aria-labelledby="intl-download-title">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <h2 id="intl-download-title" data-i18n="download_title">国际版安装包</h2>
+              <p class="section-lede" data-i18n="download_lede">填写访问密钥后显示下载链接。</p>
+            </div>
+          </div>
+          <form id="intl-download-form" class="download-gate">
+            <label for="billing-access-key" data-i18n="download_key">访问密钥</label>
+            <input id="billing-access-key" type="password" autocomplete="off" />
+            <button class="btn btn-primary" type="submit" data-i18n="download_action">获取下载</button>
+            <p id="intl-download-status" role="status"></p>
+            <a id="intl-download-link" class="btn btn-ghost" hidden data-i18n="download_link">下载安装包</a>
+          </form>
+        </div>
+      </section>
+
       <section class="band band-ink" id="projects" data-feat="oss" aria-labelledby="projects-title">
         <div class="wrap">
           <div class="section-head">
