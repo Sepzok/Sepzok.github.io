@@ -43,6 +43,13 @@
       home_lede: '做你自己的 app',
       cta_download: '下载',
       cta_subscribe: '订阅',
+      download_title: '下载',
+      download_lede: '国际完整包从这里安装。直接下载，不是应用商店。',
+      download_prompt: '填写访问钥匙，获取当前安装包。',
+      download_key: '访问钥匙',
+      download_show: '显示下载',
+      download_get: '下载随造',
+      download_desc: '下载随造国际完整包。',
       home_desc: '随造 Sepzok（原造格 Sepzap）。随心想，随手造。做你自己的 app。',
       product_title: '在手机上',
       product_lede: '做出来的应用，打开就能用，也可以继续改。',
@@ -147,6 +154,14 @@
       home_lede: 'Your own app',
       cta_download: 'Download',
       cta_subscribe: 'Subscribe',
+      download_title: 'Download',
+      download_lede:
+        'This page installs the international full package. It is a direct download, not a store listing.',
+      download_prompt: 'Enter the access key to get the current build.',
+      download_key: 'Access key',
+      download_show: 'Show download',
+      download_get: 'Download Sepzok',
+      download_desc: 'Download the Sepzok international Android package.',
       home_desc:
         'Sepzok (formerly Sepzap). Imagine it. Build it. Your own app.',
       product_title: 'On your phone',
@@ -316,7 +331,16 @@
 
   function peerUrl(targetLocale) {
     var origin = targetLocale === 'en' ? EN_ORIGIN : CN_ORIGIN
-    return origin + path + location.search + location.hash
+    var peerPath = path
+    if (
+      path === '/download' ||
+      path === '/download/' ||
+      path === '/download/index' ||
+      path === '/download/index.html'
+    ) {
+      peerPath = targetLocale === 'en' ? '/download/' : '/download/index.html'
+    }
+    return origin + peerPath + location.search + location.hash
   }
 
   function applyLocale(next) {
@@ -440,7 +464,7 @@
   }
 
   function filmSources() {
-    var rev = '20261025c'
+    var rev = '20261025d'
     if (locale === 'en') {
       return {
         src: '/promo/home.en.mp4?v=' + rev,
