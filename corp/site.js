@@ -1,6 +1,6 @@
 (function () {
   /**
-   * Soft flags. Both on: header shows a language menu and the open-source / GitHub links.
+   * Soft flags. Both on: the header shows a language menu, and the footer shows open source and GitHub.
    * Deploy: CloudBase `npm run site:publish:corp`; EN: pocket-ops `bash scripts/publish-corp-cloudflare.sh`
    */
   var FEATURES = {
