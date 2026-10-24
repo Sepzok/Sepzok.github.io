@@ -32,28 +32,23 @@
       nav_security: '安全',
       nav_privacy: '隐私政策',
       nav_terms: '用户协议',
+      nav_refund: '退款政策',
+      nav_pricing: '价格',
       nav_delete: '注销账号',
       home_title: '随造™ Sepzok™',
-      home_status: '主产品下载即将开放',
-      download_title: '国际版安装包',
-      download_lede: '填写访问密钥后显示下载链接。',
-      download_key: '访问密钥',
-      download_action: '获取下载',
-      download_link: '下载安装包',
-      download_missing: '请填写访问密钥。',
-      download_checking: '正在核对访问密钥。',
-      download_rejected: '访问密钥不正确。',
-      download_ready: '当前版本',
-      download_failed: '安装包清单读取失败。',
-      home_lede: '开源项目、联系方式，以及用户协议与隐私政策。',
-      home_desc: '随造 Sepzok（原造格 Sepzap）。开源项目与公司信息。',
+      home_status: '订阅已开放',
+      pricing_title: '订阅',
+      pricing_lede: 'Starter、Pro、Advanced 三个方案，均含 7 天试用。价格随所在地区显示，结账在价格页完成。',
+      cta_pricing: '查看价格',
+      home_lede: '深圳市克罗赛思智能科技有限公司提供随造（Sepzok）。云端创作，轻应用在本机运行。价格与结账在价格页。',
+      home_desc: '随造 Sepzok（原造格 Sepzap）。深圳市克罗赛思智能科技有限公司。价格页出售订阅。',
       cta_projects: '浏览开源项目',
       cta_contact: '联系我们',
       cta_about: '了解更多',
       cta_security: '报告安全问题',
       visual_chip: '软件公司',
-      visual_title: '开源 · 联系 · 法律条款',
-      visual_body: '主产品页面与下载将陆续上线；现阶段可浏览开源仓库与公司介绍。',
+      visual_title: '产品 · 价格 · 法律条款',
+      visual_body: '价格页列出 Starter、Pro 与 Advanced，含 7 天试用。',
       projects_kicker: 'Open source',
       projects_title: '开源项目',
       projects_lede: '若干独立开源小工具，代码托管在 GitHub。',
@@ -68,7 +63,7 @@
       about_title: '关于',
       about_lede: '随造（Sepzok）是深圳市克罗赛思智能科技有限公司的对外品牌。',
       about_p1:
-        '本站由深圳市克罗赛思智能科技有限公司运营，提供开源项目与联系方式，并发布用户协议、隐私政策等法律文本。主产品及安装下载将另行开放。',
+        '本站由深圳市克罗赛思智能科技有限公司运营。随造（Sepzok）提供云端创作，轻应用在本机运行。订阅价格见价格页。',
       about_p2: '开源小工具包括虚拟手碟、AA 分账与音感练习，源码见 GitHub。',
       about_desc: '关于随造 Sepzok：公司与开源项目。',
       contact_title: '联系',
@@ -113,7 +108,7 @@
       security_s5_1: '机器可读格式见',
       security_s6_t: '6. 联系',
       security_s6_1: '一般问询见联系页；安全事项请按上文私密渠道提交。',
-      footer_blurb: '主产品下载开放前，可先浏览开源项目及相关法律页面。',
+      footer_blurb: '公司介绍、价格页，以及用户协议、隐私政策与退款政策。',
       footer_explore: '网站',
       footer_legal: '法律信息',
       entity_title: '主体信息',
@@ -129,31 +124,27 @@
       nav_security: 'Security',
       nav_privacy: 'Privacy',
       nav_terms: 'Terms',
+      nav_refund: 'Refunds',
+      nav_pricing: 'Pricing',
       nav_delete: 'Delete account',
       home_title: 'Sepzok™',
-      home_status: 'Main product downloads open later',
-      download_title: 'International build',
-      download_lede: 'Enter the access key to show the download.',
-      download_key: 'Access key',
-      download_action: 'Show download',
-      download_link: 'Download',
-      download_missing: 'Enter the access key.',
-      download_checking: 'Checking the access key.',
-      download_rejected: 'Access key was rejected.',
-      download_ready: 'Current build',
-      download_failed: 'The build list could not be read.',
+      home_status: 'Subscriptions are open',
+      pricing_title: 'Subscription',
+      pricing_lede:
+        'Starter, Pro, and Advanced each include a 7-day trial. Prices follow your location. Checkout is on the pricing page.',
+      cta_pricing: 'View pricing',
       home_lede:
-        'Open-source tools, contact details, and policies. Main product downloads open later.',
+        'Shenzhen Keluosaisi Intelligent Technology Co., Ltd. offers Sepzok. You create in the cloud, and light apps run on your device. Prices and checkout are on the pricing page.',
       home_desc:
-        'Sepzok (formerly Sepzap). Open-source projects and company information.',
+        'Sepzok (formerly Sepzap), offered by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. Subscriptions are on the pricing page.',
       cta_projects: 'Browse open source',
       cta_contact: 'Contact us',
       cta_about: 'Learn more',
       cta_security: 'Security',
       visual_chip: 'Software company',
-      visual_title: 'Open source · Contact · Policies',
+      visual_title: 'Product · Pricing · Policies',
       visual_body:
-        'Product pages follow later. Open repositories and company info are available now.',
+        'The pricing page lists Starter, Pro, and Advanced, each with a 7-day trial.',
       projects_kicker: 'Open source',
       projects_title: 'Open source',
       projects_lede:
@@ -171,7 +162,7 @@
       about_title: 'About',
       about_lede: 'Sepzok (随造) is our company brand.',
       about_p1:
-        'Sepzok is operated by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. This site lists open-source projects, contact details, and policies. Main product pages and installs will open later.',
+        'Sepzok is operated by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. You create in the cloud, and light apps run on your device. Plan prices are on the pricing page.',
       about_p2:
         'Open-source tools include a virtual handpan, bill splitter, and ear training — source on GitHub.',
       about_desc: 'About Sepzok: company information and open-source entry points.',
@@ -219,7 +210,7 @@
       security_s6_t: '6. Contact',
       security_s6_1: 'General questions: Contact page. Security matters: use the private channels above.',
       footer_blurb:
-        'Until main downloads open, browse open-source projects and policy pages.',
+        'Company information, pricing, and the terms, privacy, and refund policies.',
       footer_explore: 'Explore',
       footer_legal: 'Legal',
       entity_title: 'Legal entity',
@@ -232,29 +223,32 @@
   /** Copy used while openSource is off (marketing surface hidden; security page keeps its own keys). */
   var COPY_NO_OSS = {
     zh: {
-      home_lede: '联系方式，以及用户协议与隐私政策。',
-      home_desc: '随造 Sepzok（原造格 Sepzap）。公司信息与法律文本。',
-      visual_title: '联系 · 法律条款',
-      visual_body: '主产品页面与下载将陆续上线；现阶段可查看公司介绍与法律页面。',
+      home_lede: '深圳市克罗赛思智能科技有限公司提供随造（Sepzok）。云端创作，轻应用在本机运行。价格与结账在价格页。',
+      home_desc: '随造 Sepzok（原造格 Sepzap）。深圳市克罗赛思智能科技有限公司。价格页出售订阅。',
+      visual_title: '产品 · 价格 · 法律条款',
+      visual_body: '价格页列出 Starter、Pro 与 Advanced，含 7 天试用。',
       about_p1:
-        '本站由深圳市克罗赛思智能科技有限公司运营，提供联系方式，并发布用户协议、隐私政策等法律文本。主产品及安装下载将另行开放。',
-      about_desc: '关于随造 Sepzok：公司信息。',
+        '本站由深圳市克罗赛思智能科技有限公司运营。随造（Sepzok）提供云端创作，轻应用在本机运行。订阅价格见价格页。',
+      about_desc: '关于随造 Sepzok：公司信息与订阅。',
       security_teaser:
         '如发现与本站或账号相关的安全问题，请通过私密渠道向我们报告。',
-      footer_blurb: '主产品下载开放前，可先查看公司介绍及相关法律页面。',
+      footer_blurb: '公司介绍、价格页，以及用户协议、隐私政策与退款政策。',
     },
     en: {
-      home_lede: 'Contact details and policies. Main product downloads open later.',
-      home_desc: 'Sepzok (formerly Sepzap). Company information and policies.',
-      visual_title: 'Contact · Policies',
+      home_lede:
+        'Shenzhen Keluosaisi Intelligent Technology Co., Ltd. offers Sepzok. You create in the cloud, and light apps run on your device. Prices and checkout are on the pricing page.',
+      home_desc:
+        'Sepzok (formerly Sepzap), offered by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. Subscriptions are on the pricing page.',
+      visual_title: 'Product · Pricing · Policies',
       visual_body:
-        'Product pages follow later. Company info and policy pages are available now.',
+        'The pricing page lists Starter, Pro, and Advanced, each with a 7-day trial.',
       about_p1:
-        'Sepzok is operated by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. This site lists contact details and policies. Main product pages and installs will open later.',
-      about_desc: 'About Sepzok: company information.',
+        'Sepzok is operated by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. You create in the cloud, and light apps run on your device. Plan prices are on the pricing page.',
+      about_desc: 'About Sepzok: the company and subscriptions.',
       security_teaser:
         'If you find an issue related to this site or accounts, report it privately.',
-      footer_blurb: 'Until main downloads open, browse company info and policy pages.',
+      footer_blurb:
+        'Company information, pricing, and the terms, privacy, and refund policies.',
     },
   }
 
@@ -344,6 +338,12 @@
       del.href =
         locale === 'en' ? '/account-delete.en.html' : '/account-delete.html'
     }
+    document.querySelectorAll('[data-legal-refund]').forEach(function (refund) {
+      refund.href =
+        locale === 'en'
+          ? '/legal/en/refund-policy.html'
+          : '/legal/zh-CN/refund-policy.html'
+    })
     document.querySelectorAll('.footer-beian').forEach(function (el) {
       el.hidden = locale !== 'zh'
     })
@@ -351,10 +351,11 @@
       el.hidden = locale === 'en'
     })
     if (!FEATURES.openSource) {
+      var pricingCta = document.querySelector('[data-i18n="cta_pricing"]')
       var contactCta = document.querySelector(
         '.hero-actions a[href="/contact.html"]'
       )
-      if (contactCta) {
+      if (!pricingCta && contactCta) {
         contactCta.classList.add('btn-primary')
         contactCta.classList.remove('btn-ghost')
       }
@@ -375,59 +376,4 @@
   }
 
   applyLocale(locale)
-
-  var downloadForm = document.getElementById('intl-download-form')
-  if (downloadForm) {
-    var downloadStatus = document.getElementById('intl-download-status')
-    var downloadLink = document.getElementById('intl-download-link')
-    var downloadKey = document.getElementById('billing-access-key')
-    downloadForm.addEventListener('submit', function (ev) {
-      ev.preventDefault()
-      var key = downloadKey && downloadKey.value ? downloadKey.value.trim() : ''
-      if (downloadLink) {
-        downloadLink.hidden = true
-        downloadLink.removeAttribute('href')
-      }
-      if (!key) {
-        if (downloadStatus) downloadStatus.textContent = t('download_missing')
-        return
-      }
-      if (downloadStatus) downloadStatus.textContent = t('download_checking')
-      fetch(
-        'https://pskysikkwduowufzynkn.supabase.co/functions/v1/sepzok-api/v1/billing/download',
-        {
-          method: 'POST',
-          headers: { 'X-Sepzok-Billing-Key': key },
-        },
-      )
-        .then(function (res) {
-          return res.json().then(function (data) {
-            return { ok: res.ok, data: data }
-          })
-        })
-        .then(function (result) {
-          var code = result.data && result.data.error
-          if (code === 'download_unavailable' || code === 'download_unconfigured') {
-            if (downloadStatus) downloadStatus.textContent = t('download_failed')
-            return
-          }
-          if (!result.ok || !result.data || !result.data.url) {
-            if (downloadStatus) downloadStatus.textContent = t('download_rejected')
-            return
-          }
-          if (downloadStatus) {
-            downloadStatus.textContent = result.data.versionName
-              ? t('download_ready') + ' ' + result.data.versionName
-              : t('download_ready')
-          }
-          if (downloadLink) {
-            downloadLink.href = result.data.url
-            downloadLink.hidden = false
-          }
-        })
-        .catch(function () {
-          if (downloadStatus) downloadStatus.textContent = t('download_failed')
-        })
-    })
-  }
 })()
