@@ -354,7 +354,10 @@
         href === pricingEn ||
         href.indexOf(pricingEn + '?') === 0
       ) {
-        link.href = locale === 'en' ? pricingEn : pricingZh
+        link.href =
+          (locale === 'en' ? pricingEn : pricingZh) +
+          '?lang=' +
+          (locale === 'en' ? 'en' : 'zh')
       }
     })
     document.querySelectorAll('.footer-beian').forEach(function (el) {
