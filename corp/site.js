@@ -440,10 +440,17 @@
   }
 
   function filmSources() {
+    var rev = '20261025a'
     if (locale === 'en') {
-      return { src: '/promo/home.en.mp4', poster: '/promo/poster.en.jpg' }
+      return {
+        src: '/promo/home.en.mp4?v=' + rev,
+        poster: '/promo/poster.en.jpg?v=' + rev,
+      }
     }
-    return { src: '/promo/home.mp4', poster: '/promo/poster.jpg' }
+    return {
+      src: '/promo/home.mp4?v=' + rev,
+      poster: '/promo/poster.jpg?v=' + rev,
+    }
   }
 
   function bindFilmSource() {
@@ -464,9 +471,11 @@
 
   var FILM_CHAPTERS = [
     { t: 0, zh: '手机上就能做', en: 'Make it on your phone' },
-    { t: 4, zh: '本机、电脑、云端', en: 'Phone, computer, and cloud' },
-    { t: 8.4, zh: '从创意做到能用', en: 'From an idea to something you can use' },
-    { t: 15, zh: '应用之间互通', en: 'Apps work with each other' },
+    { t: 3.15, zh: '从创意做到能用', en: 'From an idea to something you can use' },
+    { t: 6.2, zh: '做完就能用', en: "Open it when it's made" },
+    { t: 9.35, zh: '本机、电脑、云端', en: 'Phone, computer, and cloud' },
+    { t: 12.6, zh: '应用之间互通', en: 'Apps work with each other' },
+    { t: 15.5, zh: '随心想，随手造', en: 'Imagine it. Build it.' },
   ]
 
   function filmChapter(time) {
@@ -485,14 +494,16 @@
     var chapter = filmChapter(video.currentTime || 0)
     caption.textContent = locale === 'en' ? chapter.en : chapter.zh
     var playing = !video.paused && !video.ended
-    toggle.textContent = playing
-      ? locale === 'en'
-        ? 'Pause'
-        : '暂停'
-      : locale === 'en'
-        ? 'Play'
-        : '播放'
-    toggle.setAttribute('aria-pressed', playing ? 'true' : 'false')
+    var label
+    if (!playing) {
+      label = locale === 'en' ? 'Play' : '播放'
+    } else if (video.muted) {
+      label = locale === 'en' ? 'Unmute' : '打开声音'
+    } else {
+      label = locale === 'en' ? 'Pause' : '暂停'
+    }
+    toggle.textContent = label
+    toggle.setAttribute('aria-pressed', playing && !video.muted ? 'true' : 'false')
     video.setAttribute(
       'aria-label',
       locale === 'en' ? 'Sepzok film' : '随造宣传片',
@@ -506,8 +517,10 @@
     promo.addEventListener('seeked', syncFilm)
     promo.addEventListener('play', syncFilm)
     promo.addEventListener('pause', syncFilm)
+    promo.addEventListener('volumechange', syncFilm)
     promoToggle.addEventListener('click', function () {
-      if (promo.paused) {
+      if (promo.paused || promo.muted) {
+        promo.muted = false
         var started = promo.play()
         if (started && typeof started.catch === 'function') {
           started.catch(function () {})

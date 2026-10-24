@@ -402,24 +402,22 @@ h1 .tm {
 
 .hero-film-caption {
   position: absolute;
-  left: 14px;
-  bottom: 14px;
-  max-width: calc(100% - 128px);
-  margin: 0;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink);
-  font-size: 14px;
-  font-weight: 650;
-  line-height: 1.3;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .hero-film-toggle {
   position: absolute;
   right: 14px;
   bottom: 14px;
-  min-width: 88px;
+  min-width: 112px;
   min-height: 44px;
   padding: 0 16px;
   border-radius: 12px;
@@ -429,6 +427,7 @@ h1 .tm {
   font: inherit;
   font-size: 14px;
   font-weight: 650;
+  white-space: nowrap;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
