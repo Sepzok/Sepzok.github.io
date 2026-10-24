@@ -41,6 +41,8 @@
       home_line1: '随心想',
       home_line2: '随手造',
       home_lede: '做你自己的 app',
+      cta_download: '下载',
+      cta_subscribe: '订阅',
       home_desc: '随造 Sepzok（原造格 Sepzap）。随心想，随手造。做你自己的 app。',
       product_title: '在手机上',
       product_lede: '做出来的应用，打开就能用，也可以继续改。',
@@ -50,6 +52,9 @@
       feat_use_body: '在手机里打开，加到主屏幕，或收成独立应用。',
       feat_link_title: '应用互联',
       feat_link_body: '应用之间可以配合：把一笔记过去，或用到另一个应用里的结果。',
+      feat_make_alt: '说出用途，做成能打开的应用',
+      feat_use_alt: '做好的应用在手机里打开',
+      feat_link_alt: '一条记录从别的应用送过来',
       cta_contact: '联系我们',
       cta_about: '了解更多',
       cta_security: '报告安全问题',
@@ -140,6 +145,8 @@
       home_line1: 'Imagine it',
       home_line2: 'Build it',
       home_lede: 'Your own app',
+      cta_download: 'Download',
+      cta_subscribe: 'Subscribe',
       home_desc:
         'Sepzok (formerly Sepzap). Imagine it. Build it. Your own app.',
       product_title: 'On your phone',
@@ -153,6 +160,9 @@
       feat_link_title: 'Apps that connect',
       feat_link_body:
         'Apps can work together: send a record across, or use a result from another app.',
+      feat_make_alt: 'Describe what you want, then make an app you can open',
+      feat_use_alt: 'A finished app open on the phone',
+      feat_link_alt: 'A note sent over from another app',
       cta_contact: 'Contact us',
       cta_about: 'Learn more',
       cta_security: 'Security',
@@ -319,6 +329,13 @@
       if (!value) return
       el.textContent = value
     })
+    document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-alt')
+      if (!key) return
+      var value = t(key)
+      if (!value) return
+      el.setAttribute('alt', value)
+    })
     var meta = document.querySelector('meta[name="description"]')
     var descKey = document.body.getAttribute('data-desc-key')
     if (meta && descKey) meta.setAttribute('content', t(descKey))
@@ -397,7 +414,40 @@
         contactCta.classList.remove('btn-ghost')
       }
     }
+    bindFilmSource()
     syncFilm()
+    var video = document.querySelector('[data-promo]')
+    if (
+      video &&
+      video.paused &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      var auto = video.play()
+      if (auto && typeof auto.catch === 'function') auto.catch(function () {})
+    }
+  }
+
+  function filmSources() {
+    if (locale === 'en') {
+      return { src: '/promo/home.en.mp4', poster: '/promo/poster.en.jpg' }
+    }
+    return { src: '/promo/home.mp4', poster: '/promo/poster.jpg' }
+  }
+
+  function bindFilmSource() {
+    var video = document.querySelector('[data-promo]')
+    if (!video) return
+    var next = filmSources()
+    video.poster = next.poster
+    if (video.getAttribute('data-film-src') === next.src) return
+    var playing = !video.paused && !video.ended && video.currentTime > 0
+    video.setAttribute('data-film-src', next.src)
+    video.src = next.src
+    video.load()
+    if (playing) {
+      var again = video.play()
+      if (again && typeof again.catch === 'function') again.catch(function () {})
+    }
   }
 
   var FILM_CHAPTERS = [
@@ -454,10 +504,6 @@
         promo.pause()
       }
     })
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var auto = promo.play()
-      if (auto && typeof auto.catch === 'function') auto.catch(function () {})
-    }
   }
 
   langLinks.forEach(function (link) {

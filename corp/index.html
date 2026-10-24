@@ -13,7 +13,7 @@
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#eef3f9" />
-    <link rel="stylesheet" href="/styles.css?v=20261024b" />
+    <link rel="stylesheet" href="/styles.css?v=20261024c" />
   </head>
   <body data-desc-key="home_desc">
     <header class="site-header">
@@ -57,20 +57,31 @@
               <span data-i18n="home_line2">随手造</span>
             </h1>
             <p class="lede" data-i18n="home_lede">做你自己的 app</p>
+            <div class="hero-actions">
+              <a
+                class="btn btn-primary"
+                href="https://sepzok-intl.pages.dev/"
+                data-i18n="cta_download"
+                >下载</a
+              >
+              <a
+                class="btn btn-ghost"
+                href="https://pay.sepzok.com/pricing"
+                data-i18n="cta_subscribe"
+                >订阅</a
+              >
+            </div>
           </div>
           <figure class="hero-film">
             <video
               class="hero-film-video"
               data-promo
-              poster="/promo/poster.jpg"
               muted
               playsinline
               loop
-              preload="metadata"
+              preload="none"
               aria-label="随造宣传片"
-            >
-              <source src="/promo/home.mp4" type="video/mp4" />
-            </video>
+            ></video>
             <figcaption class="hero-film-caption" data-promo-caption>
               手机上就能做
             </figcaption>
@@ -91,25 +102,72 @@
               </p>
             </div>
           </div>
-          <div class="feature-grid">
-            <article class="feature">
-              <h3 data-i18n="feat_make_title">用对话做出</h3>
-              <p data-i18n="feat_make_body">
-                说出要什么。记账、手帐、小游戏，做完就能打开。
-              </p>
+          <div class="feature-list">
+            <article class="feature-row">
+              <div class="feature-copy">
+                <h3 data-i18n="feat_make_title">用对话做出</h3>
+                <p data-i18n="feat_make_body">
+                  说出要什么。记账、手帐、小游戏，做完就能打开。
+                </p>
+              </div>
+              <figure class="feature-shot">
+                <img
+                  src="/promo/feat-make.jpg"
+                  width="560"
+                  height="720"
+                  alt="说出用途，做成能打开的应用"
+                  data-i18n-alt="feat_make_alt"
+                />
+              </figure>
             </article>
-            <article class="feature">
-              <h3 data-i18n="feat_use_title">现做现用</h3>
-              <p data-i18n="feat_use_body">
-                在手机里打开，加到主屏幕，或收成独立应用。
-              </p>
+            <article class="feature-row feature-row-flip">
+              <div class="feature-copy">
+                <h3 data-i18n="feat_use_title">现做现用</h3>
+                <p data-i18n="feat_use_body">
+                  在手机里打开，加到主屏幕，或收成独立应用。
+                </p>
+              </div>
+              <figure class="feature-shot">
+                <img
+                  src="/promo/feat-use.jpg"
+                  width="520"
+                  height="720"
+                  alt="做好的应用在手机里打开"
+                  data-i18n-alt="feat_use_alt"
+                />
+              </figure>
             </article>
-            <article class="feature">
-              <h3 data-i18n="feat_link_title">应用互联</h3>
-              <p data-i18n="feat_link_body">
-                应用之间可以配合：把一笔记过去，或用到另一个应用里的结果。
-              </p>
+            <article class="feature-row">
+              <div class="feature-copy">
+                <h3 data-i18n="feat_link_title">应用互联</h3>
+                <p data-i18n="feat_link_body">
+                  应用之间可以配合：把一笔记过去，或用到另一个应用里的结果。
+                </p>
+              </div>
+              <figure class="feature-shot">
+                <img
+                  src="/promo/feat-link.jpg"
+                  width="560"
+                  height="720"
+                  alt="一条记录从别的应用送过来"
+                  data-i18n-alt="feat_link_alt"
+                />
+              </figure>
             </article>
+          </div>
+          <div class="feature-cta">
+            <a
+              class="btn btn-primary"
+              href="https://sepzok-intl.pages.dev/"
+              data-i18n="cta_download"
+              >下载</a
+            >
+            <a
+              class="btn btn-ghost"
+              href="https://pay.sepzok.com/pricing"
+              data-i18n="cta_subscribe"
+              >订阅</a
+            >
           </div>
         </div>
       </section>
@@ -194,6 +252,6 @@
         >
       </p>
     </footer>
-    <script src="/site.js?v=20261024b"></script>
+    <script src="/site.js?v=20261024c"></script>
   </body>
 </html>
