@@ -406,6 +406,11 @@
           })
         })
         .then(function (result) {
+          var code = result.data && result.data.error
+          if (code === 'download_unavailable' || code === 'download_unconfigured') {
+            if (downloadStatus) downloadStatus.textContent = t('download_failed')
+            return
+          }
           if (!result.ok || !result.data || !result.data.url) {
             if (downloadStatus) downloadStatus.textContent = t('download_rejected')
             return
