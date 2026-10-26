@@ -11,16 +11,16 @@
       name="description"
       content="随造 Sepzok（原造格 Sepzap）。随心想，随手造。做你自己的 app。"
     />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261025f" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261027a" />
     <meta name="theme-color" content="#eef3f9" />
-    <link rel="stylesheet" href="/styles.css?v=20261025e" />
+    <link rel="stylesheet" href="/styles.css?v=20261027a" />
   </head>
   <body data-desc-key="home_desc" data-title-key="home">
     <header class="site-header">
       <div class="site-header-inner">
         <a class="brand" href="/">
           <span class="brand-mark" aria-hidden="true">
-            <img src="/favicon.svg?v=20261025f" alt="" width="24" height="24" />
+            <img src="/favicon.svg?v=20261027a" alt="" width="24" height="24" />
           </span>
           <span class="brand-name"><span data-i18n="brand_name">随造</span><span class="tm">™</span></span>
         </a>
@@ -48,6 +48,11 @@
       <section class="hero-band">
         <div class="hero-grid">
           <div class="hero-copy">
+            <div
+              class="hero-logo-morph"
+              id="hero-logo-morph"
+              aria-hidden="true"
+            ></div>
             <h1>
               <span data-i18n="home_line1">随心想</span><br />
               <span data-i18n="home_line2">随手造</span>
@@ -241,5 +246,18 @@
       </p>
     </footer>
     <script src="/site.js?v=20261025f"></script>
+    <script type="module">
+      import { mount } from '/logo-morph/sepzok-logo-morph.js'
+      const el = document.getElementById('hero-logo-morph')
+      if (el) {
+        mount(el, {
+          theme: 'light',
+          duration: 2.1,
+          hold: 0.4,
+          loop: false,
+          autoplay: true,
+        })
+      }
+    </script>
   </body>
 </html>

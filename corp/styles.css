@@ -272,6 +272,20 @@ h1 .tm {
   }
 }
 
+.hero-logo-morph {
+  width: min(280px, 92%);
+  max-width: 100%;
+  aspect-ratio: 520 / 140;
+  margin: 0 0 18px;
+  line-height: 0;
+}
+
+.hero-logo-morph.sz-logo-morph-host > .sz-logo-morph {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .hero-copy .status {
   display: inline-flex;
   align-items: center;
