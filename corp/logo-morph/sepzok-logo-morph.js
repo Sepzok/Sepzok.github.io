@@ -38,6 +38,8 @@ const DEFAULTS = {
   autoplay: true,
   theme: 'light',
   showIds: false,
+  /** @type {null | (() => void)} */
+  onComplete: null,
 }
 
 /**
@@ -682,6 +684,13 @@ export function mount(el, opts = {}) {
     if (u >= 1) {
       playing = false
       if (editMode === 'off') paint(1)
+      if (typeof options.onComplete === 'function') {
+        try {
+          options.onComplete()
+        } catch {
+          /* host callback */
+        }
+      }
       if (options.loop) loopTimer = window.setTimeout(() => play(), 700)
       return
     }
@@ -697,6 +706,13 @@ export function mount(el, opts = {}) {
         n.style.opacity = '0'
       })
       paint(1)
+      if (typeof options.onComplete === 'function') {
+        try {
+          options.onComplete()
+        } catch {
+          /* host callback */
+        }
+      }
       return
     }
     startTs = performance.now()

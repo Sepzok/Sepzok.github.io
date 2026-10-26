@@ -612,4 +612,119 @@
   }
 
   applyLocale(locale)
+
+  /**
+   * Header brand: product-icon morph on hover + process-page live status
+   * shine / marquee / trailing dots on the wordmark (dots clear when done).
+   */
+  function setupBrandLogoMorph() {
+    var brand = document.querySelector('a.brand')
+    var mark = brand && brand.querySelector('.brand-mark')
+    var name = brand && brand.querySelector('.brand-name')
+    if (!brand || !mark || !name) return
+    if (name.querySelector('.brand-name-live')) return
+
+    var label = name.innerHTML
+    name.innerHTML =
+      '<span class="brand-name-live">' +
+      '<span class="brand-name-clip">' +
+      '<span class="brand-name-measure" aria-hidden="true"></span>' +
+      '<div class="brand-name-viewport">' +
+      '<div class="brand-name-marquee">' +
+      '<span class="brand-name-copy"><span class="brand-name-text">' +
+      label +
+      '</span></span>' +
+      '</div></div></span>' +
+      '<span class="brand-name-dots" aria-hidden="true">' +
+      '<span></span><span></span><span></span>' +
+      '</span></span>'
+
+    var live = name.querySelector('.brand-name-live')
+    var measure = name.querySelector('.brand-name-measure')
+    var marquee = name.querySelector('.brand-name-marquee')
+    var textEl = name.querySelector('.brand-name-text')
+    var clip = name.querySelector('.brand-name-clip')
+
+    function syncLiveMeasure() {
+      if (!measure || !textEl || !live || !clip) return
+      measure.textContent = textEl.textContent || ''
+      var width = measure.scrollWidth
+      var available = clip.clientWidth || width
+      var overflow = width > available + 1
+      if (overflow) {
+        live.classList.add('is-overflow')
+        if (marquee && marquee.children.length === 1) {
+          var clone = marquee.children[0].cloneNode(true)
+          clone.setAttribute('aria-hidden', 'true')
+          marquee.appendChild(clone)
+        }
+        var sec = Math.max(6, width / 40)
+        marquee.style.animationDuration = sec + 's'
+      } else {
+        live.classList.remove('is-overflow')
+        marquee.style.animationDuration = ''
+        while (marquee && marquee.children.length > 1) {
+          marquee.removeChild(marquee.lastChild)
+        }
+      }
+    }
+
+    function setLive(on) {
+      if (!live) return
+      if (on) live.classList.add('is-live')
+      else {
+        live.classList.remove('is-live')
+        live.classList.remove('is-overflow')
+        if (marquee) {
+          marquee.style.animationDuration = ''
+          while (marquee.children.length > 1) marquee.removeChild(marquee.lastChild)
+        }
+      }
+      if (on) {
+        requestAnimationFrame(syncLiveMeasure)
+      }
+    }
+
+    mark.setAttribute('aria-hidden', 'true')
+    mark.innerHTML = ''
+
+    import('/logo-morph/sepzok-logo-morph.js')
+      .then(function (mod) {
+        var busy = false
+        var anim = mod.mount(mark, {
+          theme: 'light',
+          duration: 2.1,
+          hold: 0.35,
+          loop: false,
+          autoplay: false,
+          onComplete: function () {
+            busy = false
+            mark.classList.remove('is-playing')
+            setLive(false)
+            anim.seek(1)
+          },
+        })
+        anim.seek(1)
+
+        brand.addEventListener('pointerenter', function () {
+          if (busy) return
+          if (
+            window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ) {
+            return
+          }
+          busy = true
+          mark.classList.add('is-playing')
+          setLive(true)
+          anim.play()
+        })
+      })
+      .catch(function () {
+        mark.innerHTML =
+          '<img src="/favicon.svg?v=20261027a" alt="" width="28" height="28" />'
+      })
+  }
+
+  setupBrandLogoMorph()
 })()
