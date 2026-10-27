@@ -110,7 +110,6 @@ a:hover {
   flex-shrink: 0;
   overflow: hidden;
   line-height: 0;
-  transition: width 160ms ease;
 }
 
 .brand-mark img {
@@ -120,17 +119,13 @@ a:hover {
 }
 
 /*
- * Morph host fills the mark. Idle/end use a tight SVG viewBox on the icon;
- * while playing, a wider host + left-crop viewBox shows S/Z without clipping.
+ * Morph host stays 28×28 for play and idle. A locked square viewBox (end
+ * icon) keeps the final frame identical to the static mark.
  */
 .brand-mark.sz-logo-morph-host {
   width: 28px;
   height: 28px;
   position: relative;
-}
-
-.brand-mark.sz-logo-morph-host.is-playing {
-  width: 44px;
 }
 
 .brand-mark.sz-logo-morph-host > .sz-logo-morph {

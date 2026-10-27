@@ -614,9 +614,9 @@
   applyLocale(locale)
 
   /**
-   * Header brand: morph first (wordmark hidden), then reveal full Sepzok with
-   * letter shine 甩尾 (no dots, no marquee clip). SVG viewBox fits the icon
-   * so parent overflow cannot crop mark or text.
+   * Header brand: morph first (wordmark hidden), then reveal Sepzok with
+   * letter shine. Host stays 28×28; one locked square viewBox (end icon)
+   * is used for play and idle so the last frame matches the static mark.
    */
   function setupBrandLogoMorph() {
     var brand = document.querySelector('a.brand')
@@ -627,6 +627,7 @@
 
     var LIVE_MS = 2200
     var liveTimer = 0
+    var iconViewBox = null
     var label = name.innerHTML
     name.innerHTML =
       '<span class="brand-name-live">' +
@@ -666,21 +667,30 @@
       return { minX: minX, minY: minY, maxX: maxX, maxY: maxY }
     }
 
-    function fitSvgView(pad) {
+    /** Square viewBox around the end icon — same for animation and idle. */
+    function captureIconViewBox(pad) {
       var svg = morphSvg()
       if (!svg) return
       var box = layersBBox()
       if (!box) {
-        svg.setAttribute('viewBox', '0 0 520 140')
+        iconViewBox = '0 0 520 140'
+        svg.setAttribute('viewBox', iconViewBox)
         return
       }
-      var p = typeof pad === 'number' ? pad : 6
-      var w = Math.max(1, box.maxX - box.minX + p * 2)
-      var h = Math.max(1, box.maxY - box.minY + p * 2)
-      svg.setAttribute(
-        'viewBox',
-        box.minX - p + ' ' + (box.minY - p) + ' ' + w + ' ' + h,
-      )
+      var p = typeof pad === 'number' ? pad : 8
+      var bw = box.maxX - box.minX
+      var bh = box.maxY - box.minY
+      var side = Math.max(bw, bh) + p * 2
+      var cx = (box.minX + box.maxX) / 2
+      var cy = (box.minY + box.maxY) / 2
+      iconViewBox =
+        cx - side / 2 + ' ' + (cy - side / 2) + ' ' + side + ' ' + side
+      svg.setAttribute('viewBox', iconViewBox)
+    }
+
+    function applyIconViewBox() {
+      var svg = morphSvg()
+      if (svg && iconViewBox) svg.setAttribute('viewBox', iconViewBox)
     }
 
     function setLive(on) {
@@ -718,11 +728,15 @@
             busy = false
             mark.classList.remove('is-playing')
             anim.seek(1)
-            fitSvgView(8)
+            applyIconViewBox()
             brand.classList.remove('is-morphing')
             setLive(true)
           },
         })
+
+        // Lock framing from the end pose before the first play.
+        anim.seek(1)
+        captureIconViewBox(8)
 
         function startPlay() {
           if (busy || reduced) return
@@ -731,14 +745,12 @@
           setLive(false)
           brand.classList.add('is-morphing')
           mark.classList.add('is-playing')
-          var svg = morphSvg()
-          if (svg) svg.setAttribute('viewBox', '0 0 280 140')
+          applyIconViewBox()
           anim.play()
         }
 
         if (reduced) {
-          anim.seek(1)
-          fitSvgView(8)
+          applyIconViewBox()
           brand.classList.remove('is-morphing')
         } else {
           startPlay()
