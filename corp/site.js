@@ -614,9 +614,8 @@
   applyLocale(locale)
 
   /**
-   * Header brand: morph on load + hover. End icon stays on the left S/Z
-   * cluster. Brand text uses one-copy internal marquee + trailing dots
-   * (process-page live line), then clears the dots.
+   * Header brand: morph first (wordmark hidden), then reveal brand text with
+   * one-copy internal marquee + trailing dots; dots clear after a short beat.
    */
   function setupBrandLogoMorph() {
     var brand = document.querySelector('a.brand')
@@ -625,6 +624,8 @@
     if (!brand || !mark || !name) return
     if (name.querySelector('.brand-name-live')) return
 
+    var LIVE_MS = 2200
+    var liveTimer = 0
     var label = name.innerHTML
     name.innerHTML =
       '<span class="brand-name-live">' +
@@ -661,11 +662,15 @@
 
     function setLive(on) {
       if (!live) return
+      window.clearTimeout(liveTimer)
       if (on) {
         live.classList.add('is-live')
         requestAnimationFrame(function () {
           requestAnimationFrame(syncInternalMarquee)
         })
+        liveTimer = window.setTimeout(function () {
+          setLive(false)
+        }, LIVE_MS)
       } else {
         live.classList.remove('is-live')
         live.classList.remove('is-marquee')
@@ -678,6 +683,7 @@
 
     mark.setAttribute('aria-hidden', 'true')
     mark.innerHTML = ''
+    brand.classList.add('is-morphing')
 
     import('/logo-morph/sepzok-logo-morph.js')
       .then(function (mod) {
@@ -696,21 +702,25 @@
           onComplete: function () {
             busy = false
             mark.classList.remove('is-playing')
-            setLive(false)
+            brand.classList.remove('is-morphing')
             anim.seek(1)
+            setLive(true)
           },
         })
 
         function startPlay() {
           if (busy || reduced) return
           busy = true
+          window.clearTimeout(liveTimer)
+          setLive(false)
+          brand.classList.add('is-morphing')
           mark.classList.add('is-playing')
-          setLive(true)
           anim.play()
         }
 
         if (reduced) {
           anim.seek(1)
+          brand.classList.remove('is-morphing')
         } else {
           startPlay()
         }
@@ -718,6 +728,7 @@
         brand.addEventListener('pointerenter', startPlay)
       })
       .catch(function () {
+        brand.classList.remove('is-morphing')
         mark.innerHTML =
           '<img src="/favicon.svg?v=20261027a" alt="" width="28" height="28" />'
       })
