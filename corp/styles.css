@@ -104,7 +104,7 @@ a:hover {
   display: block;
 }
 
-/* Morph host: idle crops to the centered icon; hover play expands for the wordmark. */
+/* Morph host: left-aligned S/Z→icon; idle crops to the icon; play widens for SZ. */
 .brand-mark.sz-logo-morph-host {
   width: 28px;
   height: 28px;
@@ -112,18 +112,13 @@ a:hover {
 }
 
 .brand-mark.sz-logo-morph-host.is-playing {
-  width: 104px;
+  width: 52px;
 }
 
 .brand-mark.sz-logo-morph-host > .sz-logo-morph {
   display: block;
   width: 104px;
   height: 28px;
-  transform: translateX(-38px);
-  transition: transform 180ms ease;
-}
-
-.brand-mark.sz-logo-morph-host.is-playing > .sz-logo-morph {
   transform: none;
 }
 
@@ -153,11 +148,10 @@ a:hover {
   max-width: 100%;
 }
 
-.brand-name-measure {
-  position: absolute;
-  visibility: hidden;
-  white-space: nowrap;
-  pointer-events: none;
+/* One Sepzok (or 随造): clip narrower than the word and scroll the same string. */
+.brand-name-live.is-live .brand-name-clip {
+  width: 2.55em;
+  max-width: 2.55em;
 }
 
 .brand-name-viewport {
@@ -166,18 +160,16 @@ a:hover {
 }
 
 .brand-name-marquee {
-  display: inline-flex;
+  display: block;
   width: max-content;
+  will-change: transform;
 }
 
-.brand-name-live.is-overflow .brand-name-marquee {
-  animation-name: brand-name-marquee;
+.brand-name-live.is-marquee .brand-name-marquee {
+  animation-name: brand-name-marquee-internal;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-}
-
-.brand-name-live.is-overflow .brand-name-copy {
-  padding-right: 2.5em;
+  animation-direction: alternate;
 }
 
 .brand-name-text {
@@ -262,23 +254,22 @@ a:hover {
   }
 }
 
-@keyframes brand-name-marquee {
+@keyframes brand-name-marquee-internal {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(var(--brand-travel, 0px));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .brand-mark,
-  .brand-mark.sz-logo-morph-host > .sz-logo-morph {
+  .brand-mark {
     transition: none;
   }
 
   .brand-name-live.is-live .brand-name-text,
-  .brand-name-live.is-overflow .brand-name-marquee,
+  .brand-name-live.is-marquee .brand-name-marquee,
   .brand-name-dots span {
     animation: none;
   }

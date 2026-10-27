@@ -614,8 +614,9 @@
   applyLocale(locale)
 
   /**
-   * Header brand: product-icon morph on hover + process-page live status
-   * shine / marquee / trailing dots on the wordmark (dots clear when done).
+   * Header brand: morph on load + hover. End icon stays on the left S/Z
+   * cluster. Brand text uses one-copy internal marquee + trailing dots
+   * (process-page live line), then clears the dots.
    */
   function setupBrandLogoMorph() {
     var brand = document.querySelector('a.brand')
@@ -628,60 +629,50 @@
     name.innerHTML =
       '<span class="brand-name-live">' +
       '<span class="brand-name-clip">' +
-      '<span class="brand-name-measure" aria-hidden="true"></span>' +
       '<div class="brand-name-viewport">' +
       '<div class="brand-name-marquee">' +
-      '<span class="brand-name-copy"><span class="brand-name-text">' +
+      '<span class="brand-name-text">' +
       label +
-      '</span></span>' +
-      '</div></div></span>' +
+      '</span></div></div></span>' +
       '<span class="brand-name-dots" aria-hidden="true">' +
       '<span></span><span></span><span></span>' +
       '</span></span>'
 
     var live = name.querySelector('.brand-name-live')
-    var measure = name.querySelector('.brand-name-measure')
     var marquee = name.querySelector('.brand-name-marquee')
     var textEl = name.querySelector('.brand-name-text')
     var clip = name.querySelector('.brand-name-clip')
 
-    function syncLiveMeasure() {
-      if (!measure || !textEl || !live || !clip) return
-      measure.textContent = textEl.textContent || ''
-      var width = measure.scrollWidth
-      var available = clip.clientWidth || width
-      var overflow = width > available + 1
-      if (overflow) {
-        live.classList.add('is-overflow')
-        if (marquee && marquee.children.length === 1) {
-          var clone = marquee.children[0].cloneNode(true)
-          clone.setAttribute('aria-hidden', 'true')
-          marquee.appendChild(clone)
-        }
-        var sec = Math.max(6, width / 40)
-        marquee.style.animationDuration = sec + 's'
-      } else {
-        live.classList.remove('is-overflow')
+    function syncInternalMarquee() {
+      if (!textEl || !live || !clip || !marquee) return
+      var textW = textEl.scrollWidth
+      var clipW = clip.clientWidth
+      var travel = clipW - textW
+      if (travel >= -1) {
+        live.classList.remove('is-marquee')
+        marquee.style.removeProperty('--brand-travel')
         marquee.style.animationDuration = ''
-        while (marquee && marquee.children.length > 1) {
-          marquee.removeChild(marquee.lastChild)
-        }
+        return
       }
+      marquee.style.setProperty('--brand-travel', travel + 'px')
+      marquee.style.animationDuration = Math.max(1.1, Math.abs(travel) / 26) + 's'
+      live.classList.add('is-marquee')
     }
 
     function setLive(on) {
       if (!live) return
-      if (on) live.classList.add('is-live')
-      else {
-        live.classList.remove('is-live')
-        live.classList.remove('is-overflow')
-        if (marquee) {
-          marquee.style.animationDuration = ''
-          while (marquee.children.length > 1) marquee.removeChild(marquee.lastChild)
-        }
-      }
       if (on) {
-        requestAnimationFrame(syncLiveMeasure)
+        live.classList.add('is-live')
+        requestAnimationFrame(function () {
+          requestAnimationFrame(syncInternalMarquee)
+        })
+      } else {
+        live.classList.remove('is-live')
+        live.classList.remove('is-marquee')
+        if (marquee) {
+          marquee.style.removeProperty('--brand-travel')
+          marquee.style.animationDuration = ''
+        }
       }
     }
 
@@ -691,12 +682,17 @@
     import('/logo-morph/sepzok-logo-morph.js')
       .then(function (mod) {
         var busy = false
+        var reduced =
+          window.matchMedia &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
         var anim = mod.mount(mark, {
           theme: 'light',
           duration: 2.1,
           hold: 0.35,
           loop: false,
           autoplay: false,
+          logoPlacement: 'left',
           onComplete: function () {
             busy = false
             mark.classList.remove('is-playing')
@@ -704,21 +700,22 @@
             anim.seek(1)
           },
         })
-        anim.seek(1)
 
-        brand.addEventListener('pointerenter', function () {
-          if (busy) return
-          if (
-            window.matchMedia &&
-            window.matchMedia('(prefers-reduced-motion: reduce)').matches
-          ) {
-            return
-          }
+        function startPlay() {
+          if (busy || reduced) return
           busy = true
           mark.classList.add('is-playing')
           setLive(true)
           anim.play()
-        })
+        }
+
+        if (reduced) {
+          anim.seek(1)
+        } else {
+          startPlay()
+        }
+
+        brand.addEventListener('pointerenter', startPlay)
       })
       .catch(function () {
         mark.innerHTML =

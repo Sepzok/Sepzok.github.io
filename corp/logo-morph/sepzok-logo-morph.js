@@ -38,6 +38,13 @@ const DEFAULTS = {
   autoplay: true,
   theme: 'light',
   showIds: false,
+  /**
+   * Where the favicon end pose sits in the view.
+   * `center` — default studio / preview.
+   * `left` — keep the end icon on the approached S+Z cluster (no slide to mid).
+   * @type {'center' | 'left'}
+   */
+  logoPlacement: 'center',
   /** @type {null | (() => void)} */
   onComplete: null,
 }
@@ -178,11 +185,40 @@ function lerpVertMap(a, b, t) {
   return out
 }
 
-function shiftVertMap(verts, dx) {
+function shiftVertMap(verts, dx, dy = 0, n = 12) {
   /** @type {Record<number, [number, number]>} */
   const out = {}
-  for (let i = 1; i <= 12; i++) out[i] = [verts[i][0] + dx, verts[i][1]]
+  for (let i = 1; i <= n; i++) {
+    if (!verts[i]) continue
+    out[i] = [verts[i][0] + dx, verts[i][1] + dy]
+  }
   return out
+}
+
+/** Axis-aligned extent of 1…n verts across one or more maps. */
+function vertsExtent(maps, n) {
+  let minX = Infinity
+  let maxX = -Infinity
+  let minY = Infinity
+  let maxY = -Infinity
+  for (const m of maps) {
+    for (let i = 1; i <= n; i++) {
+      const p = m[i]
+      if (!p) continue
+      if (p[0] < minX) minX = p[0]
+      if (p[0] > maxX) maxX = p[0]
+      if (p[1] < minY) minY = p[1]
+      if (p[1] > maxY) maxY = p[1]
+    }
+  }
+  return {
+    minX,
+    maxX,
+    minY,
+    maxY,
+    cx: (minX + maxX) / 2,
+    cy: (minY + maxY) / 2,
+  }
 }
 
 function glyphOriginX(el, fallbackX) {
@@ -390,6 +426,18 @@ export function mount(el, opts = {}) {
     const gap = zOriginX - (sOriginX + sLayout.advance)
     return gap > 0 ? -gap * 0.88 : (sOriginX - zOriginX) * 0.45
   })()
+
+  // Pin favicon end pose on the approached S+Z cluster so shape morph
+  // does not slide the pair toward the canvas mid.
+  if (options.logoPlacement === 'left') {
+    const approachedZ = shiftVertMap(letterZ, zApproachDx)
+    const approach = vertsExtent([straightS.verts, approachedZ], 12)
+    const logo = vertsExtent([endL, endR], 9)
+    const dx = approach.cx - logo.cx
+    const dy = approach.cy - logo.cy
+    endL = shiftVertMap(endL, dx, dy, 9)
+    endR = shiftVertMap(endR, dx, dy, 9)
+  }
 
   // Rebuild cut + morph quads aligned to measured glyph origins.
   if (cutLayer) {
