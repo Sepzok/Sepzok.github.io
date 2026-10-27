@@ -72,6 +72,7 @@ a:hover {
   justify-content: space-between;
   gap: 20px;
   padding-block: 10px;
+  overflow: visible;
 }
 
 .brand {
@@ -79,10 +80,12 @@ a:hover {
   align-items: center;
   gap: 12px;
   flex: none;
+  flex-shrink: 0;
   color: inherit;
   text-decoration: none;
   white-space: nowrap;
-  min-width: 0;
+  min-width: max-content;
+  overflow: visible;
 }
 
 /* Hide wordmark while the icon morph plays so it cannot cover the mark. */
@@ -104,9 +107,10 @@ a:hover {
   background: transparent;
   display: block;
   flex: none;
+  flex-shrink: 0;
   overflow: hidden;
   line-height: 0;
-  transition: width 180ms ease;
+  transition: width 160ms ease;
 }
 
 .brand-mark img {
@@ -115,7 +119,10 @@ a:hover {
   display: block;
 }
 
-/* Morph host: left-aligned S/Z→icon; idle crops to the icon; play widens for SZ. */
+/*
+ * Morph host fills the mark. Idle/end use a tight SVG viewBox on the icon;
+ * while playing, a wider host + left-crop viewBox shows S/Z without clipping.
+ */
 .brand-mark.sz-logo-morph-host {
   width: 28px;
   height: 28px;
@@ -123,14 +130,13 @@ a:hover {
 }
 
 .brand-mark.sz-logo-morph-host.is-playing {
-  width: 52px;
+  width: 44px;
 }
 
 .brand-mark.sz-logo-morph-host > .sz-logo-morph {
   display: block;
-  width: 104px;
-  height: 28px;
-  transform: none;
+  width: 100%;
+  height: 100%;
 }
 
 .brand-name {
@@ -138,49 +144,18 @@ a:hover {
   font-size: 16px;
   font-weight: 650;
   letter-spacing: -0.01em;
-  min-width: 0;
+  flex: none;
+  flex-shrink: 0;
+  min-width: max-content;
+  overflow: visible;
 }
 
 .brand-name-live {
   --brand-live-wave: 1.6s;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-width: 0;
-  max-width: 12rem;
-}
-
-.brand-name-clip {
-  position: relative;
-  min-width: 0;
-  overflow: hidden;
-  flex: 0 1 auto;
-  width: max-content;
-  max-width: 100%;
-}
-
-/* One Sepzok (or 随造): clip narrower than the word and scroll the same string. */
-.brand-name-live.is-live .brand-name-clip {
-  width: 2.55em;
-  max-width: 2.55em;
-}
-
-.brand-name-viewport {
-  height: 1.35em;
-  overflow: hidden;
-}
-
-.brand-name-marquee {
-  display: block;
-  width: max-content;
-  will-change: transform;
-}
-
-.brand-name-live.is-marquee .brand-name-marquee {
-  animation-name: brand-name-marquee-internal;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  min-width: max-content;
+  overflow: visible;
 }
 
 .brand-name-text {
@@ -188,6 +163,7 @@ a:hover {
   white-space: nowrap;
 }
 
+/* Letter shine = 甩尾 on Sepzok itself (no dots, no marquee clip). */
 .brand-name-live.is-live .brand-name-text {
   color: transparent;
   background-image: linear-gradient(
@@ -207,35 +183,6 @@ a:hover {
   animation: brand-name-shine var(--brand-live-wave) linear infinite;
 }
 
-.brand-name-dots {
-  display: none;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
-.brand-name-live.is-live .brand-name-dots {
-  display: inline-flex;
-}
-
-.brand-name-dots span {
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.35;
-  animation: brand-name-ripple var(--brand-live-wave) ease-out infinite;
-  animation-delay: calc(var(--brand-live-wave) * 0.56);
-}
-
-.brand-name-dots span:nth-child(2) {
-  animation-delay: calc(var(--brand-live-wave) * 0.6);
-}
-
-.brand-name-dots span:nth-child(3) {
-  animation-delay: calc(var(--brand-live-wave) * 0.64);
-}
-
 @keyframes brand-name-shine {
   0% {
     background-position: 100% 0;
@@ -252,48 +199,17 @@ a:hover {
   }
 }
 
-@keyframes brand-name-ripple {
-  0%,
-  8% {
-    opacity: 1;
-    transform: translateY(-3px) scale(1.18);
-  }
-  22%,
-  100% {
-    opacity: 0.35;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes brand-name-marquee-internal {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(var(--brand-travel, 0px));
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .brand-mark {
     transition: none;
   }
 
-  .brand-name-live.is-live .brand-name-text,
-  .brand-name-live.is-marquee .brand-name-marquee,
-  .brand-name-dots span {
-    animation: none;
-  }
-
   .brand-name-live.is-live .brand-name-text {
+    animation: none;
     color: inherit;
     background-image: none;
     background-clip: unset;
     -webkit-background-clip: unset;
-  }
-
-  .brand-name-live.is-live .brand-name-dots {
-    display: none;
   }
 }
 

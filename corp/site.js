@@ -614,8 +614,9 @@
   applyLocale(locale)
 
   /**
-   * Header brand: morph first (wordmark hidden), then reveal brand text with
-   * one-copy internal marquee + trailing dots; dots clear after a short beat.
+   * Header brand: morph first (wordmark hidden), then reveal full Sepzok with
+   * letter shine 甩尾 (no dots, no marquee clip). SVG viewBox fits the icon
+   * so parent overflow cannot crop mark or text.
    */
   function setupBrandLogoMorph() {
     var brand = document.querySelector('a.brand')
@@ -629,35 +630,57 @@
     var label = name.innerHTML
     name.innerHTML =
       '<span class="brand-name-live">' +
-      '<span class="brand-name-clip">' +
-      '<div class="brand-name-viewport">' +
-      '<div class="brand-name-marquee">' +
       '<span class="brand-name-text">' +
       label +
-      '</span></div></div></span>' +
-      '<span class="brand-name-dots" aria-hidden="true">' +
-      '<span></span><span></span><span></span>' +
       '</span></span>'
 
     var live = name.querySelector('.brand-name-live')
-    var marquee = name.querySelector('.brand-name-marquee')
-    var textEl = name.querySelector('.brand-name-text')
-    var clip = name.querySelector('.brand-name-clip')
 
-    function syncInternalMarquee() {
-      if (!textEl || !live || !clip || !marquee) return
-      var textW = textEl.scrollWidth
-      var clipW = clip.clientWidth
-      var travel = clipW - textW
-      if (travel >= -1) {
-        live.classList.remove('is-marquee')
-        marquee.style.removeProperty('--brand-travel')
-        marquee.style.animationDuration = ''
+    function morphSvg() {
+      return mark.querySelector('svg.sz-logo-morph')
+    }
+
+    function layersBBox() {
+      var nodes = mark.querySelectorAll(
+        '[data-layer="s"] path, [data-layer="z"] polygon',
+      )
+      var minX = Infinity
+      var minY = Infinity
+      var maxX = -Infinity
+      var maxY = -Infinity
+      var hit = false
+      for (var i = 0; i < nodes.length; i += 1) {
+        try {
+          var b = nodes[i].getBBox()
+          if (!b.width && !b.height) continue
+          hit = true
+          if (b.x < minX) minX = b.x
+          if (b.y < minY) minY = b.y
+          if (b.x + b.width > maxX) maxX = b.x + b.width
+          if (b.y + b.height > maxY) maxY = b.y + b.height
+        } catch (err) {
+          /* not rendered yet */
+        }
+      }
+      if (!hit) return null
+      return { minX: minX, minY: minY, maxX: maxX, maxY: maxY }
+    }
+
+    function fitSvgView(pad) {
+      var svg = morphSvg()
+      if (!svg) return
+      var box = layersBBox()
+      if (!box) {
+        svg.setAttribute('viewBox', '0 0 520 140')
         return
       }
-      marquee.style.setProperty('--brand-travel', travel + 'px')
-      marquee.style.animationDuration = Math.max(1.1, Math.abs(travel) / 26) + 's'
-      live.classList.add('is-marquee')
+      var p = typeof pad === 'number' ? pad : 6
+      var w = Math.max(1, box.maxX - box.minX + p * 2)
+      var h = Math.max(1, box.maxY - box.minY + p * 2)
+      svg.setAttribute(
+        'viewBox',
+        box.minX - p + ' ' + (box.minY - p) + ' ' + w + ' ' + h,
+      )
     }
 
     function setLive(on) {
@@ -665,19 +688,11 @@
       window.clearTimeout(liveTimer)
       if (on) {
         live.classList.add('is-live')
-        requestAnimationFrame(function () {
-          requestAnimationFrame(syncInternalMarquee)
-        })
         liveTimer = window.setTimeout(function () {
           setLive(false)
         }, LIVE_MS)
       } else {
         live.classList.remove('is-live')
-        live.classList.remove('is-marquee')
-        if (marquee) {
-          marquee.style.removeProperty('--brand-travel')
-          marquee.style.animationDuration = ''
-        }
       }
     }
 
@@ -702,8 +717,9 @@
           onComplete: function () {
             busy = false
             mark.classList.remove('is-playing')
-            brand.classList.remove('is-morphing')
             anim.seek(1)
+            fitSvgView(8)
+            brand.classList.remove('is-morphing')
             setLive(true)
           },
         })
@@ -715,11 +731,14 @@
           setLive(false)
           brand.classList.add('is-morphing')
           mark.classList.add('is-playing')
+          var svg = morphSvg()
+          if (svg) svg.setAttribute('viewBox', '0 0 280 140')
           anim.play()
         }
 
         if (reduced) {
           anim.seek(1)
+          fitSvgView(8)
           brand.classList.remove('is-morphing')
         } else {
           startPlay()
