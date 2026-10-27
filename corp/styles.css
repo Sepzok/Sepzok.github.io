@@ -119,8 +119,8 @@ a:hover {
 }
 
 /*
- * Morph host stays 28×28 for play and idle. A locked square viewBox (end
- * icon) keeps the final frame identical to the static mark.
+ * Idle / end: 28×28 with a square icon viewBox.
+ * Playing: JS widens the host to the play viewBox aspect so S/Z are not clipped.
  */
 .brand-mark.sz-logo-morph-host {
   width: 28px;
@@ -132,6 +132,7 @@ a:hover {
   display: block;
   width: 100%;
   height: 100%;
+  overflow: visible;
 }
 
 .brand-name {

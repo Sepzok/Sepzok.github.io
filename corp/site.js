@@ -615,8 +615,8 @@
 
   /**
    * Header brand: morph first (wordmark hidden), then reveal Sepzok with
-   * letter shine. Host stays 28×28; one locked square viewBox (end icon)
-   * is used for play and idle so the last frame matches the static mark.
+   * letter shine. Play uses a wide viewBox so S/Z are fully visible; idle
+   * uses a square icon viewBox in 28×28 so the end frame matches static.
    */
   function setupBrandLogoMorph() {
     var brand = document.querySelector('a.brand')
@@ -625,9 +625,12 @@
     if (!brand || !mark || !name) return
     if (name.querySelector('.brand-name-live')) return
 
+    var MARK_H = 28
     var LIVE_MS = 2200
     var liveTimer = 0
     var iconViewBox = null
+    var playViewBox = null
+    var playHostWidth = MARK_H
     var label = name.innerHTML
     name.innerHTML =
       '<span class="brand-name-live">' +
@@ -667,30 +670,97 @@
       return { minX: minX, minY: minY, maxX: maxX, maxY: maxY }
     }
 
-    /** Square viewBox around the end icon — same for animation and idle. */
-    function captureIconViewBox(pad) {
-      var svg = morphSvg()
-      if (!svg) return
-      var box = layersBBox()
-      if (!box) {
-        iconViewBox = '0 0 520 140'
-        svg.setAttribute('viewBox', iconViewBox)
-        return
+    function unionBox(a, b) {
+      if (!a) return b
+      if (!b) return a
+      return {
+        minX: Math.min(a.minX, b.minX),
+        minY: Math.min(a.minY, b.minY),
+        maxX: Math.max(a.maxX, b.maxX),
+        maxY: Math.max(a.maxY, b.maxY),
       }
+    }
+
+    function boxToViewBox(box, pad) {
+      var p = typeof pad === 'number' ? pad : 10
+      return (
+        box.minX -
+        p +
+        ' ' +
+        (box.minY - p) +
+        ' ' +
+        Math.max(1, box.maxX - box.minX + p * 2) +
+        ' ' +
+        Math.max(1, box.maxY - box.minY + p * 2)
+      )
+    }
+
+    function squareViewBox(box, pad) {
       var p = typeof pad === 'number' ? pad : 8
       var bw = box.maxX - box.minX
       var bh = box.maxY - box.minY
       var side = Math.max(bw, bh) + p * 2
       var cx = (box.minX + box.maxX) / 2
       var cy = (box.minY + box.maxY) / 2
-      iconViewBox =
-        cx - side / 2 + ' ' + (cy - side / 2) + ' ' + side + ' ' + side
-      svg.setAttribute('viewBox', iconViewBox)
+      return cx - side / 2 + ' ' + (cy - side / 2) + ' ' + side + ' ' + side
     }
 
-    function applyIconViewBox() {
+    function parseViewBox(vb) {
+      var p = String(vb || '')
+        .trim()
+        .split(/[\s,]+/)
+        .map(Number)
+      if (p.length < 4 || p.some(function (n) { return !isFinite(n) })) return null
+      return { x: p[0], y: p[1], w: p[2], h: p[3] }
+    }
+
+    function applyViewBox(vb) {
       var svg = morphSvg()
-      if (svg && iconViewBox) svg.setAttribute('viewBox', iconViewBox)
+      if (svg && vb) svg.setAttribute('viewBox', vb)
+    }
+
+    function setPlayingFrame(on) {
+      if (on) {
+        mark.classList.add('is-playing')
+        applyViewBox(playViewBox)
+        mark.style.width = playHostWidth + 'px'
+      } else {
+        mark.classList.remove('is-playing')
+        applyViewBox(iconViewBox)
+        mark.style.width = ''
+      }
+    }
+
+    /** Sample morph frames so play framing covers the full S/Z motion. */
+    function captureFrames(anim) {
+      var samples = [0, 0.2, 0.4, 0.55, 0.7, 0.85, 1]
+      var playBox = null
+      var endBox = null
+      for (var i = 0; i < samples.length; i += 1) {
+        anim.seek(samples[i])
+        var box = layersBBox()
+        playBox = unionBox(playBox, box)
+        if (samples[i] >= 1) endBox = box
+      }
+      if (!endBox) {
+        anim.seek(1)
+        endBox = layersBBox()
+      }
+      if (!playBox) playBox = endBox
+      if (!endBox) {
+        iconViewBox = '0 0 520 140'
+        playViewBox = iconViewBox
+        playHostWidth = MARK_H
+        return
+      }
+      iconViewBox = squareViewBox(endBox, 8)
+      playViewBox = boxToViewBox(playBox, 14)
+      var parsed = parseViewBox(playViewBox)
+      playHostWidth = parsed
+        ? Math.max(MARK_H, Math.ceil(MARK_H * (parsed.w / parsed.h)))
+        : MARK_H
+      // Keep play host from getting huge on wide wordmark frames.
+      playHostWidth = Math.min(playHostWidth, 120)
     }
 
     function setLive(on) {
@@ -726,17 +796,15 @@
           logoPlacement: 'left',
           onComplete: function () {
             busy = false
-            mark.classList.remove('is-playing')
             anim.seek(1)
-            applyIconViewBox()
+            setPlayingFrame(false)
             brand.classList.remove('is-morphing')
             setLive(true)
           },
         })
 
-        // Lock framing from the end pose before the first play.
-        anim.seek(1)
-        captureIconViewBox(8)
+        captureFrames(anim)
+        applyViewBox(iconViewBox)
 
         function startPlay() {
           if (busy || reduced) return
@@ -744,13 +812,12 @@
           window.clearTimeout(liveTimer)
           setLive(false)
           brand.classList.add('is-morphing')
-          mark.classList.add('is-playing')
-          applyIconViewBox()
+          setPlayingFrame(true)
           anim.play()
         }
 
         if (reduced) {
-          applyIconViewBox()
+          setPlayingFrame(false)
           brand.classList.remove('is-morphing')
         } else {
           startPlay()
@@ -760,6 +827,7 @@
       })
       .catch(function () {
         brand.classList.remove('is-morphing')
+        mark.style.width = ''
         mark.innerHTML =
           '<img src="/favicon.svg?v=20261027a" alt="" width="28" height="28" />'
       })
