@@ -37,6 +37,9 @@
   if (FEATURES.langSwitch) root.classList.add('feat-lang')
   if (FEATURES.openSource) root.classList.add('feat-oss')
 
+  /** Set by setupBrandLogoMorph — rebuild letter spans after locale text swap. */
+  var syncBrandNameChars = null
+
   var path = location.pathname || '/'
   if (
     !FEATURES.openSource &&
@@ -469,6 +472,7 @@
     bindFeatureShots()
     bindFilmSource()
     syncFilm()
+    if (typeof syncBrandNameChars === 'function') syncBrandNameChars()
     var video = document.querySelector('[data-promo]')
     if (
       video &&
@@ -616,7 +620,8 @@
   /**
    * Header brand: idle = real favicon (exact product icon). On load/hover,
    * hide favicon and play morph in a wider overflow-visible frame so S/Z
-   * are not clipped; when done, show favicon again and shine the wordmark.
+   * are not clipped; when done, reveal Sepzok/随造 letter-by-letter, then
+   * one trailing shine.
    */
   function setupBrandLogoMorph() {
     var brand = document.querySelector('a.brand')
@@ -626,18 +631,80 @@
     if (name.querySelector('.brand-name-live')) return
 
     var MARK_H = 28
-    var LIVE_MS = 2200
+    var CHAR_STAGGER_MS = 70
+    var CHAR_IN_MS = 320
+    var SHINE_MS = 1100
     var liveTimer = 0
     /** Full-motion viewBox + CSS size/offset so end icon = 28×28 slot. */
     var playLayout = null
-    var label = name.innerHTML
+
     name.innerHTML =
       '<span class="brand-name-live">' +
-      '<span class="brand-name-text">' +
-      label +
-      '</span></span>'
+      '<span class="brand-name-chars" aria-hidden="true"></span>' +
+      '<span class="tm">™</span></span>'
 
     var live = name.querySelector('.brand-name-live')
+    var charsHost = name.querySelector('.brand-name-chars')
+    var tmEl = name.querySelector('.tm')
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+    }
+
+    function buildBrandChars(text) {
+      var chars = Array.from(String(text || ''))
+      var html = ''
+      for (var i = 0; i < chars.length; i += 1) {
+        html +=
+          '<span class="brand-name-char" style="--i:' +
+          i +
+          '">' +
+          escapeHtml(chars[i]) +
+          '</span>'
+      }
+      return { html: html, count: chars.length }
+    }
+
+    function syncBrandChars() {
+      var built = buildBrandChars(t('brand_name'))
+      charsHost.innerHTML = built.html
+      if (tmEl) tmEl.style.setProperty('--i', String(built.count))
+      name.setAttribute('aria-label', t('brand_name') + '™')
+      live.classList.remove('is-revealing', 'is-live', 'is-shown')
+    }
+
+    syncBrandNameChars = syncBrandChars
+    syncBrandChars()
+
+    function resetNameEntrance() {
+      window.clearTimeout(liveTimer)
+      live.classList.remove('is-revealing', 'is-live', 'is-shown')
+    }
+
+    function playNameEntrance() {
+      if (!live) return
+      window.clearTimeout(liveTimer)
+      live.classList.remove('is-revealing', 'is-live', 'is-shown')
+      void live.offsetWidth
+      var n = charsHost.querySelectorAll('.brand-name-char').length
+      // ™ shares the last stagger slot after the final letter.
+      var steps = n + (tmEl ? 1 : 0)
+      live.classList.add('is-revealing')
+      var revealMs = Math.max(0, steps - 1) * CHAR_STAGGER_MS + CHAR_IN_MS
+      liveTimer = window.setTimeout(function () {
+        live.classList.add('is-shown')
+        live.classList.add('is-live')
+        liveTimer = window.setTimeout(function () {
+          live.classList.remove('is-live')
+          live.classList.remove('is-revealing')
+        }, SHINE_MS)
+      }, revealMs)
+    }
+
     var favHref = '/favicon.svg?v=20261027a'
     mark.setAttribute('aria-hidden', 'true')
     mark.innerHTML =
@@ -770,19 +837,6 @@
       }
     }
 
-    function setLive(on) {
-      if (!live) return
-      window.clearTimeout(liveTimer)
-      if (on) {
-        live.classList.add('is-live')
-        liveTimer = window.setTimeout(function () {
-          setLive(false)
-        }, LIVE_MS)
-      } else {
-        live.classList.remove('is-live')
-      }
-    }
-
     brand.classList.add('is-morphing')
 
     import('/logo-morph/sepzok-logo-morph.js')
@@ -804,7 +858,11 @@
             anim.seek(1)
             setPlayingFrame(false)
             brand.classList.remove('is-morphing')
-            setLive(true)
+            if (reduced) {
+              live.classList.add('is-shown')
+            } else {
+              playNameEntrance()
+            }
           },
         })
         // Overlay on the 28×28 slot (mount must not leave relative flow).
@@ -817,8 +875,7 @@
         function startPlay() {
           if (busy || reduced) return
           busy = true
-          window.clearTimeout(liveTimer)
-          setLive(false)
+          resetNameEntrance()
           brand.classList.add('is-morphing')
           setPlayingFrame(true)
           anim.play()
@@ -827,6 +884,7 @@
         if (reduced) {
           setPlayingFrame(false)
           brand.classList.remove('is-morphing')
+          live.classList.add('is-shown')
         } else {
           startPlay()
         }
@@ -837,6 +895,7 @@
         brand.classList.remove('is-morphing')
         brand.classList.remove('is-playing')
         mark.classList.remove('is-playing')
+        live.classList.add('is-shown')
         if (morphHost) morphHost.remove()
       })
   }

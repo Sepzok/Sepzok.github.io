@@ -178,51 +178,65 @@ a:hover {
 }
 
 .brand-name-live {
-  --brand-live-wave: 1.6s;
+  --brand-char-stagger: 70ms;
+  --brand-char-in: 320ms;
+  --brand-shine: 1.1s;
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   min-width: max-content;
   overflow: visible;
 }
 
-.brand-name-text {
-  display: inline-block;
+.brand-name-chars {
+  display: inline-flex;
+  align-items: baseline;
   white-space: nowrap;
 }
 
-/* Letter shine = 甩尾 on Sepzok itself (no dots, no marquee clip). */
-.brand-name-live.is-live .brand-name-text {
-  color: transparent;
-  background-image: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--muted) 62%, var(--paper)) 0%,
-    color-mix(in srgb, var(--muted) 62%, var(--paper)) 36%,
-    var(--ink) 44%,
-    color-mix(in srgb, var(--accent) 78%, var(--ink)) 50%,
-    var(--ink) 56%,
-    color-mix(in srgb, var(--muted) 62%, var(--paper)) 64%,
-    color-mix(in srgb, var(--muted) 62%, var(--paper)) 100%
-  );
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: brand-name-shine var(--brand-live-wave) linear infinite;
+.brand-name-char,
+.brand-name-live > .tm {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.28em);
+  will-change: opacity, transform, color;
 }
 
-@keyframes brand-name-shine {
+/* After entrance (or reduced-motion): stay visible. */
+.brand-name-live.is-shown .brand-name-char,
+.brand-name-live.is-shown > .tm {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered letter-in after morph. */
+.brand-name-live.is-revealing .brand-name-char,
+.brand-name-live.is-revealing > .tm {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--brand-char-in) ease,
+    transform var(--brand-char-in) ease;
+  transition-delay: calc(var(--i, 0) * var(--brand-char-stagger));
+}
+
+/* One trailing shine across letters (not infinite). */
+.brand-name-live.is-live .brand-name-char {
+  animation: brand-char-shine var(--brand-shine) ease both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@keyframes brand-char-shine {
   0% {
-    background-position: 100% 0;
+    color: var(--ink);
   }
-  40% {
-    background-position: 35% 0;
+  28% {
+    color: color-mix(in srgb, var(--accent) 72%, var(--ink));
   }
-  56% {
-    background-position: 0% 0;
+  55% {
+    color: var(--ink);
   }
-  70%,
   100% {
-    background-position: -45% 0;
+    color: var(--ink);
   }
 }
 
@@ -231,12 +245,15 @@ a:hover {
     transition: none;
   }
 
-  .brand-name-live.is-live .brand-name-text {
+  .brand-name-char,
+  .brand-name-live > .tm {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .brand-name-live.is-live .brand-name-char {
     animation: none;
-    color: inherit;
-    background-image: none;
-    background-clip: unset;
-    -webkit-background-clip: unset;
   }
 }
 
