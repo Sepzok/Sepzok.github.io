@@ -386,7 +386,11 @@ export function mount(el, opts = {}) {
   el.innerHTML = `${buildSvg(options.theme)}<div class="sz-id-overlay" aria-hidden="true"></div>`
   el.classList.add('sz-logo-morph-host')
   if (!el.style.display) el.style.display = 'block'
-  el.style.position = el.style.position || 'relative'
+  // Keep host CSS positioning (e.g. absolute overlay). Only lift static.
+  if (!el.style.position) {
+    const pos = typeof getComputedStyle === 'function' ? getComputedStyle(el).position : 'static'
+    if (!pos || pos === 'static') el.style.position = 'relative'
+  }
   el.style.lineHeight = '0'
 
   const svg = /** @type {SVGSVGElement} */ (el.querySelector('svg'))

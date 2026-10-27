@@ -57,10 +57,21 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 40;
+  overflow: visible;
   background: color-mix(in srgb, var(--paper) 86%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+}
+
+/*
+ * backdrop-filter makes the header a clip container in Blink/WebKit.
+ * Drop blur while the morph paints outside the 28px slot.
+ */
+.site-header:has(.brand.is-playing) {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: var(--paper);
 }
 
 .site-header-inner {
@@ -76,6 +87,7 @@ a:hover {
 }
 
 .brand {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -86,6 +98,11 @@ a:hover {
   white-space: nowrap;
   min-width: max-content;
   overflow: visible;
+}
+
+/* Morph may paint outside the 28px slot — keep above nav while playing. */
+.brand.is-playing {
+  z-index: 5;
 }
 
 /* Hide wordmark while the icon morph plays so it cannot cover the mark. */
@@ -99,7 +116,12 @@ a:hover {
   pointer-events: none;
 }
 
+/*
+ * Idle = real favicon (exact product icon). Playing = morph SVG is sized/
+ * offset so the end pose sits on this 28×28 slot; overflow paints S/Z outside.
+ */
 .brand-mark {
+  position: relative;
   width: 28px;
   height: 28px;
   border: 0;
@@ -108,27 +130,36 @@ a:hover {
   display: block;
   flex: none;
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: visible;
   line-height: 0;
 }
 
-.brand-mark img {
+.brand-mark-static {
   width: 28px;
   height: 28px;
   display: block;
 }
 
-/*
- * Idle / end: 28×28 with a square icon viewBox.
- * Playing: JS widens the host to the play viewBox aspect so S/Z are not clipped.
- */
-.brand-mark.sz-logo-morph-host {
-  width: 28px;
-  height: 28px;
-  position: relative;
+.brand-mark-morph {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  overflow: visible;
+  line-height: 0;
+  pointer-events: none;
 }
 
-.brand-mark.sz-logo-morph-host > .sz-logo-morph {
+.brand-mark.is-playing .brand-mark-static {
+  visibility: hidden;
+}
+
+.brand-mark.is-playing .brand-mark-morph {
+  display: block;
+  overflow: visible;
+}
+
+.brand-mark.is-playing .brand-mark-morph > .sz-logo-morph {
   display: block;
   width: 100%;
   height: 100%;

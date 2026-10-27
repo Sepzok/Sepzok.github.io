@@ -614,9 +614,9 @@
   applyLocale(locale)
 
   /**
-   * Header brand: morph first (wordmark hidden), then reveal Sepzok with
-   * letter shine. Play uses a wide viewBox so S/Z are fully visible; idle
-   * uses a square icon viewBox in 28×28 so the end frame matches static.
+   * Header brand: idle = real favicon (exact product icon). On load/hover,
+   * hide favicon and play morph in a wider overflow-visible frame so S/Z
+   * are not clipped; when done, show favicon again and shine the wordmark.
    */
   function setupBrandLogoMorph() {
     var brand = document.querySelector('a.brand')
@@ -628,9 +628,8 @@
     var MARK_H = 28
     var LIVE_MS = 2200
     var liveTimer = 0
-    var iconViewBox = null
-    var playViewBox = null
-    var playHostWidth = MARK_H
+    /** Full-motion viewBox + CSS size/offset so end icon = 28×28 slot. */
+    var playLayout = null
     var label = name.innerHTML
     name.innerHTML =
       '<span class="brand-name-live">' +
@@ -639,13 +638,23 @@
       '</span></span>'
 
     var live = name.querySelector('.brand-name-live')
+    var favHref = '/favicon.svg?v=20261027a'
+    mark.setAttribute('aria-hidden', 'true')
+    mark.innerHTML =
+      '<img class="brand-mark-static" src="' +
+      favHref +
+      '" alt="" width="28" height="28" />' +
+      '<span class="brand-mark-morph"></span>'
+
+    var morphHost = mark.querySelector('.brand-mark-morph')
 
     function morphSvg() {
-      return mark.querySelector('svg.sz-logo-morph')
+      return morphHost.querySelector('svg.sz-logo-morph')
     }
 
-    function layersBBox() {
-      var nodes = mark.querySelectorAll(
+    /** End pose only (favicon solids) — used to pin scale to the idle slot. */
+    function endLogoBBox() {
+      var nodes = morphHost.querySelectorAll(
         '[data-layer="s"] path, [data-layer="z"] polygon',
       )
       var minX = Infinity
@@ -654,8 +663,11 @@
       var maxY = -Infinity
       var hit = false
       for (var i = 0; i < nodes.length; i += 1) {
+        var el = nodes[i]
         try {
-          var b = nodes[i].getBBox()
+          var op = el.getAttribute('opacity')
+          if (op !== null && Number(op) <= 0.01) continue
+          var b = el.getBBox()
           if (!b.width && !b.height) continue
           hit = true
           if (b.x < minX) minX = b.x
@@ -670,97 +682,92 @@
       return { minX: minX, minY: minY, maxX: maxX, maxY: maxY }
     }
 
-    function unionBox(a, b) {
-      if (!a) return b
-      if (!b) return a
-      return {
-        minX: Math.min(a.minX, b.minX),
-        minY: Math.min(a.minY, b.minY),
-        maxX: Math.max(a.maxX, b.maxX),
-        maxY: Math.max(a.maxY, b.maxY),
-      }
-    }
-
-    function boxToViewBox(box, pad) {
-      var p = typeof pad === 'number' ? pad : 10
-      return (
-        box.minX -
-        p +
-        ' ' +
-        (box.minY - p) +
-        ' ' +
-        Math.max(1, box.maxX - box.minX + p * 2) +
-        ' ' +
-        Math.max(1, box.maxY - box.minY + p * 2)
-      )
-    }
-
-    function squareViewBox(box, pad) {
-      var p = typeof pad === 'number' ? pad : 8
-      var bw = box.maxX - box.minX
-      var bh = box.maxY - box.minY
-      var side = Math.max(bw, bh) + p * 2
-      var cx = (box.minX + box.maxX) / 2
-      var cy = (box.minY + box.maxY) / 2
-      return cx - side / 2 + ' ' + (cy - side / 2) + ' ' + side + ' ' + side
-    }
-
-    function parseViewBox(vb) {
-      var p = String(vb || '')
-        .trim()
-        .split(/[\s,]+/)
-        .map(Number)
-      if (p.length < 4 || p.some(function (n) { return !isFinite(n) })) return null
-      return { x: p[0], y: p[1], w: p[2], h: p[3] }
-    }
-
-    function applyViewBox(vb) {
+    function applyPlayView() {
       var svg = morphSvg()
-      if (svg && vb) svg.setAttribute('viewBox', vb)
+      if (!svg || !playLayout) return
+      svg.setAttribute('viewBox', playLayout.viewBox)
+      svg.setAttribute('preserveAspectRatio', 'xMinYMin meet')
+      svg.setAttribute('overflow', 'visible')
+      svg.style.overflow = 'visible'
+      svg.style.width = '100%'
+      svg.style.height = '100%'
+      // Portal to body + fixed so header backdrop/stacking cannot clip ink.
+      var mr = mark.getBoundingClientRect()
+      if (morphHost.parentElement !== document.body) {
+        document.body.appendChild(morphHost)
+      }
+      morphHost.style.position = 'fixed'
+      morphHost.style.zIndex = '60'
+      morphHost.style.width = playLayout.w + 'px'
+      morphHost.style.height = playLayout.h + 'px'
+      morphHost.style.left = Math.round(mr.left + playLayout.left) + 'px'
+      morphHost.style.top = Math.round(mr.top + playLayout.top) + 'px'
+    }
+
+    function onPlayViewport() {
+      if (!mark.classList.contains('is-playing')) return
+      applyPlayView()
     }
 
     function setPlayingFrame(on) {
       if (on) {
         mark.classList.add('is-playing')
-        applyViewBox(playViewBox)
-        mark.style.width = playHostWidth + 'px'
+        brand.classList.add('is-playing')
+        // mount() may set inline display:block — keep explicit for idle hide.
+        morphHost.style.display = 'block'
+        applyPlayView()
+        window.addEventListener('scroll', onPlayViewport, true)
+        window.addEventListener('resize', onPlayViewport)
       } else {
+        window.removeEventListener('scroll', onPlayViewport, true)
+        window.removeEventListener('resize', onPlayViewport)
         mark.classList.remove('is-playing')
-        applyViewBox(iconViewBox)
-        mark.style.width = ''
+        brand.classList.remove('is-playing')
+        morphHost.style.display = 'none'
+        morphHost.style.width = ''
+        morphHost.style.height = ''
+        morphHost.style.left = ''
+        morphHost.style.top = ''
+        morphHost.style.position = 'absolute'
+        morphHost.style.zIndex = ''
+        if (morphHost.parentElement !== mark) mark.appendChild(morphHost)
       }
     }
 
-    /** Sample morph frames so play framing covers the full S/Z motion. */
-    function captureFrames(anim) {
-      var samples = [0, 0.2, 0.4, 0.55, 0.7, 0.85, 1]
-      var playBox = null
-      var endBox = null
-      for (var i = 0; i < samples.length; i += 1) {
-        anim.seek(samples[i])
-        var box = layersBBox()
-        playBox = unionBox(playBox, box)
-        if (samples[i] >= 1) endBox = box
-      }
+    /**
+     * Full design canvas (520×140), scaled/offset so the end favicon pose
+     * lands on the 28×28 idle slot. Play layer is fixed on body (unclipped).
+     */
+    function capturePlayFrame(anim) {
+      anim.seek(1)
+      var endBox = endLogoBBox()
+      var vbX = 0
+      var vbY = 0
+      var vbW = 520
+      var vbH = 140
       if (!endBox) {
-        anim.seek(1)
-        endBox = layersBBox()
-      }
-      if (!playBox) playBox = endBox
-      if (!endBox) {
-        iconViewBox = '0 0 520 140'
-        playViewBox = iconViewBox
-        playHostWidth = MARK_H
+        playLayout = { viewBox: '0 0 520 140', w: Math.ceil(MARK_H * (520 / 140)), h: MARK_H, left: 0, top: 0 }
         return
       }
-      iconViewBox = squareViewBox(endBox, 8)
-      playViewBox = boxToViewBox(playBox, 14)
-      var parsed = parseViewBox(playViewBox)
-      playHostWidth = parsed
-        ? Math.max(MARK_H, Math.ceil(MARK_H * (parsed.w / parsed.h)))
-        : MARK_H
-      // Keep play host from getting huge on wide wordmark frames.
-      playHostWidth = Math.min(playHostWidth, 120)
+      var endW = Math.max(1, endBox.maxX - endBox.minX)
+      var endH = Math.max(1, endBox.maxY - endBox.minY)
+      // Match favicon <img>: square 28×28 frame, content letterboxed by max side.
+      var scale = MARK_H / Math.max(endW, endH)
+      var svgW = Math.ceil(vbW * scale)
+      var svgH = Math.ceil(vbH * scale)
+      var endLeftPx = (endBox.minX - vbX) * scale
+      var endTopPx = (endBox.minY - vbY) * scale
+      var endDrawW = endW * scale
+      var endDrawH = endH * scale
+      var slotX = (MARK_H - endDrawW) / 2
+      var slotY = (MARK_H - endDrawH) / 2
+      playLayout = {
+        viewBox: vbX + ' ' + vbY + ' ' + vbW + ' ' + vbH,
+        w: svgW,
+        h: svgH,
+        left: Math.round(slotX - endLeftPx),
+        top: Math.round(slotY - endTopPx),
+      }
     }
 
     function setLive(on) {
@@ -776,8 +783,6 @@
       }
     }
 
-    mark.setAttribute('aria-hidden', 'true')
-    mark.innerHTML = ''
     brand.classList.add('is-morphing')
 
     import('/logo-morph/sepzok-logo-morph.js')
@@ -787,7 +792,7 @@
           window.matchMedia &&
           window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-        var anim = mod.mount(mark, {
+        var anim = mod.mount(morphHost, {
           theme: 'light',
           duration: 2.1,
           hold: 0.35,
@@ -802,9 +807,12 @@
             setLive(true)
           },
         })
+        // Overlay on the 28×28 slot (mount must not leave relative flow).
+        morphHost.style.position = 'absolute'
 
-        captureFrames(anim)
-        applyViewBox(iconViewBox)
+        capturePlayFrame(anim)
+        anim.seek(0)
+        morphHost.style.display = 'none'
 
         function startPlay() {
           if (busy || reduced) return
@@ -827,9 +835,9 @@
       })
       .catch(function () {
         brand.classList.remove('is-morphing')
-        mark.style.width = ''
-        mark.innerHTML =
-          '<img src="/favicon.svg?v=20261027a" alt="" width="28" height="28" />'
+        brand.classList.remove('is-playing')
+        mark.classList.remove('is-playing')
+        if (morphHost) morphHost.remove()
       })
   }
 
