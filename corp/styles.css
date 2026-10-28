@@ -1306,6 +1306,10 @@ button.plan-cta:disabled {
   display: block;
 }
 
+.pricing-keep {
+  white-space: nowrap;
+}
+
 
 /* Soft feature flags: site.js adds .feat-lang / .feat-oss to restore */
 html:not(.feat-lang) .lang-menu {
