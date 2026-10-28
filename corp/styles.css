@@ -1302,14 +1302,6 @@ button.plan-cta:disabled {
   text-underline-offset: 2px;
 }
 
-.pricing-seller-rest {
-  display: block;
-}
-
-.pricing-keep {
-  white-space: nowrap;
-}
-
 
 /* Soft feature flags: site.js adds .feat-lang / .feat-oss to restore */
 html:not(.feat-lang) .lang-menu {
