@@ -1231,6 +1231,23 @@ h1 .tm {
   width: 100%;
   margin-top: 22px;
   box-sizing: border-box;
+  cursor: pointer;
+  font: inherit;
+}
+
+button.plan-cta:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.pricing-checkout-error {
+  margin-top: 1rem;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, #b42318 35%, var(--line));
+  background: color-mix(in srgb, #b42318 8%, var(--paper));
+  color: #8a1c14;
+  font-size: 0.95rem;
 }
 
 .pricing-note {

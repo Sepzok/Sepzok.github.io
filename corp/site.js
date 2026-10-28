@@ -540,9 +540,6 @@
         link.href = pricingLocal
       }
     })
-    document.querySelectorAll('[data-checkout-paid]').forEach(function (link) {
-      link.href = locale === 'en' ? pricingPayEn : pricingPayZh
-    })
     document.querySelectorAll('[data-free-cta]').forEach(function (link) {
       link.href =
         locale === 'en'
