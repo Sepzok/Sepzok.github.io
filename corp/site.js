@@ -206,7 +206,8 @@
       entity_title: '主体信息',
       entity_name: '深圳市克罗赛思智能科技有限公司',
       entity_addr: '深圳市龙岗区龙城街道紫薇社区清林中路31号金基吉祥广场720',
-      entity_id: '统一社会信用代码 91440300MAK87N4L98，中华人民共和国',
+      entity_id: '统一社会信用代码 91440300MAK87N4L98，',
+      entity_country: '中华人民共和国',
       foot_copy: '© Sepzok',
     },
     en: {
@@ -371,7 +372,8 @@
       entity_title: 'Legal entity',
       entity_name: 'Shenzhen Keluosaisi Intelligent Technology Co., Ltd.',
       entity_addr: 'Rm 720, Jinji Jixiang Plz, 31 Qinglin Mid Rd, Ziwei Cmty',
-      entity_id: 'Unified Social Credit Code 91440300MAK87N4L98, People’s Republic of China',
+      entity_id: 'Unified Social Credit Code 91440300MAK87N4L98, ',
+      entity_country: 'People’s Republic of China',
       foot_copy: '© Sepzok',
     },
   }

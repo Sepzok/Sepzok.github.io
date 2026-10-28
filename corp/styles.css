@@ -1095,6 +1095,10 @@ h1 .tm {
   max-width: 36ch;
 }
 
+.footer-entity-country {
+  white-space: nowrap;
+}
+
 
 .contact-mail {
   font-family: var(--font-display);
