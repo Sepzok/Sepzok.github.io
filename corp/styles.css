@@ -1276,21 +1276,25 @@ button.plan-cta:disabled {
 }
 
 .pricing-facts {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px 24px;
-  margin: 28px 0 0;
-  padding: 22px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 32px 0 0;
+  padding: 18px 0 0;
   border-top: 1px solid var(--line);
   list-style: none;
 }
 
 .pricing-facts li {
+  display: grid;
+  grid-template-columns: 5.75rem minmax(0, 1fr);
+  gap: 4px 20px;
+  align-items: start;
   margin: 0;
 }
 
 .pricing-facts h3 {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 13px;
   font-weight: 650;
   color: var(--accent);
@@ -1311,17 +1315,6 @@ button.plan-cta:disabled {
   gap: 2px;
 }
 
-@media (max-width: 900px) {
-  .pricing-facts {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 560px) {
-  .pricing-facts {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* Soft feature flags: site.js adds .feat-lang / .feat-oss to restore */
 html:not(.feat-lang) .lang-menu {
