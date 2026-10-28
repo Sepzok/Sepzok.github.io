@@ -22,6 +22,7 @@
       contact: '联系 · 随造 Sepzok',
       security: '安全 · 随造 Sepzok',
       projects: '开源 · 随造 Sepzok',
+      pricing: '价格 · 随造 Sepzok',
     },
     en: {
       home: 'Sepzok',
@@ -30,6 +31,7 @@
       contact: 'Contact · Sepzok',
       security: 'Security · Sepzok',
       projects: 'Open source · Sepzok',
+      pricing: 'Pricing · Sepzok',
     },
   }
 
@@ -63,6 +65,21 @@
       nav_terms: '用户协议',
       nav_refund: '退款政策',
       nav_pricing: '价格',
+      pricing_desc:
+        '随造价格：免费、Starter（$10/月）、Pro（$40/月）、Advanced（$120/月）。国际结账由 Paddle 完成。',
+      pricing_title: '价格',
+      pricing_lede:
+        '深圳市克罗赛思智能科技有限公司（统一社会信用代码 91440300MAK87N4L98，中华人民共和国）提供随造（Sepzok）。本机创作不另收费；官方模型额度、官方备份与托管的我的服务按档位。国际结账由 Paddle 完成。',
+      pricing_table_caption: '目录标价（美元）。结账时可能显示税费与当地货币。',
+      pricing_col_plan: '方案',
+      pricing_col_month: '月付',
+      pricing_col_year: '年付',
+      pricing_col_notes: '说明',
+      pricing_note_free: '本机创作；需要官方云时再登录。',
+      pricing_note_trial: '含 7 天试用，试用后扣款。',
+      pricing_refund: '自购买之日起 14 天内可全额退款，无例外、无附加条件。',
+      pricing_cta_intl: '国际结账（Paddle）',
+      pricing_cta_cn: '中文结账（微信 / 支付宝）',
       nav_delete: '注销账号',
       brand_name: '随造',
       brand_former: '原名造格 Sepzap',
@@ -174,6 +191,23 @@
       nav_terms: 'Terms',
       nav_refund: 'Refunds',
       nav_pricing: 'Pricing',
+      pricing_desc:
+        'Sepzok pricing: Free, Starter ($10/mo), Pro ($40/mo), Advanced ($120/mo). International checkout via Paddle.',
+      pricing_title: 'Pricing',
+      pricing_lede:
+        'Sepzok is offered by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. (Unified Social Credit Code 91440300MAK87N4L98, People’s Republic of China). Create on your device at no charge; official model points, official backups, and hosted My Service follow your plan. International checkout is collected by Paddle.',
+      pricing_table_caption:
+        'Catalog list prices (USD). Tax and local currency may appear at checkout.',
+      pricing_col_plan: 'Plan',
+      pricing_col_month: 'Monthly',
+      pricing_col_year: 'Yearly',
+      pricing_col_notes: 'Notes',
+      pricing_note_free: 'On-device creation; sign in for official cloud.',
+      pricing_note_trial: '7-day trial; then billed.',
+      pricing_refund:
+        'Full refund within 14 days of purchase, with no exceptions and no conditions.',
+      pricing_cta_intl: 'International checkout (Paddle)',
+      pricing_cta_cn: 'Chinese checkout (WeChat / Alipay)',
       nav_delete: 'Delete account',
       brand_name: 'Sepzok',
       brand_former: 'Formerly Sepzap',
@@ -437,20 +471,23 @@
           ? '/legal/en/refund-policy.html'
           : '/legal/zh-CN/refund-policy.html'
     })
-    var pricingZh = 'https://pay.sepzok.com/pricing'
-    var pricingEn = 'https://pay.sepzok.com/en/pricing'
+    var pricingLocal = '/pricing.html'
+    var pricingPayZh = 'https://pay.sepzok.com/pricing'
+    var pricingPayEn = 'https://pay.sepzok.com/en/pricing'
     document.querySelectorAll('a[href]').forEach(function (link) {
+      if (link.hasAttribute('data-checkout')) return
       var href = link.getAttribute('href') || ''
       if (
-        href === pricingZh ||
-        href.indexOf(pricingZh + '?') === 0 ||
-        href === pricingEn ||
-        href.indexOf(pricingEn + '?') === 0
+        href === pricingLocal ||
+        href.indexOf(pricingLocal + '?') === 0 ||
+        href === pricingPayZh ||
+        href.indexOf(pricingPayZh + '?') === 0 ||
+        href === pricingPayEn ||
+        href.indexOf(pricingPayEn + '?') === 0 ||
+        href === 'https://pay.sepzok.com/pricing' ||
+        href === 'https://pay.sepzok.com/en/pricing'
       ) {
-        link.href =
-          (locale === 'en' ? pricingEn : pricingZh) +
-          '?lang=' +
-          (locale === 'en' ? 'en' : 'zh')
+        link.href = pricingLocal
       }
     })
     document.querySelectorAll('.footer-beian').forEach(function (el) {

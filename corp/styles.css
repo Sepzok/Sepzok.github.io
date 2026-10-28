@@ -1107,6 +1107,56 @@ h1 .tm {
   text-decoration: underline;
 }
 
+.price-table {
+  width: 100%;
+  margin: 1.5rem 0 1.25rem;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+}
+
+.price-table caption {
+  caption-side: bottom;
+  padding-top: 0.75rem;
+  color: var(--muted);
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.price-table th,
+.price-table td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.price-table thead th {
+  background: var(--soft);
+  font-weight: 650;
+}
+
+.price-table tbody th {
+  font-weight: 650;
+}
+
+.pricing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.pricing-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1.1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
 /* Soft feature flags: site.js adds .feat-lang / .feat-oss to restore */
 html:not(.feat-lang) .lang-menu {
   display: none !important;
