@@ -373,7 +373,7 @@
       entity_name: 'Shenzhen Keluosaisi Intelligent Technology Co., Ltd.',
       entity_addr: 'Rm 720, Jinji Jixiang Plz, 31 Qinglin Mid Rd, Ziwei Cmty',
       entity_id: 'Unified Social Credit Code 91440300MAK87N4L98, ',
-      entity_country: 'People’s Republic of China',
+      entity_country: 'People's Republic of China',
       foot_copy: '© Sepzok',
     },
   }
