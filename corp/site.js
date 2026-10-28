@@ -537,7 +537,8 @@
         href === pricingPayEn ||
         href.indexOf(pricingPayEn + '?') === 0
       ) {
-        link.href = pricingLocal
+        // English catalog lives on the approved pay host. Chinese catalog stays here.
+        link.href = locale === 'en' ? pricingPayEn : pricingLocal
       }
     })
     document.querySelectorAll('[data-free-cta]').forEach(function (link) {
