@@ -13,7 +13,7 @@
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261025f" />
     <meta name="theme-color" content="#eef3f9" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css?v=20261028e" />
   </head>
   <body data-desc-key="pricing_desc" data-title-key="pricing">
     <header class="site-header">
@@ -47,10 +47,13 @@
     <main>
       <section class="page-band pricing-page">
         <div class="wrap">
-          <h1 data-i18n="pricing_title">价格</h1>
-          <p class="lede" data-i18n="pricing_lede">
-            本机创作不另收费；官方模型额度、官方备份与托管的我的服务按档位。免费即可开始。Starter、Pro、Advanced 均含 7 天试用。
-          </p>
+        <div class="pricing-head">
+          <div>
+            <h1 data-i18n="pricing_title">价格</h1>
+            <p class="lede" data-i18n="pricing_lede">
+              本机创作不另收费。官方额度、官方备份和托管的我的服务按档位。
+            </p>
+          </div>
 
           <div class="plan-toggle" role="group" aria-label="Billing period" data-i18n-aria="pricing_period">
             <button type="button" data-freq="month" aria-pressed="true" data-i18n="pricing_col_month">
@@ -60,6 +63,7 @@
               年付
             </button>
           </div>
+        </div>
 
           <div class="plan-grid">
             <article class="plan-card">
@@ -169,34 +173,39 @@
             </article>
           </div>
 
-          <p class="pricing-note">
-            <span data-i18n="pricing_tax_note"
-              >目录标价为美元。结账时可能显示税费与当地货币。</span
-            >
-            <span data-i18n="pricing_refund"
-              >自购买之日起 14 天内可全额退款，无例外、无附加条件。</span
-            >
-            <a href="/legal/zh-CN/refund-policy.html" data-legal-refund data-i18n="nav_refund"
-              >退款政策</a
-            >
-          </p>
-
-          <div class="legal-entity pricing-entity">
-            <h2 data-i18n="entity_title">主体信息</h2>
-            <p class="entity-name" data-i18n="entity_name">
-              深圳市克罗赛思智能科技有限公司
-            </p>
-            <p class="entity-name-en" lang="en">
-              Shenzhen Keluosaisi Intelligent Technology Co., Ltd.
-            </p>
-            <p class="entity-reg">
-              Unified Social Credit Code: 91440300MAK87N4L98<br />
-              Country: People’s Republic of China
-            </p>
-            <p class="entity-addr" data-i18n="entity_addr">
-              深圳市龙岗区龙城街道紫薇社区清林中路31号金基吉祥广场720
-            </p>
-          </div>
+          <ul class="pricing-facts">
+            <li>
+              <h3 data-i18n="pricing_fact_trial">试用</h3>
+              <p data-i18n="pricing_fact_trial_body">付费档含 7 天试用。</p>
+            </li>
+            <li>
+              <h3 data-i18n="pricing_fact_refund">退款</h3>
+              <p>
+                <span data-i18n="pricing_refund"
+                  >自购买之日起 14 天内可全额退款，无例外、无附加条件。</span
+                >
+                <a href="/legal/zh-CN/refund-policy.html" data-legal-refund data-i18n="nav_refund"
+                  >退款政策</a
+                >
+              </p>
+            </li>
+            <li>
+              <h3 data-i18n="pricing_fact_price">标价</h3>
+              <p data-i18n="pricing_tax_note">目录标价为美元。结账时可能显示税费与当地货币。</p>
+            </li>
+            <li>
+              <h3 data-i18n="pricing_fact_seller">主体</h3>
+              <p class="pricing-fact-seller">
+                <span data-i18n="entity_name">深圳市克罗赛思智能科技有限公司</span>
+                <span lang="en">Shenzhen Keluosaisi Intelligent Technology Co., Ltd.</span>
+                <span>统一社会信用代码 91440300MAK87N4L98</span>
+                <span>中华人民共和国</span>
+                <span data-i18n="entity_addr"
+                  >深圳市龙岗区龙城街道紫薇社区清林中路31号金基吉祥广场720</span
+                >
+              </p>
+            </li>
+          </ul>
         </div>
       </section>
     </main>
@@ -279,7 +288,7 @@
         >
       </p>
     </footer>
-    <script src="/site.js?v=20261028c"></script>
+    <script src="/site.js?v=20261028e"></script>
     <script src="/paddle-checkout.js?v=20261028d"></script>
   </body>
 </html>
