@@ -69,17 +69,40 @@
         '随造价格：免费、Starter（$10/月）、Pro（$40/月）、Advanced（$120/月）。国际结账由 Paddle 完成。',
       pricing_title: '价格',
       pricing_lede:
-        '深圳市克罗赛思智能科技有限公司（统一社会信用代码 91440300MAK87N4L98，中华人民共和国）提供随造（Sepzok）。本机创作不另收费；官方模型额度、官方备份与托管的我的服务按档位。国际结账由 Paddle 完成。',
-      pricing_table_caption: '目录标价（美元）。结账时可能显示税费与当地货币。',
-      pricing_col_plan: '方案',
+        '本机创作不另收费；官方模型额度、官方备份与托管的我的服务按档位。免费即可开始。Starter、Pro、Advanced 均含 7 天试用。',
+      pricing_period: '计费周期',
       pricing_col_month: '月付',
       pricing_col_year: '年付',
-      pricing_col_notes: '说明',
-      pricing_note_free: '本机创作；需要官方云时再登录。',
-      pricing_note_trial: '含 7 天试用，试用后扣款。',
+      pricing_per_month: '/月',
+      pricing_per_year: '/年',
+      pricing_free_name: '免费',
+      pricing_free_desc: '安装随造，本机创作；需要时再登录随造账号。',
+      pricing_free_f1: '完整安装与本机创作',
+      pricing_free_f2: '本机模型与自备供应商',
+      pricing_free_f3: '随造账号与每月官方积分',
+      pricing_free_f4: '官方备份 10 槽',
+      pricing_free_f5: '自建我的服务不另收费',
+      pricing_free_cta: '下载安装',
+      pricing_starter_desc: '个人常用官方云额度与备份。',
+      pricing_starter_f1: '包含免费档的全部',
+      pricing_starter_f2: '更高每月官方积分',
+      pricing_starter_f3: '更多官方备份槽',
+      pricing_starter_f4: '邮件支持',
+      pricing_starter_f5: '7 天免费试用',
+      pricing_pro_desc: '更大官方额度，并托管一台我的服务。',
+      pricing_pro_f1: '包含 Starter 的全部',
+      pricing_pro_f2: '每月官方积分约免费档 10 倍',
+      pricing_pro_f3: '官方备份 100 槽',
+      pricing_pro_f4: '随造云托管一台我的服务',
+      pricing_pro_f5: '优先支持',
+      pricing_pro_f6: '7 天免费试用',
+      pricing_advanced_desc: '组织用量与开通可单独约定。',
+      pricing_advanced_f1: '包含 Pro 的全部',
+      pricing_advanced_f2: '积分与备份上限可约定',
+      pricing_advanced_f3: '专人协助开通',
+      pricing_advanced_f4: '7 天免费试用',
+      pricing_tax_note: '目录标价为美元。结账时可能显示税费与当地货币。',
       pricing_refund: '自购买之日起 14 天内可全额退款，无例外、无附加条件。',
-      pricing_cta_intl: '国际结账（Paddle）',
-      pricing_cta_cn: '中文结账（微信 / 支付宝）',
       nav_delete: '注销账号',
       brand_name: '随造',
       brand_former: '原名造格 Sepzap',
@@ -195,19 +218,42 @@
         'Sepzok pricing: Free, Starter ($10/mo), Pro ($40/mo), Advanced ($120/mo). International checkout via Paddle.',
       pricing_title: 'Pricing',
       pricing_lede:
-        'Sepzok is offered by Shenzhen Keluosaisi Intelligent Technology Co., Ltd. (Unified Social Credit Code 91440300MAK87N4L98, People’s Republic of China). Create on your device at no charge; official model points, official backups, and hosted My Service follow your plan. International checkout is collected by Paddle.',
-      pricing_table_caption:
-        'Catalog list prices (USD). Tax and local currency may appear at checkout.',
-      pricing_col_plan: 'Plan',
+        'Create on your device at no charge; official model points, official backups, and hosted My Service follow your plan. Start free. Starter, Pro, and Advanced each include a 7-day trial.',
+      pricing_period: 'Billing period',
       pricing_col_month: 'Monthly',
       pricing_col_year: 'Yearly',
-      pricing_col_notes: 'Notes',
-      pricing_note_free: 'On-device creation; sign in for official cloud.',
-      pricing_note_trial: '7-day trial; then billed.',
+      pricing_per_month: '/month',
+      pricing_per_year: '/year',
+      pricing_free_name: 'Free',
+      pricing_free_desc:
+        'Install Sepzok and create on device; sign in when you need the official cloud.',
+      pricing_free_f1: 'Full install and on-device creation',
+      pricing_free_f2: 'On-device models and your own API keys',
+      pricing_free_f3: 'Sepzok account with monthly official points',
+      pricing_free_f4: '10 official backup slots',
+      pricing_free_f5: 'Self-hosted My Service at no extra charge',
+      pricing_free_cta: 'Download',
+      pricing_starter_desc: 'More official cloud points and backups for regular personal use.',
+      pricing_starter_f1: 'Everything in Free',
+      pricing_starter_f2: 'Higher monthly official points',
+      pricing_starter_f3: 'More official backup slots',
+      pricing_starter_f4: 'Email support',
+      pricing_starter_f5: '7-day free trial',
+      pricing_pro_desc: 'Larger official allowance, plus one hosted My Service.',
+      pricing_pro_f1: 'Everything in Starter',
+      pricing_pro_f2: 'About 10× Free monthly official points',
+      pricing_pro_f3: '100 official backup slots',
+      pricing_pro_f4: 'One hosted My Service on Sepzok Cloud',
+      pricing_pro_f5: 'Priority support',
+      pricing_pro_f6: '7-day free trial',
+      pricing_advanced_desc: 'For organizations that need agreed limits and guided setup.',
+      pricing_advanced_f1: 'Everything in Pro',
+      pricing_advanced_f2: 'Agreed points and backup limits',
+      pricing_advanced_f3: 'Dedicated onboarding',
+      pricing_advanced_f4: '7-day free trial',
+      pricing_tax_note: 'Catalog list prices are in USD. Tax and local currency may appear at checkout.',
       pricing_refund:
         'Full refund within 14 days of purchase, with no exceptions and no conditions.',
-      pricing_cta_intl: 'International checkout (Paddle)',
-      pricing_cta_cn: 'Chinese checkout (WeChat / Alipay)',
       nav_delete: 'Delete account',
       brand_name: 'Sepzok',
       brand_former: 'Formerly Sepzap',
@@ -475,7 +521,13 @@
     var pricingPayZh = 'https://pay.sepzok.com/pricing'
     var pricingPayEn = 'https://pay.sepzok.com/en/pricing'
     document.querySelectorAll('a[href]').forEach(function (link) {
-      if (link.hasAttribute('data-checkout')) return
+      if (
+        link.hasAttribute('data-checkout') ||
+        link.hasAttribute('data-checkout-paid') ||
+        link.hasAttribute('data-free-cta')
+      ) {
+        return
+      }
       var href = link.getAttribute('href') || ''
       if (
         href === pricingLocal ||
@@ -483,13 +535,21 @@
         href === pricingPayZh ||
         href.indexOf(pricingPayZh + '?') === 0 ||
         href === pricingPayEn ||
-        href.indexOf(pricingPayEn + '?') === 0 ||
-        href === 'https://pay.sepzok.com/pricing' ||
-        href === 'https://pay.sepzok.com/en/pricing'
+        href.indexOf(pricingPayEn + '?') === 0
       ) {
         link.href = pricingLocal
       }
     })
+    document.querySelectorAll('[data-checkout-paid]').forEach(function (link) {
+      link.href = locale === 'en' ? pricingPayEn : pricingPayZh
+    })
+    document.querySelectorAll('[data-free-cta]').forEach(function (link) {
+      link.href =
+        locale === 'en'
+          ? 'https://en.sepzok.com/download'
+          : 'https://sepzok.com/download/index.html'
+    })
+    syncPricingFrequency()
     document.querySelectorAll('.footer-beian').forEach(function (el) {
       el.hidden = locale !== 'zh'
     })
@@ -652,7 +712,48 @@
     locale = nav.indexOf('en') === 0 ? 'en' : 'zh'
   }
 
+  var pricingFreq = 'month'
+
+  function syncPricingFrequency() {
+    var page = document.querySelector('.pricing-page')
+    if (!page) return
+    var periodKey =
+      pricingFreq === 'year' ? 'pricing_per_year' : 'pricing_per_month'
+    page.querySelectorAll('.plan-amount').forEach(function (el) {
+      var label = el.getAttribute(
+        pricingFreq === 'year' ? 'data-price-year' : 'data-price-month',
+      )
+      if (label) el.textContent = label
+    })
+    page.querySelectorAll('.plan-period').forEach(function (el) {
+      el.textContent = t(periodKey)
+    })
+    page.querySelectorAll('.plan-toggle button').forEach(function (btn) {
+      var freq = btn.getAttribute('data-freq')
+      btn.setAttribute('aria-pressed', freq === pricingFreq ? 'true' : 'false')
+    })
+    var toggle = page.querySelector('.plan-toggle')
+    if (toggle) {
+      toggle.setAttribute('aria-label', t('pricing_period'))
+    }
+  }
+
+  function setupPricingToggle() {
+    var page = document.querySelector('.pricing-page')
+    if (!page) return
+    page.querySelectorAll('.plan-toggle button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var freq = btn.getAttribute('data-freq')
+        if (freq !== 'month' && freq !== 'year') return
+        pricingFreq = freq
+        syncPricingFrequency()
+      })
+    })
+    syncPricingFrequency()
+  }
+
   applyLocale(locale)
+  setupPricingToggle()
 
   /**
    * Header brand: idle = real favicon (exact product icon). On load/hover,

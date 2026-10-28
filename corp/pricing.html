@@ -45,14 +45,137 @@
     </header>
 
     <main>
-      <section class="page-band">
+      <section class="page-band pricing-page">
         <div class="wrap">
           <h1 data-i18n="pricing_title">价格</h1>
           <p class="lede" data-i18n="pricing_lede">
-            深圳市克罗赛思智能科技有限公司（统一社会信用代码 91440300MAK87N4L98，中华人民共和国）提供随造（Sepzok）。本机创作不另收费；官方模型额度、官方备份与托管的我的服务按档位。国际结账由 Paddle 完成。
+            本机创作不另收费；官方模型额度、官方备份与托管的我的服务按档位。免费即可开始。Starter、Pro、Advanced 均含 7 天试用。
           </p>
 
-          <div class="legal-entity">
+          <div class="plan-toggle" role="group" aria-label="Billing period" data-i18n-aria="pricing_period">
+            <button type="button" data-freq="month" aria-pressed="true" data-i18n="pricing_col_month">
+              月付
+            </button>
+            <button type="button" data-freq="year" aria-pressed="false" data-i18n="pricing_col_year">
+              年付
+            </button>
+          </div>
+
+          <div class="plan-grid">
+            <article class="plan-card">
+              <h2 data-i18n="pricing_free_name">免费</h2>
+              <p class="plan-desc" data-i18n="pricing_free_desc">
+                安装随造，本机创作；需要时再登录随造账号。
+              </p>
+              <p class="plan-price">
+                <span class="plan-amount" data-price-month="$0" data-price-year="$0">$0</span>
+                <span class="plan-period" data-i18n="pricing_per_month">/月</span>
+              </p>
+              <ul>
+                <li data-i18n="pricing_free_f1">完整安装与本机创作</li>
+                <li data-i18n="pricing_free_f2">本机模型与自备供应商</li>
+                <li data-i18n="pricing_free_f3">随造账号与每月官方积分</li>
+                <li data-i18n="pricing_free_f4">官方备份 10 槽</li>
+                <li data-i18n="pricing_free_f5">自建我的服务不另收费</li>
+              </ul>
+              <a
+                class="btn btn-ghost plan-cta"
+                data-free-cta
+                href="https://sepzok.com/download/index.html"
+                data-i18n="pricing_free_cta"
+                >下载安装</a
+              >
+            </article>
+
+            <article class="plan-card">
+              <h2>Starter</h2>
+              <p class="plan-desc" data-i18n="pricing_starter_desc">
+                个人常用官方云额度与备份。
+              </p>
+              <p class="plan-price">
+                <span class="plan-amount" data-price-month="$10" data-price-year="$100">$10</span>
+                <span class="plan-period" data-i18n="pricing_per_month">/月</span>
+              </p>
+              <ul>
+                <li data-i18n="pricing_starter_f1">包含免费档的全部</li>
+                <li data-i18n="pricing_starter_f2">更高每月官方积分</li>
+                <li data-i18n="pricing_starter_f3">更多官方备份槽</li>
+                <li data-i18n="pricing_starter_f4">邮件支持</li>
+                <li data-i18n="pricing_starter_f5">7 天免费试用</li>
+              </ul>
+              <a
+                class="btn btn-ghost plan-cta"
+                data-checkout-paid
+                href="https://pay.sepzok.com/en/pricing"
+                data-i18n="cta_subscribe"
+                >订阅</a
+              >
+            </article>
+
+            <article class="plan-card is-featured">
+              <h2>Pro</h2>
+              <p class="plan-desc" data-i18n="pricing_pro_desc">
+                更大官方额度，并托管一台我的服务。
+              </p>
+              <p class="plan-price">
+                <span class="plan-amount" data-price-month="$40" data-price-year="$400">$40</span>
+                <span class="plan-period" data-i18n="pricing_per_month">/月</span>
+              </p>
+              <ul>
+                <li data-i18n="pricing_pro_f1">包含 Starter 的全部</li>
+                <li data-i18n="pricing_pro_f2">每月官方积分约免费档 10 倍</li>
+                <li data-i18n="pricing_pro_f3">官方备份 100 槽</li>
+                <li data-i18n="pricing_pro_f4">随造云托管一台我的服务</li>
+                <li data-i18n="pricing_pro_f5">优先支持</li>
+                <li data-i18n="pricing_pro_f6">7 天免费试用</li>
+              </ul>
+              <a
+                class="btn btn-primary plan-cta"
+                data-checkout-paid
+                href="https://pay.sepzok.com/en/pricing"
+                data-i18n="cta_subscribe"
+                >订阅</a
+              >
+            </article>
+
+            <article class="plan-card">
+              <h2>Advanced</h2>
+              <p class="plan-desc" data-i18n="pricing_advanced_desc">
+                组织用量与开通可单独约定。
+              </p>
+              <p class="plan-price">
+                <span class="plan-amount" data-price-month="$120" data-price-year="$1,200">$120</span>
+                <span class="plan-period" data-i18n="pricing_per_month">/月</span>
+              </p>
+              <ul>
+                <li data-i18n="pricing_advanced_f1">包含 Pro 的全部</li>
+                <li data-i18n="pricing_advanced_f2">积分与备份上限可约定</li>
+                <li data-i18n="pricing_advanced_f3">专人协助开通</li>
+                <li data-i18n="pricing_advanced_f4">7 天免费试用</li>
+              </ul>
+              <a
+                class="btn btn-ghost plan-cta"
+                data-checkout-paid
+                href="https://pay.sepzok.com/en/pricing"
+                data-i18n="cta_subscribe"
+                >订阅</a
+              >
+            </article>
+          </div>
+
+          <p class="pricing-note">
+            <span data-i18n="pricing_tax_note"
+              >目录标价为美元。结账时可能显示税费与当地货币。</span
+            >
+            <span data-i18n="pricing_refund"
+              >自购买之日起 14 天内可全额退款，无例外、无附加条件。</span
+            >
+            <a href="/legal/zh-CN/refund-policy.html" data-legal-refund data-i18n="nav_refund"
+              >退款政策</a
+            >
+          </p>
+
+          <div class="legal-entity pricing-entity">
             <h2 data-i18n="entity_title">主体信息</h2>
             <p class="entity-name" data-i18n="entity_name">
               深圳市克罗赛思智能科技有限公司
@@ -64,73 +187,10 @@
               Unified Social Credit Code: 91440300MAK87N4L98<br />
               Country: People’s Republic of China
             </p>
+            <p class="entity-addr" data-i18n="entity_addr">
+              深圳市龙岗区龙城街道紫薇社区清林中路31号金基吉祥广场720
+            </p>
           </div>
-
-          <table class="price-table">
-            <caption data-i18n="pricing_table_caption">
-              Catalog list prices (USD). Tax and local currency may appear at checkout.
-            </caption>
-            <thead>
-              <tr>
-                <th data-i18n="pricing_col_plan">Plan</th>
-                <th data-i18n="pricing_col_month">Monthly</th>
-                <th data-i18n="pricing_col_year">Yearly</th>
-                <th data-i18n="pricing_col_notes">Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Free</th>
-                <td>$0</td>
-                <td>$0</td>
-                <td data-i18n="pricing_note_free">On-device creation; sign in for official cloud.</td>
-              </tr>
-              <tr>
-                <th scope="row">Starter</th>
-                <td>$10</td>
-                <td>$100</td>
-                <td data-i18n="pricing_note_trial">7-day trial; then billed.</td>
-              </tr>
-              <tr>
-                <th scope="row">Pro</th>
-                <td>$40</td>
-                <td>$400</td>
-                <td data-i18n="pricing_note_trial">7-day trial; then billed.</td>
-              </tr>
-              <tr>
-                <th scope="row">Advanced</th>
-                <td>$120</td>
-                <td>$1,200</td>
-                <td data-i18n="pricing_note_trial">7-day trial; then billed.</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <p>
-            <span data-i18n="pricing_refund"
-              >自购买之日起 14 天内可全额退款，无例外、无附加条件。</span
-            >
-            <a href="/legal/zh-CN/refund-policy.html" data-legal-refund data-i18n="nav_refund"
-              >退款政策</a
-            >
-          </p>
-
-          <p class="pricing-actions">
-            <a
-              class="btn btn-primary"
-              data-checkout
-              href="https://pay.sepzok.com/en/pricing"
-              data-i18n="pricing_cta_intl"
-              >International checkout (Paddle)</a
-            >
-            <a
-              class="btn btn-ghost"
-              data-checkout
-              href="https://pay.sepzok.com/pricing"
-              data-i18n="pricing_cta_cn"
-              >中文结账（微信 / 支付宝）</a
-            >
-          </p>
         </div>
       </section>
     </main>
@@ -213,6 +273,6 @@
         >
       </p>
     </footer>
-    <script src="/site.js?v=20261028a"></script>
+    <script src="/site.js?v=20261028b"></script>
   </body>
 </html>
