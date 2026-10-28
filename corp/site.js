@@ -436,6 +436,11 @@
   }
 
   function peerUrl(targetLocale) {
+    var onPricing =
+      path === '/pricing' || path === '/pricing/' || path === '/pricing.html'
+    if (onPricing && targetLocale === 'en') {
+      return 'https://pay.sepzok.com/en/pricing'
+    }
     var origin = targetLocale === 'en' ? EN_ORIGIN : CN_ORIGIN
     var peerPath = path
     if (
