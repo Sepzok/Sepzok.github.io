@@ -66,7 +66,7 @@
       nav_refund: '退款政策',
       nav_pricing: '价格',
       pricing_desc:
-        '随造价格：免费、Starter（$10/月）、Pro（$40/月）、Advanced（$120/月）。国际结账由 Paddle 完成。',
+        '随造价格：免费、Starter（¥49/月）、Pro（¥99/月）、Advanced（¥299/月）。使用微信支付或支付宝。',
       pricing_title: '价格',
       pricing_lede:
         '本机创作不另收费。官方额度、官方备份和托管的我的服务按档位。',
@@ -101,7 +101,7 @@
       pricing_advanced_f2: '积分与备份上限可约定',
       pricing_advanced_f3: '专人协助开通',
       pricing_advanced_f4: '7 天免费试用',
-      pricing_tax_note: '目录标价为美元。结账时可能显示税费与当地货币。',
+      pricing_tax_note: '人民币标价。使用微信支付或支付宝。',
       pricing_refund: '自购买之日起 14 天内可全额退款，无例外、无附加条件。',
       pricing_fact_trial: '试用',
       pricing_fact_trial_body: '付费档含 7 天试用。',
