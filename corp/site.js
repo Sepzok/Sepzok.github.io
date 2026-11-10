@@ -450,10 +450,17 @@
   }
 
   function peerUrl(targetLocale) {
+    // Pricing lives only on the pay hosts (same as EN Cloudflare: no corp catalog).
     var onPricing =
-      path === '/pricing' || path === '/pricing/' || path === '/pricing.html'
-    if (onPricing && targetLocale === 'en') {
-      return 'https://pay.sepzok.com/en/pricing'
+      path === '/pricing' ||
+      path === '/pricing/' ||
+      path === '/pricing.html' ||
+      path === '/pay/pricing' ||
+      path === '/pay/pricing/'
+    if (onPricing) {
+      return targetLocale === 'en'
+        ? 'https://pay.sepzok.com/en/pricing'
+        : 'https://sepzok.com/pay/pricing'
     }
     var origin = targetLocale === 'en' ? EN_ORIGIN : CN_ORIGIN
     var peerPath = path
@@ -537,7 +544,8 @@
           : '/legal/zh-CN/refund-policy.html'
     })
     var pricingLocal = '/pricing.html'
-    var pricingPayZh = 'https://pay.sepzok.com/pricing'
+    var pricingPayZhLegacy = 'https://pay.sepzok.com/pricing'
+    var pricingPayZh = 'https://sepzok.com/pay/pricing'
     var pricingPayEn = 'https://pay.sepzok.com/en/pricing'
     document.querySelectorAll('a[href]').forEach(function (link) {
       if (
@@ -551,13 +559,15 @@
       if (
         href === pricingLocal ||
         href.indexOf(pricingLocal + '?') === 0 ||
+        href === pricingPayZhLegacy ||
+        href.indexOf(pricingPayZhLegacy + '?') === 0 ||
         href === pricingPayZh ||
         href.indexOf(pricingPayZh + '?') === 0 ||
         href === pricingPayEn ||
         href.indexOf(pricingPayEn + '?') === 0
       ) {
-        // English catalog lives on the approved pay host. Chinese catalog stays here.
-        link.href = locale === 'en' ? pricingPayEn : pricingLocal
+        // Both locales: pricing only on pay hosts (no corp catalog page).
+        link.href = locale === 'en' ? pricingPayEn : pricingPayZh
       }
     })
     document.querySelectorAll('[data-free-cta]').forEach(function (link) {

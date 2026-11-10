@@ -12,7 +12,7 @@
  */
 ;(function () {
   var PAY_EN = 'https://pay.sepzok.com/en/pricing'
-  var PAY_ZH = 'https://pay.sepzok.com/pricing'
+  var PAY_ZH = 'https://sepzok.com/pay/pricing'
 
   function locale() {
     return document.documentElement.lang === 'en' ? 'en' : 'zh'
