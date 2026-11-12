@@ -48,6 +48,7 @@
 </head>
 <body>
   <main>
+<p class="sepzok-site-chrome" style="margin:0 0 1rem;font-size:.9rem"><a href="/">随造™ Sepzok™</a></p>
     <h1>Privacy rights</h1>
     <p class="note">Overseas Sepzok account. Sign in with the same email and password as the app. For California sale/share opt-out see <a href="/do-not-sell.en.html">Do Not Sell or Share</a>.</p>
     <p id="gpc" role="status"></p>
@@ -73,7 +74,19 @@
     <p class="note">Clears experience-improvement consent for this account. Official AI still works until you stop using it or delete the account.</p>
     <button id="btn-restrict" type="button">Clear diagnostics consent</button>
 
+    <h2>Delete data (keep account)</h2>
+    <p class="note">
+      You can remove data without closing the account.
+      <strong>Submitted feedback only</strong> deletes diagnostics, feedback, and repair packs you sent.
+      <strong>All removable data</strong> also clears your display name and optional diagnostics consent.
+      Kept so you can keep signing in: email, password, plan, usage counters, and any Do Not Sell preference.
+      Light apps that stay only on your device are not stored here—remove them in the app if you want.
+    </p>
+    <button id="btn-erase-feedback" type="button">Delete submitted feedback only</button>
+    <button id="btn-erase-all" type="button">Delete all removable data</button>
+
     <h2>Delete account</h2>
+    <p class="note">Closes the Sepzok account entirely (sign-in removed). Use this only if you want the account gone.</p>
     <p><a href="/account-delete.en.html">Open the delete account page</a></p>
 
     <p id="status" role="status"></p>
@@ -152,6 +165,39 @@
       setStatus('Diagnostics consent cleared.', 'ok')
     })
 
+    async function eraseData(scope) {
+      setStatus(scope === 'feedback' ? 'Deleting feedback…' : 'Deleting removable data…')
+      const { res, data } = await post('/v1/auth/privacy-erase', {
+        ...creds(),
+        scope,
+      })
+      if (!res.ok) {
+        setStatus(data.message || 'Delete failed.', 'error')
+        return
+      }
+      const n = Number(data.deletedDiagnostics) || 0
+      if (scope === 'feedback') {
+        setStatus(
+          'Deleted ' + n + ' feedback item(s). Account kept.',
+          'ok',
+        )
+        return
+      }
+      setStatus(
+        'Deleted ' +
+          n +
+          ' feedback item(s), cleared display name and diagnostics consent. Account kept.',
+        'ok',
+      )
+    }
+
+    document
+      .getElementById('btn-erase-feedback')
+      .addEventListener('click', () => eraseData('feedback'))
+    document
+      .getElementById('btn-erase-all')
+      .addEventListener('click', () => eraseData('all'))
+
     ;(async function honourGpc() {
       const gpcOn =
         navigator.globalPrivacyControl === true ||
@@ -173,5 +219,5 @@
     })()
   </script>
 <script src="/visit.js?v=20261112a" defer></script>
-  </body>
+</body>
 </html>
