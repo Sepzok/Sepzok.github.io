@@ -21,9 +21,29 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
     h1 { font-size: 1.25rem; margin: 0 0 0.75rem; }
+    h2 { font-size: 1rem; margin: 1.25rem 0 0.5rem; }
     p { margin: 0 0 0.75rem; }
-    ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+    label { display: block; margin: 0.75rem 0 0.25rem; font-size: 0.9rem; }
+    input, button {
+      font: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid #c5c8ce;
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1d23;
+      padding: 10px 12px;
+    }
+    button { margin-top: 0.75rem; background: #1a1d23; color: #fff; cursor: pointer; }
+    button.secondary { background: #fff; color: #1a1d23; }
+    button:disabled { opacity: 0.6; cursor: default; }
+    #status { min-height: 1.5rem; }
+    #status.error { color: #9b1c1c; }
     a { color: #1a5fb4; }
+    ol, ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+    li { margin: 0.25rem 0; }
   </style>
 </head>
 <body>
@@ -31,19 +51,134 @@
     <p class="sepzok-site-chrome" style="margin:0 0 1rem;font-size:.9rem"><a href="/">随造™ Sepzok™</a></p>
 
     <h1>注销随造账号</h1>
-    <p>注销后账号和用量记录会删掉，不能恢复。</p>
+    <p>
+      本页对应产品<strong>随造</strong>（英文名 Sepzok），运营方为深圳市科罗塞斯智能科技有限公司。
+    </p>
+
+    <h2>如何申请注销</h2>
+    <p>下面两条路径注销的是同一套境内随造账号，任选其一即可。</p>
     <ol>
-      <li>打开已安装的随造</li>
-      <li>进入设置 → 账号</li>
-      <li>点「注销账号」并确认</li>
+      <li>
+        <strong>在本页：</strong>填写登录用的手机号、邮箱或用户名以及密码，点
+        <strong>确认注销</strong>，再点 <strong>注销账号</strong>。
+      </li>
+      <li>
+        <strong>在应用内：</strong>打开随造 → <strong>设置</strong> →
+        <strong>账号</strong> → <strong>注销账号</strong>，再确认。
+      </li>
     </ol>
-    <p>应用里的注销和本页是同一套流程。没有安装随造时，请先安装并登录，再按上面的步骤操作。</p>
+
+    <h2>会删除的数据</h2>
+    <ul>
+      <li>登录凭证（账号与密码哈希）</li>
+      <li>账号资料（显示名、套餐及相关账号设置）</li>
+      <li>与账号绑定的用量记录（含官方模型用量）</li>
+      <li>登录期间提交的可选诊断或反馈</li>
+    </ul>
+
+    <h2>会保留的数据</h2>
+    <ul>
+      <li>
+        仅保存在本机的轻应用与文件不会随本请求删除。如需清除，请在应用内删除，或卸载随造。
+      </li>
+    </ul>
+
+    <h2>保留期限</h2>
+    <p>
+      注销完成后，上述服务端账号数据即删除，账号记录不再另设保留期。注销不可撤销。
+    </p>
+
+    <form id="delete-form">
+      <label for="account">账号</label>
+      <input id="account" name="account" type="text" autocomplete="username" required />
+      <label for="password">密码</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+      <button id="review" type="submit">确认注销</button>
+    </form>
+    <div id="confirm" hidden>
+      <p id="confirm-copy"></p>
+      <button id="confirm-delete" type="button">注销账号</button>
+      <button id="confirm-cancel" class="secondary" type="button">取消</button>
+    </div>
+    <p id="status" role="status"></p>
     <p>
       <a href="/legal/zh-CN/privacy-policy.html">隐私政策</a>
       ·
-      <a href="/account-delete.en.html">English</a>
+      <a href="/account-delete.en">English</a>
     </p>
   </main>
+  <script>
+    const API = 'https://zaoget-d0g73jxxefd6ba387-1478755746.ap-shanghai.app.tcloudbase.com'
+    const form = document.getElementById('delete-form')
+    const confirmBox = document.getElementById('confirm')
+    const statusEl = document.getElementById('status')
+    const reviewBtn = document.getElementById('review')
+    const deleteBtn = document.getElementById('confirm-delete')
+    let pending = null
+
+    function setStatus(text, isError) {
+      statusEl.textContent = text
+      statusEl.className = isError ? 'error' : ''
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
+      const account = document.getElementById('account').value.trim()
+      const password = document.getElementById('password').value
+      if (!account || !password) return
+      pending = { account, password }
+      document.getElementById('confirm-copy').textContent =
+        '注销 ' + account + ' 的随造账号？注销后不能恢复。'
+      confirmBox.hidden = false
+      setStatus('')
+    })
+
+    document.getElementById('confirm-cancel').addEventListener('click', () => {
+      pending = null
+      confirmBox.hidden = true
+      setStatus('')
+    })
+
+    deleteBtn.addEventListener('click', async () => {
+      if (!pending) return
+      reviewBtn.disabled = true
+      deleteBtn.disabled = true
+      setStatus('正在注销…')
+      try {
+        const login = await fetch(API + '/v1/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: pending.account,
+            password: pending.password,
+          }),
+        })
+        const session = await login.json().catch(() => ({}))
+        if (!login.ok || !session.token) {
+          setStatus(session.message || '登录失败，请再试一次。', true)
+          return
+        }
+        const res = await fetch(API + '/v1/me', {
+          method: 'DELETE',
+          headers: { Authorization: 'Bearer ' + session.token },
+        })
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok || !data.ok) {
+          setStatus(data.message || '注销失败，请再试一次。', true)
+          return
+        }
+        pending = null
+        form.reset()
+        confirmBox.hidden = true
+        setStatus('账号已注销。')
+      } catch {
+        setStatus('注销失败，请再试一次。', true)
+      } finally {
+        reviewBtn.disabled = false
+        deleteBtn.disabled = false
+      }
+    })
+  </script>
 <script src="/visit.js?v=20261112a" defer></script>
-  </body>
+</body>
 </html>

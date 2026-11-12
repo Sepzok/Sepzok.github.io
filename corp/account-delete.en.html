@@ -21,9 +21,29 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
     h1 { font-size: 1.25rem; margin: 0 0 0.75rem; }
+    h2 { font-size: 1rem; margin: 1.25rem 0 0.5rem; }
     p { margin: 0 0 0.75rem; }
-    ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+    label { display: block; margin: 0.75rem 0 0.25rem; font-size: 0.9rem; }
+    input, button {
+      font: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid #c5c8ce;
+      border-radius: 8px;
+      background: #fff;
+      color: #1a1d23;
+      padding: 10px 12px;
+    }
+    button { margin-top: 0.75rem; background: #1a1d23; color: #fff; cursor: pointer; }
+    button.secondary { background: #fff; color: #1a1d23; }
+    button:disabled { opacity: 0.6; cursor: default; }
+    #status { min-height: 1.5rem; }
+    #status.error { color: #9b1c1c; }
     a { color: #1a5fb4; }
+    ol, ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+    li { margin: 0.25rem 0; }
   </style>
 </head>
 <body>
@@ -31,19 +51,136 @@
     <p class="sepzok-site-chrome" style="margin:0 0 1rem;font-size:.9rem"><a href="/">随造™ Sepzok™</a></p>
 
     <h1>Delete your Sepzok account</h1>
-    <p>After deletion, your account and usage records are removed and cannot be restored.</p>
-    <ol>
-      <li>Open the installed Sepzok app</li>
-      <li>Go to Settings → Account</li>
-      <li>Tap Delete account and confirm</li>
-    </ol>
-    <p>In-app deletion uses the same process as this page. If Sepzok is not installed, install it, sign in, then follow the steps above.</p>
     <p>
-      <a href="/legal/en/privacy-policy.html">Privacy Policy</a>
+      This page is for the <strong>Sepzok</strong> app (Google Play listing name:
+      Sepzok / 随造), published by Shenzhen Keluosaisi Intelligent Technology Co., Ltd.
+    </p>
+
+    <h2>How to request account deletion</h2>
+    <p>Use either path below. Both delete the same overseas Sepzok account.</p>
+    <ol>
+      <li>
+        <strong>On this page:</strong> enter the email and password for your Sepzok
+        account, tap <strong>Review deletion</strong>, then confirm
+        <strong>Delete account</strong>.
+      </li>
+      <li>
+        <strong>In the app:</strong> open Sepzok → <strong>Settings</strong> →
+        <strong>Account</strong> → <strong>Delete account</strong>, then confirm.
+      </li>
+    </ol>
+
+    <h2>Data that is deleted</h2>
+    <ul>
+      <li>Sign-in credentials (email and password hash)</li>
+      <li>Account profile (display name, plan, and related account settings)</li>
+      <li>Usage counters tied to the account (including official AI daily limits)</li>
+      <li>Optional diagnostics or feedback you submitted while signed in</li>
+      <li>Sale / share opt-out preference stored on the account</li>
+    </ul>
+
+    <h2>Data that is kept</h2>
+    <ul>
+      <li>
+        Light apps and files that stay only on your device are not removed by
+        this request. Delete them in the app or uninstall Sepzok if you want
+        them gone from the device.
+      </li>
+      <li>
+        Official AI prompts are processed to produce that reply and are not kept
+        as an account browsing history. They are not restored as part of your
+        account after deletion.
+      </li>
+    </ul>
+
+    <h2>Retention</h2>
+    <p>
+      After deletion completes, the overseas account and the server-side data
+      listed above are removed. There is no additional retention period for that
+      account record. The action cannot be undone.
+    </p>
+
+    <form id="delete-form">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="username" required />
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+      <button id="review" type="submit">Review deletion</button>
+    </form>
+    <div id="confirm" hidden>
+      <p id="confirm-copy"></p>
+      <button id="confirm-delete" type="button">Delete account</button>
+      <button id="confirm-cancel" class="secondary" type="button">Cancel</button>
+    </div>
+    <p id="status" role="status"></p>
+    <p>
+      <a href="/legal/en/privacy-policy">Privacy Policy</a>
       ·
-      <a href="/account-delete.html">中文</a>
+      <a href="/privacy-rights.en">Privacy rights</a>
+      ·
+      <a href="/account-delete">中文</a>
     </p>
   </main>
+  <script>
+    const API = 'https://pskysikkwduowufzynkn.supabase.co/functions/v1/sepzok-api'
+    const form = document.getElementById('delete-form')
+    const confirmBox = document.getElementById('confirm')
+    const statusEl = document.getElementById('status')
+    const reviewBtn = document.getElementById('review')
+    const deleteBtn = document.getElementById('confirm-delete')
+    let pending = null
+
+    function setStatus(text, isError) {
+      statusEl.textContent = text
+      statusEl.className = isError ? 'error' : ''
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
+      const email = document.getElementById('email').value.trim()
+      const password = document.getElementById('password').value
+      if (!email || !password) return
+      pending = { email, password }
+      document.getElementById('confirm-copy').textContent =
+        'Delete the Sepzok account for ' + email + '? This cannot be undone.'
+      confirmBox.hidden = false
+      setStatus('')
+    })
+
+    document.getElementById('confirm-cancel').addEventListener('click', () => {
+      pending = null
+      confirmBox.hidden = true
+      setStatus('')
+    })
+
+    deleteBtn.addEventListener('click', async () => {
+      if (!pending) return
+      reviewBtn.disabled = true
+      deleteBtn.disabled = true
+      setStatus('Deleting the account…')
+      try {
+        const res = await fetch(API + '/v1/auth/delete-account', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(pending),
+        })
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok || !data.ok) {
+          setStatus(data.message || 'Account deletion failed. Try again later.', true)
+          return
+        }
+        pending = null
+        form.reset()
+        confirmBox.hidden = true
+        setStatus('The account is deleted.')
+      } catch {
+        setStatus('Account deletion failed. Try again later.', true)
+      } finally {
+        reviewBtn.disabled = false
+        deleteBtn.disabled = false
+      }
+    })
+  </script>
 <script src="/visit.js?v=20261112a" defer></script>
-  </body>
+</body>
 </html>
