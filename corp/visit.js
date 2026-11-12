@@ -2,9 +2,14 @@
   try {
     var host = location.hostname || ''
     if (host === 'localhost' || host === '127.0.0.1') return
-    var api =
+    // 中文站 → 境内 API；英文站 → 境外 Edge（各自的库，互不混写）
+    var cnApi =
       'https://zaoget-d0g73jxxefd6ba387-1478755746.ap-shanghai.app.tcloudbase.com'
-    if (host.endsWith('.tcloudbaseapp.com')) {
+    var enApi = 'https://pskysikkwduowufzynkn.supabase.co/functions/v1/sepzok-api'
+    var api = cnApi
+    if (host === 'en.sepzok.com') {
+      api = enApi
+    } else if (host.endsWith('.tcloudbaseapp.com')) {
       api =
         location.protocol +
         '//' +
